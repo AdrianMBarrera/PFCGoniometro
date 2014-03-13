@@ -37,7 +37,7 @@ public class rightShoulderMovement : MonoBehaviour {
 		Quaternion newRotation = Quaternion.Euler(0,0,0);
 		if (raton == 0) {
 			if (Camera.main.name.Equals("CamaraFrontal"))
-				newRotation = Quaternion.Euler(0,0,1) * transform.rotation;
+				newRotation = Quaternion.Euler(0,0,0.25) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraDerecha"))
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
