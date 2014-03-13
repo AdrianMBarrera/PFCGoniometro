@@ -42,6 +42,8 @@ public class leftElbowMovement : MonoBehaviour {
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
 				newRotation = Quaternion.Euler(-1,0,0) * transform.rotation;
+			else if (Camera.main.name.Equals("CamaraCenital"))
+				newRotation = Quaternion.Euler(0,1,0) * transform.rotation;
 		}
 		
 		if (raton == 1) {
@@ -51,6 +53,8 @@ public class leftElbowMovement : MonoBehaviour {
 				newRotation = Quaternion.Euler(-1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
+			else if (Camera.main.name.Equals("CamaraCenital"))
+				newRotation = Quaternion.Euler(0,-1,0) * transform.rotation;
 		}
 		
 		transform.rotation = newRotation;
