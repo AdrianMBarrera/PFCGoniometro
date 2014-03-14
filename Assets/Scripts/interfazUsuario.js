@@ -9,6 +9,7 @@ var eje;
 var rotx : int;
 var roty : int;
 var rotz : int;
+var tiempo : String = "5000";
 
 var estado : boolean = false;
 
@@ -23,21 +24,26 @@ function Update () {
 
 function OnGUI () {
 	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height), "Edicion de movimiento:");
+	
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 30, 200, 30), "Articulacion: ");
 	estado = GUI.Toggle(Rect(Screen.width-Screen.width/4+200, 30, 200, 30), estado, " Fijar");
-	GUI.Label(Rect(Screen.width-Screen.width/4+20, 60, 200, 30), "Eje: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+20, 90, 200, 30), "Rotacion: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+100, 90, 200, 30), "X: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+100, 120, 200, 30), "Y: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+100, 150, 200, 30), "Z: ");
-//	GUI.Label(Rect(Screen.width-Screen.width/4+20, 180, 200, 30), "Campo huesos en plano: ");
-//	GUI.Label(Rect(Screen.width-Screen.width/4+20, 210, 200, 30), "Angulo inicial: ");
-//	GUI.Label(Rect(Screen.width-Screen.width/4+20, 240, 200, 30), "Angulo final: ");
+	
+	GUI.Label(Rect(Screen.width-Screen.width/4+20, 60, 200, 30), "Rotacion: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 60, 200, 30), "X: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 90, 200, 30), "Y: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 120, 200, 30), "Z: ");
 
-	if (GUI.Button(Rect(Screen.width-265, Screen.height-50, 200, 30), "Guardar")) {
-		guardarXML();
-	}
-		
+	GUI.Label(Rect(Screen.width-Screen.width/4+20, 150, 200, 30), "Angulo: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 150, 200, 30), "Minimo: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 180, 200, 30), "Maximo: ");
+	
+	GUI.Label(Rect(Screen.width-Screen.width/4+20, 210, 200, 30), "Eje: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 210, 200, 30), "X: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 240, 200, 30), "Y: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+100, 270, 200, 30), "Z: ");
+	
+	GUI.Label(Rect(Screen.width-Screen.width/4+20, 300, 200, 30), "Tiempo: ");
+//	estado = GUI.Toggle(Rect(Screen.width-Screen.width/4+200, 60, 200, 30), estado, " Fijar");
 	
 	if (((Input.GetMouseButton(0)) || (Input.GetMouseButton(1))) && !(estado)) {
 		var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -52,12 +58,14 @@ function OnGUI () {
 	}
 
 	GUI.Label(Rect(Screen.width-Screen.width/4+100, 30, 200, 30), nombre);
-//	GUI.Label(Rect(Screen.width-Screen.width/4+100, 60, 200, 30), nombre);
-	GUI.Label(Rect(Screen.width-Screen.width/4+120, 90, 200, 30), rotx.ToString());
-	GUI.Label(Rect(Screen.width-Screen.width/4+120, 120, 200, 30), roty.ToString());
-	GUI.Label(Rect(Screen.width-Screen.width/4+120, 150, 200, 30), rotz.ToString());
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 60, 200, 30), rotx.ToString());
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 90, 200, 30), roty.ToString());
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 120, 200, 30), rotz.ToString());
+	tiempo = GUI.TextField(Rect(Screen.width-Screen.width/4+100, 300, 50, 20), tiempo, 5);
 	
-	
+	if (GUI.Button(Rect(Screen.width-265, Screen.height-50, 200, 30), "Guardar")) {
+		guardarXML();
+	}
 
 }
 
