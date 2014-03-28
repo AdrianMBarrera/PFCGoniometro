@@ -4,19 +4,21 @@ using System.Collections;
 public class rightElbowMovement : MonoBehaviour {
 
 	Material material;
+	Vector3 pos_inicial;
 
 	// Use this for initialization
 	void Start () {
-		
+		pos_inicial = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 	}
 
 	// Update is called once per frame
 	void Update () {
+//		Debug.DrawLine (pos_inicial, new Vector3 (transform.position.x, transform.position.y, transform.position.z), Color.red);
 		if (Input.GetMouseButton(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			
-			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "CodoD")) {
+			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("CodoD"))) {
 				renderer.material.color = Color.red;
 				rotarCodo(0);
 			}
@@ -25,7 +27,7 @@ public class rightElbowMovement : MonoBehaviour {
 		if (Input.GetMouseButton(1)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "CodoD")) {
+			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("CodoD"))) {
 				renderer.material.color = Color.red;
 				rotarCodo(1);
 			}
