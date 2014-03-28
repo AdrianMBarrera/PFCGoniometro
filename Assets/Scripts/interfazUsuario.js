@@ -6,7 +6,14 @@ import System.Text;
 
 var nombreArt : String = "";
 var nombreArt1 : String = "";
-var eje;
+var artselect = false;
+var art1select = false;
+
+var ejex = false;
+var ejey = false;
+var ejez = false;
+
+var eje : String = "";
 var rotx : int;
 var roty : int;
 var rotz : int;
@@ -34,7 +41,6 @@ function OnGUI () {
 	primerPaso();
 	
 	if (GUI.Button(Rect(Screen.width-125, Screen.height-50, 100, 30), "Siguiente")) {
-
 	}
 }
 
@@ -42,58 +48,70 @@ function primerPaso() {
 
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 60, 200, 30), "Articulacion inicial: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 90, 200, 30), "Articulacion final: ");
-	
-	if (contador <= 2) {
-		if(contador == 0)
-			nombreArt = seleccionArt(nombreArt, Color.green);
-		else
-			nombreArt1 = seleccionArt(nombreArt1, Color.blue);
-	}
-	Debug.Log(contador);
 	GUI.Label(Rect(Screen.width-Screen.width/4+200, 60, 200, 30), nombreArt);
 	GUI.Label(Rect(Screen.width-Screen.width/4+200, 90, 200, 30), nombreArt1);
+	seleccionArt();
+	
+	GUI.Label(Rect(Screen.width-Screen.width/4+20, 120, 200, 30), "Eje: ");	
+//	GUI.Label(Rect(Screen.width-Screen.width/4+200, 120, 200, 30), eje);
+	ejex = GUI.Toggle(Rect(Screen.width-Screen.width/4+100, 120, 200, 30), ejex, " X");
+	ejey = GUI.Toggle(Rect(Screen.width-Screen.width/4+150, 120, 200, 30), ejey, " Y");
+	ejez = GUI.Toggle(Rect(Screen.width-Screen.width/4+200, 120, 200, 30), ejez, " Z");
+	seleccionEje();
+	
+	if ((artselect) && (art1select)) {
+//		Hacer movimiento de la articulacion principal
+	}
 
 }
 
-function seleccionArt(art,color) {
-
+function seleccionArt() {
 	if ((Input.GetKey(KeyCode.LeftShift)) && (Input.GetMouseButtonUp(0))) {
 		var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		var hit : RaycastHit;
-		var nombre : String;
-		nombre = art;
 
 		if ((Physics.Raycast(ray,hit)) && (Time.time-lastClick>catchTime)) {
-			if (!nombre.Equals(hit.collider.gameObject.name)) {
-				nombre = hit.collider.gameObject.name;
-				hit.collider.gameObject.renderer.material.color = color;
-				contador++;
+			if ((!artselect) && (!art1select)) {
+				nombreArt = hit.collider.gameObject.name;
+				hit.collider.gameObject.renderer.material.color = Color.green;
+				artselect = true;
 			}
-			else {
-				nombre = "";
+			else if ((artselect) && (!art1select) && (hit.collider.gameObject.name.Equals(nombreArt))) {
+				nombreArt = "";
 				hit.collider.gameObject.renderer.material.color = Color.white;
-				contador--;
+				artselect = false;
+			}
+			else if ((artselect) && (!art1select) && (!hit.collider.gameObject.name.Equals(nombreArt))) {
+				nombreArt1 = hit.collider.gameObject.name;
+				hit.collider.gameObject.renderer.material.color = Color.blue;
+				art1select = true;
+			}
+			else if ((artselect) && (art1select) && (hit.collider.gameObject.name.Equals(nombreArt1))) {
+				nombreArt1 = "";
+				hit.collider.gameObject.renderer.material.color = Color.white;
+				art1select = false;
 			}
 		}
-		
 		lastClick = Time.time;
-		return nombre;
 	}
-	
-//	if (nombreArt.Equals("")) {
-//		nombreArt = nombre;
-//		color = Color.blue;
-//	}
-//	else if (nombreArt1.Equals("")) {
-//	
-//	}
-
 }
 
-function moverArtInicial() {
-
-
-
+function seleccionEje() {
+	if (Camera.allCameras[0].name.Equals("CamaraFrontal")) {
+		ejex = false;
+		ejey = false;
+		ejez = true;
+	}
+	else if (Camera.allCameras[0].name.Equals("CamaraCenital")) {
+		ejex = false;
+		ejey = true;
+		ejez = false;
+	}
+	else if ((Camera.allCameras[0].name.Equals("CamaraDerecha")) || (Camera.allCameras[0].name.Equals("CamaraIzquierda"))) {
+		ejex = true;
+		ejey = false;
+		ejez = false;
+	}
 }
 
 //	GUI.Label(Rect(Screen.width-Screen.width/4+20, 30, 200, 30), "Articulacion: ");
