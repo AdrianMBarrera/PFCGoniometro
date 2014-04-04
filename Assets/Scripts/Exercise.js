@@ -7,11 +7,11 @@ public class EXERCISE {
 	@XmlAttribute("time")
 	public var time = "5000";
 
-	@XmlAttribute("art")
-	public var Art : String = "";
+	@XmlAttribute("initialArt")
+	public var initialArt : String = "";
 	
-	@XmlAttribute("art1")
-	public var Art1 : String = "";
+	@XmlAttribute("finalArt")
+	public var finalArt : String = "";
 	
 	@XmlElement("ANGLE")
 	public var ang : Angle;
@@ -22,8 +22,9 @@ public class EXERCISE {
 	@XmlElement("INI")
 	public var ini : Ini;
 	
-	@XmlElement("POSITION")
-	public var positions : List.<Position> = new List.<Position>();
+	@XmlElement("Restriction")
+	public var restrictions : List.<Restriction> = new List.<Restriction>();
+
 
 	public function Save(path : String) {
 		var ns : XmlSerializerNamespaces = new XmlSerializerNamespaces();
@@ -38,10 +39,10 @@ public class EXERCISE {
 }
 
 public class Angle {
-	@XmlAttribute("MIN")
+	@XmlAttribute("min")
 	public var Min : String = "";
 	
-	@XmlAttribute("MAX")
+	@XmlAttribute("max")
 	public var Max : String = "";
 }
 
@@ -68,20 +69,24 @@ public class Ini {
 	public var z : String = "";
 }
 
-public class Position {
+public class Restriction {
 
-	@XmlElement("ID")
-	public var id : int;
-	@XmlElement("ID1")
-	public var id1 : int;
+	@XmlElement("initialArt")
+	public var initialArt = "";
+	@XmlElement("finalArt")
+	public var finalArt = "";
 	
-	@XmlElement("X")
+	@XmlElement("x")
 	public var x : int;
-	@XmlElement("Y")
+	@XmlElement("y")
 	public var y : int;
-	@XmlElement("Z")
+	@XmlElement("z")
 	public var z : int;
 
-	@XmlElement("GRADO")
-	public var grado : int;
+	@XmlElement("grade")
+	public var grade = 0;
 }
+
+
+
+

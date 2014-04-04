@@ -23,6 +23,8 @@ var ejez = false;
 
 var lastClick : float = 0;
 var catchTime : float = .25;
+var restriction : Restriction;
+
 
 function Start () {
 	step = 1;
@@ -44,14 +46,21 @@ function OnGUI () {
 		tercerPaso();
 	
 	if (step < 3) {
-		if (GUI.Button(Rect(Screen.width-125, Screen.height-50, 100, 30), "Siguiente"))
+		if (GUI.Button(Rect(Screen.width-125, Screen.height-50, 100, 30), "Siguiente")){
+		   if ((step==2) && (!exercise.finalArt.Equals("")))
 	   		step++;
+	   	   else
+	   	      if (step==1)
+	   	         step++;
+	   	move = false;
+		}      
 	}
 	   		
 	if ((step > 1) && (step <= 3)) {
 		if (GUI.Button(Rect(Screen.width-275, Screen.height-50, 100, 30), "Anterior")) {
 	   		step--;
-	   		cond = true;
+	   		cond = true; //
+	   		move = false;
 	   	}
 	}
 	
@@ -66,47 +75,70 @@ function OnGUI () {
 
 function primerPaso() {
 
-	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height),"Edicion de ejercicio: Paso 1\n\nRESTRICCIONES");
+	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height),"Edicion de ejercicio: Paso 1/3\n\nRESTRICCIONES");
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 60, 200, 30), "Articulacion inicial: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 90, 200, 30), "Articulacion final: ");
 	
-	GUI.Label(Rect(Screen.width-Screen.width/4+20, 300, 200, 30), "Grado: ");
-//	GUI.Label(Rect(Screen.width-Screen.width/4+200, 60, 200, 30), nombreArt);
-//	GUI.Label(Rect(Screen.width-Screen.width/4+200, 90, 200, 30), nombreArt1);
-	grado = GUI.TextField(Rect(Screen.width-Screen.width/4+100, 300, 50, 20), grado, 3);
-//	
-//	seleccionArt();
-//	
-//	moverPosInicial();
+	GUI.Label(Rect(Screen.width-Screen.width/4+20, 300, 200, 30), "Grados: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+200, 60, 200, 30), restriction.initialArt);
+	GUI.Label(Rect(Screen.width-Screen.width/4+200, 90, 200, 30), restriction.finalArt);
+    GUI.Label(Rect(Screen.width-Screen.width/4+20 , 130, 200, 30), "Rotacion: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 130, 200, 30), "X: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 160, 200, 30), "Y: ");
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Z: ");
+	restriction.grade = parseInt(GUI.TextField(Rect(Screen.width-Screen.width/4+100, 300, 50, 20), restriction.grade.ToString(), 3));
+	if (!restriction.finalArt.Equals("")) {
+		restriction.x = GameObject.Find(restriction.initialArt).transform.position.x;
+		restriction.y = GameObject.Find(restriction.initialArt).transform.position.y;
+		restriction.z = GameObject.Find(restriction.initialArt).transform.position.z;
+		
+		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.x.ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.y.ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.z.ToString());
+		
+
+	}
+	else {
+		restriction.x = 0;
+		restriction.y = 0;
+		restriction.z = 0;
+		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), "0");
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), "0");
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), "0");
+		
+	}
+	seleccionArt();
+	
+    if (move)
+	   moveArt();
 	
 	if (GUI.Button(Rect(Screen.width-275, Screen.height-50, 125, 30), "Añadir restriccion")) {
-		//Pintar en gris
-	   	
+	   	move = false;
 	}
 }
 
 function segundoPaso() {
 
-	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height), "Edicion de ejercicio: Paso 2\n\nMOVIMIENTO: Posicion inicial");
+	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height), "Edicion de ejercicio: Paso 2/3\n\nMOVIMIENTO: Posicion inicial");
 
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 70, 200, 30), "Articulacion inicial: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Articulacion final: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+200, 70, 200, 30), exercise.Art);
-	GUI.Label(Rect(Screen.width-Screen.width/4+200, 100, 200, 30), exercise.Art1);
+	GUI.Label(Rect(Screen.width-Screen.width/4+200, 70, 200, 30), exercise.initialArt);
+	GUI.Label(Rect(Screen.width-Screen.width/4+200, 100, 200, 30), exercise.finalArt);
 	seleccionArt();
 	
 	if (move)
-		moverPosInicial();
+		moveArt();
 	
 	GUI.Label(Rect(Screen.width-Screen.width/4+20 , 130, 200, 30), "Posicion inicial: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+120, 130, 200, 30), "X: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+120, 160, 200, 30), "Y: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Z: ");
 	
-	if (!exercise.Art1.Equals("")) {
-		exercise.ini.x = GameObject.Find(exercise.Art1).transform.position.x.ToString();
-		exercise.ini.y = GameObject.Find(exercise.Art1).transform.position.y.ToString();
-		exercise.ini.z = GameObject.Find(exercise.Art1).transform.position.z.ToString();
+	if (!exercise.finalArt.Equals("")) {
+		exercise.ini.x = GameObject.Find(exercise.finalArt).transform.position.x.ToString();
+		exercise.ini.y = GameObject.Find(exercise.finalArt).transform.position.y.ToString();
+		exercise.ini.z = GameObject.Find(exercise.finalArt).transform.position.z.ToString();
 	}
 	else {
 		exercise.ini.x = "0";
@@ -121,7 +153,7 @@ function segundoPaso() {
 
 function tercerPaso() {
 
-	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height),"Edicion de ejercicio: Paso 3\n\nMOVIMIENTO: Posicion final");
+	GUI.Box(Rect(Screen.width-Screen.width/4, 0, Screen.width/4, Screen.height),"Edicion de ejercicio: Paso 3/3\n\nMOVIMIENTO: Posicion final");
 		
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 70, 200, 30), "Eje: ");
 	ejex = GUI.Toggle(Rect(Screen.width-Screen.width/4+70, 70, 200, 30), ejex, " X");
@@ -132,24 +164,24 @@ function tercerPaso() {
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Rotacion: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+100, 100, 200, 30), "Minimo: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+100, 130, 200, 30), "Maximo: ");
-	moverPosInicial();
+	moveArt();
 	
 	if (cond) {
 		cond = false;
 		if (ejex)
-			exercise.ang.Min = GameObject.Find(exercise.Art).transform.rotation.eulerAngles.x.ToString();
+			exercise.ang.Min = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x.ToString();
 		else if (ejey)
-			exercise.ang.Min = GameObject.Find(exercise.Art).transform.rotation.eulerAngles.y.ToString();
+			exercise.ang.Min = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y.ToString();
 		else if (ejez)
-			exercise.ang.Min = GameObject.Find(exercise.Art).transform.rotation.eulerAngles.z.ToString();
+			exercise.ang.Min = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z.ToString();
 	}
 	
 	if (ejex)
-		exercise.ang.Max = GameObject.Find(exercise.Art).transform.rotation.eulerAngles.x.ToString();
+		exercise.ang.Max = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x.ToString();
 	else if (ejey)
-		exercise.ang.Max = GameObject.Find(exercise.Art).transform.rotation.eulerAngles.y.ToString();
+		exercise.ang.Max = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y.ToString();
 	else if (ejez)
-		exercise.ang.Max = GameObject.Find(exercise.Art).transform.rotation.eulerAngles.z.ToString();
+		exercise.ang.Max = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z.ToString();
 	
 	GUI.Label(Rect(Screen.width-Screen.width/4+160, 100, 200, 30), exercise.ang.Min);
 	GUI.Label(Rect(Screen.width-Screen.width/4+160, 130, 200, 30), exercise.ang.Max);
@@ -166,59 +198,95 @@ function seleccionArt() {
 	if ((Input.GetKey(KeyCode.LeftShift)) && (Input.GetMouseButtonUp(0))) {
 		var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		var hit : RaycastHit;
-		
-		var nameArt = exercise.Art;
-		var nameArt1 = exercise.Art1;
+		var nameInitialArt = exercise.initialArt;
+		var nameFinalArt = exercise.finalArt;
+        var iniColor : Color;
+        var finalColor : Color;
+
+		if (step ==1)
+		{
+			iniColor = Color.black;
+		    finalColor = Color.black;
+		    nameInitialArt = restriction.initialArt;
+			nameFinalArt = restriction.finalArt;
+		}
+		else
+		{
+			iniColor = Color.green;
+		    finalColor = Color.blue;
+			nameInitialArt = exercise.initialArt;
+			nameFinalArt = exercise.finalArt;
+		}
+
 
 		if ((Physics.Raycast(ray,hit)) && (Time.time-lastClick>catchTime)) {
 			if ((!artselect) && (!art1select)) {
-				nameArt = hit.collider.gameObject.name;
-				hit.collider.gameObject.renderer.material.color = Color.green;
+				nameInitialArt = hit.collider.gameObject.name;
+				hit.collider.gameObject.renderer.material.color = iniColor;
 				artselect = true;
 			}
-			else if ((artselect) && (!art1select) && (hit.collider.gameObject.name.Equals(nameArt))) {
-				nameArt = "";
+			else if ((artselect) && (!art1select) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
+				nameInitialArt = "";
 				hit.collider.gameObject.renderer.material.color = Color.white;
 				artselect = false;
 			}
-			else if ((artselect) && (!art1select) && (!hit.collider.gameObject.name.Equals(nameArt))) {
-				nameArt1 = hit.collider.gameObject.name;
-				hit.collider.gameObject.renderer.material.color = Color.blue;
+			else if ((artselect) && (!art1select) && (!hit.collider.gameObject.name.Equals(nameInitialArt))) {
+				nameFinalArt = hit.collider.gameObject.name;
+				hit.collider.gameObject.renderer.material.color = finalColor;
 				art1select = true;
-				move = true;
+				move = true;  //variable para poder mover solo la articulacion cuando selecciones la art final
 			}
-			else if ((artselect) && (art1select) && (hit.collider.gameObject.name.Equals(nameArt1))) {
-				nameArt1 = "";
+			else if ((artselect) && (art1select) && (hit.collider.gameObject.name.Equals(nameFinalArt))) {
+				nameFinalArt = "";
 				hit.collider.gameObject.renderer.material.color = Color.white;
 				art1select = false;
+				move = false;
 			}
 		}
 		
-		exercise.Art = nameArt;
-		exercise.Art1 = nameArt1;
+		
+		if (step == 1){
+			 restriction.initialArt = nameInitialArt;
+			 restriction.finalArt = nameFinalArt;
+		}
+		else
+		{
+			exercise.initialArt = nameInitialArt;
+			exercise.finalArt = nameFinalArt;
+		}
+		
 		
 		lastClick = Time.time;
 	}
 }
 
 
-function moverPosInicial() {
+function moveArt() {
 	var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 	var hit : RaycastHit;
+	var nameInitialArt;
+
+	if (step ==1)
+	    nameInitialArt = restriction.initialArt;
+	else
+		nameInitialArt = exercise.initialArt;
+	
 	
 	if (Input.GetMouseButton(0)) {		
-		if ((Physics.Raycast(ray, hit)) && (hit.collider.gameObject.name.Equals(exercise.Art))) {
+		if ((Physics.Raycast(ray, hit)) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
 			hit.collider.gameObject.renderer.material.color = Color.red;
 			hit.collider.gameObject.transform.rotation = rotarArt(hit.collider.gameObject, 0);
 		}
 	}
 	else if (Input.GetMouseButton(1)) {
-		if ((Physics.Raycast(ray, hit)) && (hit.collider.gameObject.name.Equals(exercise.Art))) {
+		if ((Physics.Raycast(ray, hit)) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
 			hit.collider.gameObject.renderer.material.color = Color.red;
 			hit.collider.gameObject.transform.rotation = rotarArt(hit.collider.gameObject, 1);
 		}
 	}
+
 }
+
 
 function rotarArt(articulacion, tecla) {
 	var newRotation : Quaternion;
