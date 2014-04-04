@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EXERCISE time="5000" art="HombroD" art1="ManoD">
+  <ANGLE MIN="" MAX="181.0001" />
+  <EJE X="0" Y="0" Z="1" />
+  <INI x="1.490248" y="-0.5321522" z="-0.1019621" />
+</EXERCISE>

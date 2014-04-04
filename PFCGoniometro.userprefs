@@ -1,8 +1,18 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\interfazUsuario.js">
     <Files>
       <File FileName="Assets\Scripts\interfazUsuario.js" Line="17" Column="86" />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Daniel - Goniometro New Unity Project\Daniel - Goniometro New Unity Project\ejer.xml">
+    <Files>
+      <File FileName="Assets\Scripts\Exercise.js" Line="5" Column="13" />
+      <File FileName="Assets\Scripts\interfazUsuario.js" Line="54" Column="19" />
+      <File FileName="prueba.xml" Line="4" Column="11" />
+      <File FileName="..\Daniel - Goniometro New Unity Project\Daniel - Goniometro New Unity Project\ejer.xml" Line="5" Column="27" />
+>>>>>>> 1c3ad865d6b7c59e1ded94bc6e8fb813381e3e92
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

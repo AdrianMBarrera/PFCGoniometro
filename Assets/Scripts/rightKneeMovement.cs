@@ -11,25 +11,25 @@ public class rightKneeMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton(0)) {
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			
-			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "RodillaD")) {
-				renderer.material.color = Color.red;
-				rotarRodilla(0);
-			}
-		}
-		
-		if (Input.GetMouseButton(1)) {
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "RodillaD")) {
-				renderer.material.color = Color.red;
-				rotarRodilla(1);
-			}
-		}
-		ResetearColor();
+//		if (Input.GetMouseButton(0)) {
+//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//			RaycastHit hit;
+//			
+//			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "RodillaD")) {
+//				renderer.material.color = Color.red;
+//				rotarRodilla(0);
+//			}
+//		}
+//		
+//		if (Input.GetMouseButton(1)) {
+//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//			RaycastHit hit;
+//			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "RodillaD")) {
+//				renderer.material.color = Color.red;
+//				rotarRodilla(1);
+//			}
+//		}
+//		ResetearColor();
 	}
 	
 	void rotarRodilla(int raton) {
@@ -41,6 +41,8 @@ public class rightKneeMovement : MonoBehaviour {
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
 				newRotation = Quaternion.Euler(-1,0,0) * transform.rotation;
+			else if (Camera.main.name.Equals("CamaraCenital"))
+				newRotation = Quaternion.Euler(0,1,0) * transform.rotation;
 		}
 		
 		if (raton == 1) {
@@ -50,6 +52,8 @@ public class rightKneeMovement : MonoBehaviour {
 				newRotation = Quaternion.Euler(-1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
+			else if (Camera.main.name.Equals("CamaraCenital"))
+				newRotation = Quaternion.Euler(0,-1,0) * transform.rotation;
 		}
 		
 		transform.rotation = newRotation;

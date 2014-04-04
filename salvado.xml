@@ -1,0 +1,13 @@
+<EXERCISE>
+  <ANGLE />
+  <EJE />
+  <INI />
+  <POSITION>
+    <ID />
+    <ID1 />
+    <X />
+    <Y />
+    <Z />
+    <GRADO />
+  </POSITION>
+</EXERCISE>

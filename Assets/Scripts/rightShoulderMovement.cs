@@ -4,6 +4,7 @@ using System.Collections;
 public class rightShoulderMovement : MonoBehaviour {
 	
 	Material material;
+	Color color = Color.white;
 	
 	// Use this for initialization
 	void Start () {
@@ -12,25 +13,49 @@ public class rightShoulderMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+//		if (Input.GetKey(KeyCode.LeftShift))
+//			seleccionarArticulacion();
+//		else
+//			rotarArticulacion();
+
+//		ResetearColor();
+	}
+
+//	void seleccionarArticulacion () {
+//		if (Input.GetMouseButton(0)) {
+//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//			RaycastHit hit;
+//			
+//			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("HombroD")))
+//				renderer.material.color = color = Color.green;
+//		}
+//		else if (Input.GetMouseButton(1)) {
+//			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//			RaycastHit hit;
+//			
+//			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("HombroD")))
+//				renderer.material.color = color = Color.white;
+//		}
+//	}
+
+	void rotarArticulacion() {
 		if (Input.GetMouseButton(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			
-			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "HombroD")) {
+			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("HombroD"))) {
 				renderer.material.color = Color.red;
 				rotarHombro(0);
 			}
 		}
-		
-		if (Input.GetMouseButton(1)) {
+		else if (Input.GetMouseButton(1)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name == "HombroD")) {
+			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("HombroD"))) {
 				renderer.material.color = Color.red;
 				rotarHombro(1);
 			}
 		}
-		ResetearColor();
 	}
 	
 	void rotarHombro(int raton) {
@@ -42,6 +67,8 @@ public class rightShoulderMovement : MonoBehaviour {
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
 				newRotation = Quaternion.Euler(-1,0,0) * transform.rotation;
+			else if (Camera.main.name.Equals("CamaraCenital"))
+				newRotation = Quaternion.Euler(0,1,0) * transform.rotation;
 		}
 		
 		if (raton == 1) {
@@ -51,6 +78,8 @@ public class rightShoulderMovement : MonoBehaviour {
 				newRotation = Quaternion.Euler(-1,0,0) * transform.rotation;
 			else if (Camera.main.name.Equals("CamaraIzquierda"))
 				newRotation = Quaternion.Euler(1,0,0) * transform.rotation;
+			else if (Camera.main.name.Equals("CamaraCenital"))
+				newRotation = Quaternion.Euler(0,-1,0) * transform.rotation;
 		}
 		
 		transform.rotation = newRotation;
@@ -58,7 +87,7 @@ public class rightShoulderMovement : MonoBehaviour {
 	
 	void ResetearColor() {
 		if ((Input.GetMouseButtonUp(0)) || (Input.GetMouseButtonUp(1)))
-			renderer.material.color = Color.white;
+			renderer.material.color = color;
 	}
 }
 
