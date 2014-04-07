@@ -10,12 +10,12 @@ var step : int;
 var grado : String = "0";
 var file : String = "";
 
-var artselect = false;
-var art1select = false;
+var selectInitial = false; // variable para controlar la seleccion de la articulacion inicial
+var selectFinal = false; // variable para controlar la seleccion de la articulacion final
 
-var cond = true;
+var cond = true; // 
 
-var move = false;
+var move = false;  // no puedes mover hasta que tengas las dos articulaciones selecionadas
 
 var ejex = false;
 var ejey = false;
@@ -24,6 +24,7 @@ var ejez = false;
 var lastClick : float = 0;
 var catchTime : float = .25;
 var restriction : Restriction;
+
 
 
 function Start () {
@@ -54,8 +55,7 @@ function OnGUI () {
 	   	         step++;
 	   	move = false;
 		}      
-	}
-	   		
+	}	   		
 	if ((step > 1) && (step <= 3)) {
 		if (GUI.Button(Rect(Screen.width-275, Screen.height-50, 100, 30), "Anterior")) {
 	   		step--;
@@ -66,8 +66,14 @@ function OnGUI () {
 	
 	if (step >= 3) {
 		if (GUI.Button(Rect(Screen.width-125, Screen.height-50, 100, 30), "Guardar")) {
-			var xmlPath : String = ("C:/Users/User/Documents/PFCGoniometro/" + file);
-			exercise.Save(xmlPath);
+			var xmlPath : String = (Application.dataPath);
+			exercise.initialId = searchIdArt(exercise.initialArt);
+			exercise.finalId = searchIdArt(exercise.finalArt);
+			for (var i = 0; i < exercise.restrictions.Count ; i++){
+			   exercise.restrictions[i].initialId = searchIdArt(exercise.restrictions[i].initialArt);
+			   exercise.restrictions[i].finalId = searchIdArt(exercise.restrictions[i].finalArt);
+			}
+			exercise.Save(Path.Combine(xmlPath,file+".xml"));	
 		}
 	}
 }
@@ -92,16 +98,14 @@ function primerPaso() {
 		restriction.y = GameObject.Find(restriction.initialArt).transform.position.y;
 		restriction.z = GameObject.Find(restriction.initialArt).transform.position.z;
 		
-		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.x.ToString());
-	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.y.ToString());
-	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.z.ToString());
+		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.x.ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.y.ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.z.ToString());
 		
 
 	}
 	else {
-		restriction.x = 0;
-		restriction.y = 0;
-		restriction.z = 0;
+
 		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), "0");
 	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), "0");
 	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), "0");
@@ -114,8 +118,16 @@ function primerPaso() {
 	
 	if (GUI.Button(Rect(Screen.width-275, Screen.height-50, 125, 30), "Añadir restriccion")) {
 	   	move = false;
+	   	exercise.restrictions.Add(restriction);
+	   	selectInitial = false;
+	   	selectFinal = false;
+	   	
 	}
 }
+
+
+
+
 
 function segundoPaso() {
 
@@ -123,8 +135,8 @@ function segundoPaso() {
 
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 70, 200, 30), "Articulacion inicial: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Articulacion final: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+200, 70, 200, 30), exercise.initialArt);
-	GUI.Label(Rect(Screen.width-Screen.width/4+200, 100, 200, 30), exercise.finalArt);
+	GUI.Label(Rect(Screen.width-Screen.width/4+200, 70, 200, 30), exercise.initialArt.ToString());
+	GUI.Label(Rect(Screen.width-Screen.width/4+200, 100, 200, 30), exercise.finalArt.ToString());
 	seleccionArt();
 	
 	if (move)
@@ -139,6 +151,9 @@ function segundoPaso() {
 		exercise.ini.x = GameObject.Find(exercise.finalArt).transform.position.x.ToString();
 		exercise.ini.y = GameObject.Find(exercise.finalArt).transform.position.y.ToString();
 		exercise.ini.z = GameObject.Find(exercise.finalArt).transform.position.z.ToString();
+		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x.ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y.ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z.ToString());
 	}
 	else {
 		exercise.ini.x = "0";
@@ -146,9 +161,7 @@ function segundoPaso() {
 		exercise.ini.z = "0";
 	}
 	
-	GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), exercise.ini.x);
-	GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), exercise.ini.y);
-	GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), exercise.ini.z);
+
 }
 
 function tercerPaso() {
@@ -194,6 +207,38 @@ function tercerPaso() {
 	
 }
 
+function searchIdArt(name){
+var id : int ;
+	switch(name)
+	{
+
+		case "Cabeza": id = 1; break;
+		case "Cuello" : id= 2; break;
+		case "Torso" : id = 3; break;
+	    case "Cintura" : id = 4; break;
+	    case "ClaviculaI": id = 5; break;
+		case "HombroI" : id = 6; break;
+		case "CodoI" : id = 7; break;
+	    case "MunecaI" : id = 8; break;
+	    case "ManoI": id = 9; break;
+		case "DedoI" : id = 10; break;
+		case "ClaviculaD" : id = 11; break;
+	    case "HombroD" : id = 12; break;
+	    case "CodoD": id = 13; break;
+		case "MunecaD" : id = 14; break;
+		case "ManoD" : id = 15; break;
+	    case "DedoD" : id = 16; break;
+	    case "CaderaI": id = 17; break;
+		case "RodillaI" : id = 18; break;
+		case "TobilloI" : id = 19; break;
+	    case "PieI" : id = 20; break;
+	    case "CaderaD": id = 21; break;
+		case "RodillaD" : id = 22; break;
+		case "TobilloD" : id = 23; break;
+	    case "PieD" : id = 24; break;
+	}
+	return id;
+}
 function seleccionArt() {
 	if ((Input.GetKey(KeyCode.LeftShift)) && (Input.GetMouseButtonUp(0))) {
 		var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -220,34 +265,35 @@ function seleccionArt() {
 
 
 		if ((Physics.Raycast(ray,hit)) && (Time.time-lastClick>catchTime)) {
-			if ((!artselect) && (!art1select)) {
+			if ((!selectInitial) && (!selectFinal)) {
 				nameInitialArt = hit.collider.gameObject.name;
 				hit.collider.gameObject.renderer.material.color = iniColor;
-				artselect = true;
+				selectInitial = true;
 			}
-			else if ((artselect) && (!art1select) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
+			else if ((selectInitial) && (!selectFinal) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
 				nameInitialArt = "";
 				hit.collider.gameObject.renderer.material.color = Color.white;
-				artselect = false;
+				selectInitial = false;
+				move = false;
 			}
-			else if ((artselect) && (!art1select) && (!hit.collider.gameObject.name.Equals(nameInitialArt))) {
+			else if ((selectInitial) && (!selectFinal) && (!hit.collider.gameObject.name.Equals(nameInitialArt))) {
 				nameFinalArt = hit.collider.gameObject.name;
 				hit.collider.gameObject.renderer.material.color = finalColor;
-				art1select = true;
+				selectFinal = true;
 				move = true;  //variable para poder mover solo la articulacion cuando selecciones la art final
 			}
-			else if ((artselect) && (art1select) && (hit.collider.gameObject.name.Equals(nameFinalArt))) {
+			else if ((selectInitial) && (selectFinal) && (hit.collider.gameObject.name.Equals(nameFinalArt))) {
 				nameFinalArt = "";
 				hit.collider.gameObject.renderer.material.color = Color.white;
-				art1select = false;
+				selectFinal = false;
 				move = false;
 			}
 		}
 		
 		
 		if (step == 1){
-			 restriction.initialArt = nameInitialArt;
-			 restriction.finalArt = nameFinalArt;
+			restriction.initialArt = nameInitialArt;
+			restriction.finalArt = nameFinalArt;
 		}
 		else
 		{
@@ -346,3 +392,5 @@ function seleccionEje() {
 		exercise.eje.Z = "0";
 	}
 }
+
+

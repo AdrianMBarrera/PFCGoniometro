@@ -7,11 +7,15 @@ public class EXERCISE {
 	@XmlAttribute("time")
 	public var time = "5000";
 
-	@XmlAttribute("initialArt")
-	public var initialArt : String = "";
+	@XmlAttribute("initialId")
+	public var initialId ;
 	
-	@XmlAttribute("finalArt")
-	public var finalArt : String = "";
+	@XmlAttribute("finalID")
+	public var finalId ;
+	@XmlIgnoreAttribute
+	public var initialArt = "";
+	@XmlIgnoreAttribute
+	public var finalArt = "";
 	
 	@XmlElement("ANGLE")
 	public var ang : Angle;
@@ -19,10 +23,11 @@ public class EXERCISE {
 	@XmlElement("EJE")
 	public var eje : Eje;
 	
+
 	@XmlElement("INI")
 	public var ini : Ini;
 	
-	@XmlElement("Restriction")
+	@XmlElement("RESTRICTION")
 	public var restrictions : List.<Restriction> = new List.<Restriction>();
 
 
@@ -59,22 +64,28 @@ public class Eje {
 
 public class Ini {
 
-	@XmlAttribute("x")
+	@XmlAttribute("X")
 	public var x : String = "";
 	
-	@XmlAttribute("y")
+	@XmlAttribute("Y")
 	public var y : String = "";
 	
-	@XmlAttribute("z")
+	@XmlAttribute("Z")
 	public var z : String = "";
 }
 
 public class Restriction {
 
-	@XmlElement("initialArt")
-	public var initialArt = "";
-	@XmlElement("finalArt")
+	@XmlElement("initialId")
+	public var initialId : int;
+    @XmlElement("finalId") 
+	public var finalId : int;
+	@XmlIgnoreAttribute
+	public var initialArt = "";	
+	@XmlIgnoreAttribute	
 	public var finalArt = "";
+	
+	
 	
 	@XmlElement("x")
 	public var x : int;
