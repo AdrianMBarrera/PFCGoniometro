@@ -20,7 +20,8 @@ var move = false;  // no puedes mover hasta que tengas las dos articulaciones se
 var ejex = false;
 var ejey = false;
 var ejez = false;
-
+var condRef = false; // variable para saber si hay una articulacion de referencia 
+var reference : Reference;
 var lastClick : float = 0;
 var catchTime : float = .25;
 var restriction : Restriction;
@@ -69,15 +70,18 @@ function OnGUI () {
 			var xmlPath : String = (Application.dataPath);
 			exercise.initialId = searchIdArt(exercise.initialArt);
 			exercise.finalId = searchIdArt(exercise.finalArt);
+			exercise.reference = reference;
 			for (var i = 0; i < exercise.restrictions.Count ; i++){
 			   exercise.restrictions[i].initialId = searchIdArt(exercise.restrictions[i].initialArt);
 			   exercise.restrictions[i].finalId = searchIdArt(exercise.restrictions[i].finalArt);
+			   
 			}
 			exercise.Save(Path.Combine(xmlPath,file+".xml"));	
 		}
 	}
 }
 
+// funcion que contiene la interfaz del segundo paso (seleccionar restriccion)
 
 function primerPaso() {
 
@@ -94,13 +98,13 @@ function primerPaso() {
 	GUI.Label(Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Z: ");
 	restriction.grade = parseInt(GUI.TextField(Rect(Screen.width-Screen.width/4+100, 300, 50, 20), restriction.grade.ToString(), 3));
 	if (!restriction.finalArt.Equals("")) {
-		restriction.x = GameObject.Find(restriction.initialArt).transform.position.x;
-		restriction.y = GameObject.Find(restriction.initialArt).transform.position.y;
-		restriction.z = GameObject.Find(restriction.initialArt).transform.position.z;
+		restriction.x = Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.x);
+		restriction.y = Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.y);
+		restriction.z = Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.z);
 		
-		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.x.ToString());
-	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.y.ToString());
-	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.z.ToString());
+		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), Mathf.Round(GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.x).ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), Mathf.Round(GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.y).ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), Mathf.Round(GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.z).ToString());
 		
 
 	}
@@ -127,7 +131,7 @@ function primerPaso() {
 
 
 
-
+// funcion que contiene la interfaz del segundo paso (seleccionar posicion inicial)
 
 function segundoPaso() {
 
@@ -137,30 +141,69 @@ function segundoPaso() {
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Articulacion final: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+200, 70, 200, 30), exercise.initialArt.ToString());
 	GUI.Label(Rect(Screen.width-Screen.width/4+200, 100, 200, 30), exercise.finalArt.ToString());
-	seleccionArt();
-	
-	if (move)
-		moveArt();
-	
 	GUI.Label(Rect(Screen.width-Screen.width/4+20 , 130, 200, 30), "Posicion inicial: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+120, 130, 200, 30), "X: ");
 	GUI.Label(Rect(Screen.width-Screen.width/4+120, 160, 200, 30), "Y: ");
-	GUI.Label(Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Z: ");
-	
+	GUI.Label(Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Z: ");	
+	seleccionArt();	
+	condRef = GUI.Toggle(Rect(Screen.width-Screen.width/4+20, 220, 200, 30), condRef, " Poner articulacion referencia");
+
 	if (!exercise.finalArt.Equals("")) {
-		exercise.ini.x = GameObject.Find(exercise.finalArt).transform.position.x.ToString();
-		exercise.ini.y = GameObject.Find(exercise.finalArt).transform.position.y.ToString();
-		exercise.ini.z = GameObject.Find(exercise.finalArt).transform.position.z.ToString();
-		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x.ToString());
-	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y.ToString());
-	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z.ToString());
+		exercise.ini.x = Mathf.Round(GameObject.Find(exercise.finalArt).transform.position.x).ToString();
+		exercise.ini.y = Mathf.Round(GameObject.Find(exercise.finalArt).transform.position.y).ToString();
+		exercise.ini.z = Mathf.Round(GameObject.Find(exercise.finalArt).transform.position.z).ToString();
+		GUI.Label(Rect(Screen.width-Screen.width/4+150, 130, 200, 30), Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 160, 200, 30), Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y).ToString());
+	    GUI.Label(Rect(Screen.width-Screen.width/4+150, 190, 200, 30), Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z).ToString());
 	}
 	else {
 		exercise.ini.x = "0";
 		exercise.ini.y = "0";
 		exercise.ini.z = "0";
+	} 
+
+
+	if (condRef) {
+	    GUI.Label(Rect(Screen.width-Screen.width/4+20, 250, 200, 30), "Articulacion referencia ");
+		GUI.Label(Rect(Screen.width-Screen.width/4+20 , 280, 200, 30), "Rotacion: ");
+		GUI.Label(Rect(Screen.width-Screen.width/4+120, 280, 200, 30), "X: ");
+		GUI.Label(Rect(Screen.width-Screen.width/4+120, 310, 200, 30), "Y: ");
+		GUI.Label(Rect(Screen.width-Screen.width/4+120, 340, 200, 30), "Z: ");
+		if ((!exercise.initialArt.Equals("")) && (!exercise.finalArt.Equals("")))
+			if ((Input.GetKey(KeyCode.LeftShift)) && (Input.GetMouseButtonUp(0))) {
+				var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				var hit : RaycastHit;
+				if (Physics.Raycast(ray,hit)) {
+				    GUI.Label(Rect(Screen.width-Screen.width/4+200, 250, 200, 30), hit.collider.gameObject.name);
+				    reference.nameId = hit.collider.gameObject.name;
+					reference.id = searchIdArt(hit.collider.gameObject.name);
+					hit.collider.gameObject.renderer.material.color = Color.yellow;
+
+					
+				}
+				else
+				if (hit.collider.gameObject.name.Equals(reference.nameId)) {
+					reference.nameId = "";
+					reference.id = 0;
+					reference.x = "";
+					reference.y = "";
+					reference.z = "";
+				}
+		}
+	}else
+	if (!reference.nameId.Equals("")){
+	    GameObject.Find(reference.nameId).renderer.material.color = Color.white;
+		reference.nameId = "";
+		reference.id = 0;
+		reference.x = "";
+		reference.y = "";
+		reference.z = "";
 	}
+		
+	if (move)
+		moveArt();
 	
+
 
 }
 
@@ -182,30 +225,31 @@ function tercerPaso() {
 	if (cond) {
 		cond = false;
 		if (ejex)
-			exercise.ang.Min = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x.ToString();
+			exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
 		else if (ejey)
-			exercise.ang.Min = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y.ToString();
+			exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y).ToString();
 		else if (ejez)
-			exercise.ang.Min = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z.ToString();
+			exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z).ToString();
 	}
 	
 	if (ejex)
-		exercise.ang.Max = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x.ToString();
+		exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
 	else if (ejey)
-		exercise.ang.Max = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y.ToString();
+		exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y).ToString();
 	else if (ejez)
-		exercise.ang.Max = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z.ToString();
+		exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.z).ToString();
 	
 	GUI.Label(Rect(Screen.width-Screen.width/4+160, 100, 200, 30), exercise.ang.Min);
 	GUI.Label(Rect(Screen.width-Screen.width/4+160, 130, 200, 30), exercise.ang.Max);
 
-	GUI.Label(Rect(Screen.width-Screen.width/4+20, 270, 200, 30), "Tiempo: ");
-	exercise.time = GUI.TextField(Rect(Screen.width-Screen.width/4+150, 270, 150, 20), exercise.time, 6);
 
 	GUI.Label(Rect(Screen.width-Screen.width/4+20, 300, 200, 30), "Nombre de fichero: ");
 	file = GUI.TextField(Rect(Screen.width-Screen.width/4+150, 300, 150, 20), file);
 	
 }
+
+
+// funcion para buscar el id de una articulacion
 
 function searchIdArt(name){
 var id : int ;
@@ -320,13 +364,13 @@ function moveArt() {
 	
 	if (Input.GetMouseButton(0)) {		
 		if ((Physics.Raycast(ray, hit)) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
-			hit.collider.gameObject.renderer.material.color = Color.red;
+		//	hit.collider.gameObject.renderer.material.color = Color.red;
 			hit.collider.gameObject.transform.rotation = rotarArt(hit.collider.gameObject, 0);
 		}
 	}
 	else if (Input.GetMouseButton(1)) {
 		if ((Physics.Raycast(ray, hit)) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
-			hit.collider.gameObject.renderer.material.color = Color.red;
+		//	hit.collider.gameObject.renderer.material.color = Color.red;
 			hit.collider.gameObject.transform.rotation = rotarArt(hit.collider.gameObject, 1);
 		}
 	}
@@ -336,7 +380,6 @@ function moveArt() {
 
 function rotarArt(articulacion, tecla) {
 	var newRotation : Quaternion;
-	var target : Quaternion;
 	var rot : GameObject = articulacion;
 
 	newRotation = Quaternion.Euler(0.0,0.0,0.0);
@@ -392,5 +435,6 @@ function seleccionEje() {
 		exercise.eje.Z = "0";
 	}
 }
+
 
 

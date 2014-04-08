@@ -4,13 +4,10 @@ import System.Xml.Serialization;
 @XmlRoot("EXERCISE")
 public class EXERCISE {
 
-	@XmlAttribute("time")
-	public var time = "5000";
-
 	@XmlAttribute("initialId")
 	public var initialId ;
 	
-	@XmlAttribute("finalID")
+	@XmlAttribute("finalId")
 	public var finalId ;
 	@XmlIgnoreAttribute
 	public var initialArt = "";
@@ -20,12 +17,16 @@ public class EXERCISE {
 	@XmlElement("ANGLE")
 	public var ang : Angle;
 	
-	@XmlElement("EJE")
+	@XmlElement("AXIS")
 	public var eje : Eje;
 	
 
 	@XmlElement("INI")
 	public var ini : Ini;
+	
+	@xmlElement("REFERENCE")
+	public var reference : Reference;
+	
 	
 	@XmlElement("RESTRICTION")
 	public var restrictions : List.<Restriction> = new List.<Restriction>();
@@ -43,6 +44,23 @@ public class EXERCISE {
 
 }
 
+public class Reference {
+	
+	@XmlAttribute("id")
+	public var id ;
+	@XmlIgnoreAttribute
+	public var nameId = "";
+	
+	@XmlAttribute("x")
+	public var x : String = "";
+	
+	@XmlAttribute("y")
+	public var y : String = "";
+	
+	@XmlAttribute("z")
+	public var z : String = "";
+}
+
 public class Angle {
 	@XmlAttribute("min")
 	public var Min : String = "";
@@ -52,25 +70,25 @@ public class Angle {
 }
 
 public class Eje {
-	@XmlAttribute("X")
+	@XmlAttribute("x")
 	public var X : String = "";
 	
-	@XmlAttribute("Y")
+	@XmlAttribute("y")
 	public var Y : String = "";
 	
-	@XmlAttribute("Z")
+	@XmlAttribute("z")
 	public var Z : String = "";
 }
 
 public class Ini {
 
-	@XmlAttribute("X")
+	@XmlAttribute("x")
 	public var x : String = "";
 	
-	@XmlAttribute("Y")
+	@XmlAttribute("y")
 	public var y : String = "";
 	
-	@XmlAttribute("Z")
+	@XmlAttribute("z")
 	public var z : String = "";
 }
 
