@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Exercise.js" />
      <Compile Include="Assets\Scripts\cameraSelection.js" />
      <Compile Include="Assets\Scripts\interfazUsuario.js" />
   </ItemGroup>
