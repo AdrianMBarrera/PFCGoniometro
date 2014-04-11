@@ -4,26 +4,33 @@ import System.Xml.Serialization;
 @XmlRoot("EXERCISE")
 public class EXERCISE {
 
-	@XmlAttribute("time")
-	public var time = "5000";
-
-	@XmlAttribute("art")
-	public var Art : String = "";
+	@XmlAttribute("initialId")
+	public var initialId ;
 	
-	@XmlAttribute("art1")
-	public var Art1 : String = "";
+	@XmlAttribute("finalId")
+	public var finalId ;
+	@XmlIgnoreAttribute
+	public var initialArt = "";
+	@XmlIgnoreAttribute
+	public var finalArt = "";
 	
 	@XmlElement("ANGLE")
 	public var ang : Angle;
 	
-	@XmlElement("EJE")
+	@XmlElement("AXIS")
 	public var eje : Eje;
 	
+
 	@XmlElement("INI")
 	public var ini : Ini;
 	
-	@XmlElement("POSITION")
-	public var positions : List.<Position> = new List.<Position>();
+	@xmlElement("REFERENCE")
+	public var reference : Reference;
+	
+	
+	@XmlElement("RESTRICTION")
+	public var restrictions : List.<Restriction> = new List.<Restriction>();
+
 
 	public function Save(path : String) {
 		var ns : XmlSerializerNamespaces = new XmlSerializerNamespaces();
@@ -37,22 +44,39 @@ public class EXERCISE {
 
 }
 
+public class Reference {
+	
+	@XmlAttribute("id")
+	public var id ;
+	@XmlIgnoreAttribute
+	public var nameId = "";
+	
+	@XmlAttribute("x")
+	public var x : String = "";
+	
+	@XmlAttribute("y")
+	public var y : String = "";
+	
+	@XmlAttribute("z")
+	public var z : String = "";
+}
+
 public class Angle {
-	@XmlAttribute("MIN")
+	@XmlAttribute("min")
 	public var Min : String = "";
 	
-	@XmlAttribute("MAX")
+	@XmlAttribute("max")
 	public var Max : String = "";
 }
 
 public class Eje {
-	@XmlAttribute("X")
+	@XmlAttribute("x")
 	public var X : String = "";
 	
-	@XmlAttribute("Y")
+	@XmlAttribute("y")
 	public var Y : String = "";
 	
-	@XmlAttribute("Z")
+	@XmlAttribute("z")
 	public var Z : String = "";
 }
 
@@ -68,20 +92,30 @@ public class Ini {
 	public var z : String = "";
 }
 
-public class Position {
+public class Restriction {
 
-	@XmlElement("ID")
-	public var id : int;
-	@XmlElement("ID1")
-	public var id1 : int;
+	@XmlElement("initialId")
+	public var initialId : int;
+    @XmlElement("finalId") 
+	public var finalId : int;
+	@XmlIgnoreAttribute
+	public var initialArt = "";	
+	@XmlIgnoreAttribute	
+	public var finalArt = "";
 	
-	@XmlElement("X")
+	
+	
+	@XmlElement("x")
 	public var x : int;
-	@XmlElement("Y")
+	@XmlElement("y")
 	public var y : int;
-	@XmlElement("Z")
+	@XmlElement("z")
 	public var z : int;
 
-	@XmlElement("GRADO")
-	public var grado : int;
+	@XmlElement("grade")
+	public var grade = 0;
 }
+
+
+
+

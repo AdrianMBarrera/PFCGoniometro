@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EXERCISE time="5000" initialId="12" finalID="13">
+  <ANGLE min="0" max="0" />
+  <EJE X="0" Y="0" Z="1" />
+  <INI X="1.490248" Y="0.603343" Z="-0.1019621" />
+  <REFERENCE x="" y="" z="">
+    <id>15</id>
+  </REFERENCE>
+</EXERCISE>
