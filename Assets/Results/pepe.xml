@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="Windows-1252"?>
-<EXERCISE initialId="12" finalId="13">
-  <ANGLE min="0" max="90" />
-  <AXIS x="1" y="0" z="0" />
-  <INI x="0" y="-1" z="0" />
-  <REFERENCE x="" y="" z="" />
-</EXERCISE>
