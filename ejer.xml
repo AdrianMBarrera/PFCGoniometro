@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EXERCISE initialId='12' finalId='15' >
+   <ANGLE min='0' max='180'/>
+   <AXIS x='-1' y='0' z='0'/>
+   <INI x='0' y='-1' z='0'/>
+   <RESTRICTION>
+      <initialId>6</initialId>
+      <finalId>9</finalId>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+      <grade>10</grade>      
+   </RESTRICTION>
+   <RESTRICTION>
+      <initialId>18</initialId>
+      <finalId>20</finalId>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+      <grade>15</grade>      
+   </RESTRICTION>
+   <RESTRICTION>
+      <initialId>22</initialId>
+      <finalId>24</finalId>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+      <grade>15</grade>      
+   </RESTRICTION>
+</EXERCISE>
