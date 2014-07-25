@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EXERCISE initialId="6" finalId="7">
+  <ang min="8" max="136" />
+  <axis x="1" y="1" z="0" />
+  <ini x="1" y="-1" z="0" />
+  <reference id="0" x="" y="" z="" />
+  <Restrictions>
+    <Restriction>
+      <initialId>21</initialId>
+      <finalId>22</finalId>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+      <grade>15</grade>
+    </Restriction>
+    <Restriction>
+      <initialId>12</initialId>
+      <finalId>13</finalId>
+      <x>1</x>
+      <y>2</y>
+      <z>0</z>
+      <grade>0</grade>
+    </Restriction>
+    <Restriction>
+      <initialId>13</initialId>
+      <finalId>14</finalId>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+      <grade>0</grade>
+    </Restriction>
+  </Restrictions>
+</EXERCISE>

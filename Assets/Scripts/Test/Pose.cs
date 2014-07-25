@@ -7,7 +7,7 @@
 	
 	public Pose() {
 		art = 0; art1 = 0; grado = 0;
-		Vector bone = new Vector();
+		bone = new Vector();
 	}		
 	
 	public void SetArt (int x) {art = x;}

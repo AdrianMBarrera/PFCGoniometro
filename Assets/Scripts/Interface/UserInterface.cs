@@ -5,21 +5,19 @@ using System.IO;
 using System.Text;
 
 public class UserInterface : MonoBehaviour {
-
-//	public GUISkin customGUISkin;
-
+	
 	public RotateSphere sphereScript; //Script de la esfera
 	
 	public LineRenderer line;
-//	public TrailRenderer trail;
+
+	public Material wood;
 	
 	public bool condRest = false; //Variable para saber si estamos eligiendo restricciones
 	private bool condMessage = false; //Variable para mostrar mensaje durante unos segundos
 	
-	// En esta clase almacenaremos el ejercicio
+	// En este objeto almacenaremos el ejercicio
 	public Exercise exercise = new Exercise();
 	public Restriction restriction = new Restriction();
-	public Reference reference = new Reference();
 	
 	// En esta variable iremos almacenando el fichero
 	public string file = "";
@@ -37,6 +35,7 @@ public class UserInterface : MonoBehaviour {
 	public Vector3 eje;
 
 	public bool move = false; // no puedes mover hasta que tengas las dos articulaciones selecionadas
+	public bool condRef = false; // variable para saber si hay una articulacion de referencia 
 
 
 	public int toolbarInt = 0;
@@ -48,13 +47,12 @@ public class UserInterface : MonoBehaviour {
 
 	public Vector3 rotIni;
 	public Vector3 rotFin;
-	public AnimationCurve curve;
 
 	// Use this for initialization
 	void Start () {
 		plano = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		plano.name = "Plano";
-		plano.transform.localScale = new Vector3(0.05f, 4f, 3f);
+		plano.transform.localScale = new Vector3(0.05f, 7f, 7f);
 		plano.collider.enabled = false;
 		plano.renderer.enabled = false;
 
@@ -74,31 +72,76 @@ public class UserInterface : MonoBehaviour {
 	}
 	
 	// Interfaz
-	void OnGUI () {
-
-//		GUI.skin = customGUISkin;
-		
+	void OnGUI () {		
 		GUI.Box(new Rect(Screen.width-Screen.width/3, 0, Screen.width/3, Screen.height),"\nMOVEMENTS INTERFACE");
-		
 		toolbarInt = GUI.Toolbar (new Rect (Screen.width - Screen.width/3 + 30, 50, 400, 25), toolbarInt, toolbarStrings);
 		
 		switch (toolbarInt) {
 			case 0: condRest = true;
 					Step1Restriction();
 					break;
-				
 			case 1: condRest = false;
 					Step2Start();
 					break;
-				
 			case 2: condRest = false;
 					Step3Final();
 					break;
-				
 			case 3: condRest = false;
 					Step4Save();
 					break;
-		}	
+		}
+
+		sphereScript.Step = toolbarInt;
+
+		if (GUI.Button(new Rect(10, Screen.height-40, 100, 30), "Reset"))
+			ResetExercise();
+	}
+
+	public void ResetExercise() {
+		
+		if (!exercise.finalArt.Equals(""))
+			GameObject.Find(exercise.finalArt).renderer.material = wood;
+
+		if (!exercise.initialArt.Equals("")) {
+			GameObject.Find(exercise.initialArt).renderer.material = wood;
+			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(0,180,0);
+		}
+
+		if (!restriction.finalArt.Equals(""))
+			GameObject.Find(restriction.finalArt).renderer.material = wood;
+		
+		if (!restriction.initialArt.Equals("")) {
+			GameObject.Find(restriction.initialArt).renderer.material = wood;
+			GameObject.Find(restriction.initialArt).transform.eulerAngles = new Vector3(0,180,0);
+		}
+
+		foreach (Restriction r in exercise.Restrictions) {
+			GameObject.Find(r.initialArt).renderer.material = wood;
+			GameObject.Find(r.finalArt).renderer.material = wood;
+			GameObject.Find(r.initialArt).transform.eulerAngles = new Vector3(0,180,0);
+		}
+
+		toolbarInt = 0;
+
+		exercise = new Exercise();
+		restriction = new Restriction();
+
+		rotIni = new Vector3(0,0,0);
+		rotFin = new Vector3(0,0,0);
+
+		selectInitial = false;
+		selectFinal = false;
+
+		plano.renderer.enabled = false;
+		line.renderer.enabled = false;
+
+		file = "";
+		varMax = 0.0f;
+
+		move = false;
+		condRef = false;
+		condRest = false;
+//		condMessage = false;
 	}
 
 
@@ -164,7 +207,6 @@ public class UserInterface : MonoBehaviour {
 	// Paso 2
 	public void Step2Start() {
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Initial articulation: ");
-		Debug.Log ("Art" + exercise.initialArt);
 		GUI.Label(new Rect(Screen.width-Screen.width/4+200, 100, 200, 30), exercise.initialArt);
 		
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 130, 200, 30), "Final articulation: ");
@@ -174,6 +216,8 @@ public class UserInterface : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width-Screen.width/4+120, 160, 200, 30), "X: ");
 		GUI.Label(new Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Y: ");
 		GUI.Label(new Rect(Screen.width-Screen.width/4+120, 220, 200, 30), "Z: ");
+
+		condRef = GUI.Toggle(new Rect(Screen.width-Screen.width/4+20, 250, 200, 30), condRef, " Poner articulacion referencia");
 		
 		//Seleccionamos las articulaciones Inicial y Final
 		artSelection();
@@ -188,17 +232,14 @@ public class UserInterface : MonoBehaviour {
 			exercise.ini.y = Mathf.Round(ini[1]).ToString();
 			exercise.ini.z = Mathf.Round(ini[2]).ToString();
 
-			rotIni = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles;
+			rotIni = GameObject.Find(exercise.initialArt).transform.eulerAngles;
 			
 			// Mostrar plano
 			plano.transform.position = GameObject.Find(exercise.initialArt).transform.position;
 			plano.transform.rotation = GameObject.Find(exercise.initialArt).transform.rotation;
 			plano.renderer.material.shader = Shader.Find("Transparent/VertexLit");
-			//		plano.renderer.material.color = Color(255,255,255,0.7);
 			plano.renderer.material.color = new Color(1, 1, 1, 0.7f);
 			plano.renderer.enabled = true;
-			
-			//	    trail.enabled = true;
 
 			exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
 			varMax = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x);
@@ -219,17 +260,58 @@ public class UserInterface : MonoBehaviour {
 		}
 		
 		
-		/* FALTA LA ART DE REFERENCIA */
+		/* ART DE REFERENCIA */
+		if (condRef) {
+			GUI.Label(new Rect(Screen.width-Screen.width/4+20, 280, 200, 30), "Articulacion referencia: ");
+			GUI.Label(new Rect(Screen.width-Screen.width/4+20 , 310, 200, 30), "Rotacion: ");
+			GUI.Label(new Rect(Screen.width-Screen.width/4+120, 310, 200, 30), "X: ");
+			GUI.Label(new Rect(Screen.width-Screen.width/4+120, 340, 200, 30), "Y: ");
+			GUI.Label(new Rect(Screen.width-Screen.width/4+120, 370, 200, 30), "Z: ");
+
+			if (!exercise.reference.nameId.Equals("")) {
+				GUI.Label(new Rect(Screen.width-Screen.width/4+200, 280, 200, 30), exercise.reference.nameId);
+
+				GUI.Label(new Rect(Screen.width-Screen.width/4+150, 310, 200, 30),
+				          Mathf.Round(GameObject.Find(exercise.reference.nameId).transform.rotation.eulerAngles.x).ToString());
+				
+				GUI.Label(new Rect(Screen.width-Screen.width/4+150, 340, 200, 30),
+				          Mathf.Round(GameObject.Find(exercise.reference.nameId).transform.rotation.eulerAngles.y).ToString());
+				
+				GUI.Label(new Rect(Screen.width-Screen.width/4+150, 370, 200, 30),
+				          Mathf.Round(GameObject.Find(exercise.reference.nameId).transform.rotation.eulerAngles.z).ToString());
+			}
+
+			if ((!exercise.initialArt.Equals("")) && (!exercise.finalArt.Equals("")))
+				if (Input.GetMouseButtonUp(0)) {
+					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+					if (Physics.Raycast(ray, out hit)) {
+						GUI.Label(new Rect(Screen.width-Screen.width/4+200, 250, 200, 30), hit.collider.gameObject.name);
+						exercise.reference.nameId = hit.collider.gameObject.name;
+						exercise.reference.id = searchIdArt(hit.collider.gameObject.name);
+						exercise.reference.x = Mathf.Round(hit.collider.gameObject.transform.rotation.eulerAngles.x).ToString();
+						exercise.reference.y = Mathf.Round(hit.collider.gameObject.transform.rotation.eulerAngles.y).ToString();
+						exercise.reference.z = Mathf.Round(hit.collider.gameObject.transform.rotation.eulerAngles.z).ToString();
+						hit.collider.gameObject.renderer.material.color = Color.yellow;
+					}
+				}
+		}
+		else if (!exercise.reference.nameId.Equals("")){
+			GameObject.Find(exercise.reference.nameId).renderer.material = wood;
+			exercise.reference.nameId = "";
+			exercise.reference.id = 0;
+			exercise.reference.x = "";
+			exercise.reference.y = "";
+			exercise.reference.z = "";
+		}
+		/* ART DE REFERENCIA */
 		
 		sphereScript.Art = exercise.initialArt;
 	}
 	
 	
 	// Paso 3
-	public void Step3Final() {		
-		//	trail.enabled = true;
-		//	trail.time = Mathf.Infinity;
-		
+	public void Step3Final() {
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Rotation: ");
 		GUI.Label(new Rect(Screen.width-Screen.width/4+100, 100, 200, 30), "Min: ");
 		GUI.Label(new Rect(Screen.width-Screen.width/4+100, 130, 200, 30), "Max: ");
@@ -258,20 +340,15 @@ public class UserInterface : MonoBehaviour {
 		
 		moveArt();
 
-		rotFin = GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles;
+		rotFin = GameObject.Find(exercise.initialArt).transform.eulerAngles;
 	}
 	
 	
 	// Paso 4 - Guardar fichero
 	public void Step4Save() {
 
-		GUI.Label(new Rect(10, 50, 200, 30), "RotIni: " + rotIni.x + " " + rotIni.y + " " + rotIni.z);
-		GUI.Label(new Rect(10, 70, 200, 30), "RotFin: " + rotFin.x + " " + rotFin.y + " " + rotFin.z);
-
-		if (GUI.Button(new Rect(Screen.width-Screen.width/3 + 30, 120, 100, 30), "Show")) {
-//			StartCoroutine(AnimationMovement());
+		if (GUI.Button(new Rect(Screen.width-Screen.width/3 + 30, 120, 100, 30), "Show"))
 			ShowMovement();
-		}
 
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 300, 200, 30), "Nombre de fichero: ");
 		file = GUI.TextField(new Rect(Screen.width-Screen.width/4+150, 300, 150, 20), file);
@@ -289,19 +366,44 @@ public class UserInterface : MonoBehaviour {
 			exercise.Save(Path.Combine(xmlPath, file + ".xml"));
 
 			StartCoroutine(ShowMessage(5));
-			if (condMessage)
-				GUI.Label(new Rect(10, 10, 200, 30), "File saved!");
+		}
+		if (condMessage) {
+			GUI.Label(new Rect(10, 10, 200, 30), "File saved!");
 		}
 	}
-
+	
 	public void ShowMovement() {
-		GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.Set(rotIni.x, rotIni.y, rotIni.z);
+		GameObject.Find(exercise.initialArt).transform.eulerAngles = rotIni;
+
+		TrailRenderer trail = GameObject.Find(exercise.finalArt).AddComponent<TrailRenderer>();
+		
+		trail.material = new Material (Shader.Find("Particles/Additive"));
+		trail.material.color = Color.blue;
+
+		trail.startWidth = 0.1f;
+		trail.endWidth = 0.01f;
+		trail.time = Mathf.Infinity;
+
+		StartCoroutine (RotateMe(trail));
+	}
+
+	IEnumerator RotateMe(TrailRenderer t) {
+		Vector3 actualRot = GameObject.Find(exercise.initialArt).transform.eulerAngles;
+		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotFin.x)) ||
+		       (Mathf.Round(actualRot.z) != Mathf.Round(rotFin.z))) {
+			GameObject.Find(exercise.initialArt).transform.Rotate(Vector3.left * 1f);
+			actualRot = GameObject.Find(exercise.initialArt).transform.eulerAngles;
+			yield return null;
+		}
+		GameObject.Find(exercise.initialArt).transform.eulerAngles = rotFin;
+		Destroy(t);
 	}
 
 	IEnumerator ShowMessage(float delay) {
 		condMessage = true;
 		yield return new WaitForSeconds(delay);
 		condMessage = false;
+		ResetExercise();
 	}
 	
 	
@@ -379,7 +481,7 @@ public class UserInterface : MonoBehaviour {
 				}
 				else if ((selectInitial) && (!selectFinal) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
 					nameInitialArt = "";
-					hit.collider.gameObject.renderer.material.color = Color.white;
+					hit.collider.gameObject.renderer.material = wood;
 					selectInitial = false;
 					move = false;
 				}
@@ -387,28 +489,12 @@ public class UserInterface : MonoBehaviour {
 					nameFinalArt = hit.collider.gameObject.name;
 					hit.collider.gameObject.renderer.material.color = finalColor;
 					
-					// Crear esta funcion: ActivateTrail(nameFinalArt);
-//					trail = GameObject.Find(nameFinalArt).AddComponent<TrailRenderer>();
-//					trail.enabled = false;
-//					
-//					trail.material = new Material (Shader.Find("Particles/Additive"));
-//					trail.material.color = Color.blue;
-//					
-//					//var m : Material = trail.GetComponent(TrailRenderer).material;
-//					//m.SetColor("Color", Color.red);
-//
-//					trail.startWidth = 0.1f;
-//					trail.endWidth = 0.1f;
-//					trail.time = 0;
-					//***********************************************************************
-					
 					selectFinal = true;
 					move = true;  //variable para poder mover solo la articulacion cuando selecciones la art final
 				}
 				else if ((selectInitial) && (selectFinal) && (hit.collider.gameObject.name.Equals(nameFinalArt))) {
 					nameFinalArt = "";
-					hit.collider.gameObject.renderer.material.color = Color.white;
-//					GameObject.Find(nameFinalArt).Destroy(trail);
+					hit.collider.gameObject.renderer.material = wood;
 					selectFinal = false;
 					move = false;
 				}
@@ -427,8 +513,7 @@ public class UserInterface : MonoBehaviour {
 		}
 	}
 	
-	
-	
+
 	public void moveArt() {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
@@ -449,22 +534,4 @@ public class UserInterface : MonoBehaviour {
 		if ((varMax % 360) == 0)
 			varMax = 0;
 	}
-
-//	IEnumerator AnimationMovement() {
-//		Debug.Log ("Entro en animacion");
-//		float moveTime = 0;
-//		float elapsedTime = 5;
-//		Vector3 rot = GameObject.Find(exercise.initialArt).transform.localRotation.eulerAngles;
-//
-//		while (elapsedTime < moveTime) {
-//			float t = curve.Evaluate(elapsedTime/moveTime);
-//			GameObject.Find(exercise.initialArt).transform.localRotation.eulerAngles.Set(rot.x * t, rot.y*t, rot.z*t);
-//			elapsedTime += Time.deltaTime;
-//			yield return 0;
-//		}
-//		GameObject.Find(exercise.initialArt).transform.localRotation.eulerAngles.Set (rot.x * curve.Evaluate(1.0f),
-//		                                                                              rot.y * curve.Evaluate(1.0f),
-//		                                                                              rot.z * curve.Evaluate(1.0f));
-//	}
-
 }

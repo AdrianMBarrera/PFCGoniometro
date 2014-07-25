@@ -150,7 +150,8 @@ public class ZigSkeleton : MonoBehaviour {
 				newRotation.y = -newRotation.y;
 				newRotation.z = -newRotation.z;
 			}
-			transforms[(int)joint].rotation = Quaternion.Slerp(transforms[(int)joint].rotation, newRotation, Time.deltaTime * RotationDamping);
+//			transforms[(int)joint].rotation = Quaternion.Slerp(transforms[(int)joint].rotation, newRotation, Time.deltaTime * RotationDamping);
+			transforms[(int)joint].rotation = newRotation;
 		}
 	}
 
