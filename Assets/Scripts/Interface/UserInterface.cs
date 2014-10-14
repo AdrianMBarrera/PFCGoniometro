@@ -148,10 +148,10 @@ public class UserInterface : MonoBehaviour {
 	// Paso 1
 	public void Step1Restriction() {
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 100, 200, 30), "Initial articulation: ");
-		GUI.Label(new Rect(Screen.width-Screen.width/4+200, 100, 200, 30), restriction.initialArt);
+		GUI.Label(new Rect(Screen.width-Screen.width/4+130, 100, 200, 30), restriction.initialArt);
 		
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 130, 200, 30), "Final articulation: ");
-		GUI.Label(new Rect(Screen.width-Screen.width/4+200, 130, 200, 30), restriction.finalArt);
+		GUI.Label(new Rect(Screen.width-Screen.width/4+130, 130, 200, 30), restriction.finalArt);
 		
 		GUI.Label(new Rect(Screen.width-Screen.width/4+20 , 200, 200, 30), "Rotation: ");
 		GUI.Label(new Rect(Screen.width-Screen.width/4+120, 200, 200, 30), "X: ");
@@ -196,7 +196,7 @@ public class UserInterface : MonoBehaviour {
 		//	if (GUI.Button(Rect(Screen.width-275, Screen.height-30, 125, 30), "View Restrictions")) {
 		int i = 0;
 		foreach (Restriction r in exercise.Restrictions) {
-			GUI.Label(new Rect(Screen.width-Screen.width/4+20, 360+(i*30), 200, 30), "Restriction " + i + ": " + 
+			GUI.Label(new Rect(Screen.width-Screen.width/4+20, 400+(i*30), 300, 30), "Restriction " + i + ": " + 
 			          r.initialArt + ", " + r.finalArt);
 			i++;
 		}
@@ -217,7 +217,7 @@ public class UserInterface : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width-Screen.width/4+120, 190, 200, 30), "Y: ");
 		GUI.Label(new Rect(Screen.width-Screen.width/4+120, 220, 200, 30), "Z: ");
 
-		condRef = GUI.Toggle(new Rect(Screen.width-Screen.width/4+20, 250, 200, 30), condRef, " Poner articulacion referencia");
+		condRef = GUI.Toggle(new Rect(Screen.width-Screen.width/4+20, 250, 200, 30), condRef, "Add reference articulation");
 		
 		//Seleccionamos las articulaciones Inicial y Final
 		artSelection();
@@ -262,8 +262,8 @@ public class UserInterface : MonoBehaviour {
 		
 		/* ART DE REFERENCIA */
 		if (condRef) {
-			GUI.Label(new Rect(Screen.width-Screen.width/4+20, 280, 200, 30), "Articulacion referencia: ");
-			GUI.Label(new Rect(Screen.width-Screen.width/4+20 , 310, 200, 30), "Rotacion: ");
+			GUI.Label(new Rect(Screen.width-Screen.width/4+20, 280, 200, 30), "Reference articulation: ");
+			GUI.Label(new Rect(Screen.width-Screen.width/4+20 , 310, 200, 30), "Rotation: ");
 			GUI.Label(new Rect(Screen.width-Screen.width/4+120, 310, 200, 30), "X: ");
 			GUI.Label(new Rect(Screen.width-Screen.width/4+120, 340, 200, 30), "Y: ");
 			GUI.Label(new Rect(Screen.width-Screen.width/4+120, 370, 200, 30), "Z: ");
@@ -350,11 +350,16 @@ public class UserInterface : MonoBehaviour {
 		if (GUI.Button(new Rect(Screen.width-Screen.width/3 + 30, 120, 100, 30), "Show"))
 			ShowMovement();
 
-		GUI.Label(new Rect(Screen.width-Screen.width/4+20, 300, 200, 30), "Nombre de fichero: ");
-		file = GUI.TextField(new Rect(Screen.width-Screen.width/4+150, 300, 150, 20), file);
+		GUI.Label(new Rect(Screen.width-Screen.width/3 + 30, 300, 200, 30), "Name file: ");
+		file = GUI.TextField(new Rect(Screen.width-Screen.width/3 + 100, 300, 150, 20), file);
 		
 		if (GUI.Button(new Rect(Screen.width-125, Screen.height-50, 100, 30), "Guardar")) {
-			string xmlPath = (Application.dataPath) + "/Results";
+//			string xmlPath = (Application.dataPath) + "/Results";
+			string xmlPath = "./Exercises";
+
+			if (!Directory.Exists(xmlPath))
+				Directory.CreateDirectory(xmlPath);
+
 			exercise.initialId = searchIdArt(exercise.initialArt);
 			exercise.finalId = searchIdArt(exercise.finalArt);
 
@@ -373,18 +378,20 @@ public class UserInterface : MonoBehaviour {
 	}
 	
 	public void ShowMovement() {
-		GameObject.Find(exercise.initialArt).transform.eulerAngles = rotIni;
+		if (GameObject.Find(exercise.finalArt).GetComponent<TrailRenderer>() == null) {
+			GameObject.Find(exercise.initialArt).transform.eulerAngles = rotIni;
 
-		TrailRenderer trail = GameObject.Find(exercise.finalArt).AddComponent<TrailRenderer>();
-		
-		trail.material = new Material (Shader.Find("Particles/Additive"));
-		trail.material.color = Color.blue;
+			TrailRenderer trail = GameObject.Find(exercise.finalArt).AddComponent<TrailRenderer>();
+			
+//			trail.material = new Material (Shader.Find("Particles/Additive"));
 
-		trail.startWidth = 0.1f;
-		trail.endWidth = 0.01f;
-		trail.time = Mathf.Infinity;
+			trail.startWidth = 0.1f;
+			trail.endWidth = 0.01f;
+			trail.time = Mathf.Infinity;
 
-		StartCoroutine (RotateMe(trail));
+			StartCoroutine (RotateMe(trail));
+		}
+
 	}
 
 	IEnumerator RotateMe(TrailRenderer t) {
