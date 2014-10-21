@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 class ZigEngageSingleSession : MonoBehaviour {
-    public GameObject EngagedUser = new GameObject();
+    public GameObject EngagedUser;
     public List<GameObject> listeners = new List<GameObject>();
     Dictionary<int, GameObject> objects = new Dictionary<int, GameObject>();
    
