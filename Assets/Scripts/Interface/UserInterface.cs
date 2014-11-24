@@ -322,8 +322,12 @@ public class UserInterface : MonoBehaviour {
 		var x = ini[1]*fin[2] - ini[2]*fin[1];
 		var y = ini[2]*fin[0] - ini[0]*fin[2];
 		var z = ini[0]*fin[1] - ini[1]*fin[0];
-		
+
+		Debug.Log("ini " + ini[0]+ " "+ ini[1] + "" + ini[2]);
+		Debug.Log("fin " + fin[0]+ " "+ fin[1] + "" + fin[2]);
+
 		eje = new Vector3(x,y,z);
+
 		
 		line.renderer.enabled = true;
 		line.SetPosition(0, GameObject.Find(exercise.initialArt).transform.position);

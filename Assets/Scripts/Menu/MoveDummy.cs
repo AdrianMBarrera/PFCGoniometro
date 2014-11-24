@@ -8,36 +8,15 @@ using System.Xml;
 
 public class MoveDummy : MonoBehaviour {
 
-	public Transform Head;
-	public Transform Neck;
-	public Transform Torso;
-	public Transform Waist;
-	
-	public Transform LeftCollar;
-	public Transform LeftShoulder;
-	public Transform LeftElbow;
-	public Transform LeftWrist;
-	public Transform LeftHand;
-	public Transform LeftFingertip;
-	
-	public Transform RightCollar;
-	public Transform RightShoulder;
-	public Transform RightElbow;
-	public Transform RightWrist;
-	public Transform RightHand;
-	public Transform RightFingertip;
-	
-	public Transform LeftHip;
-	public Transform LeftKnee;
-	public Transform LeftAnkle;
-	public Transform LeftFoot;
-	
-	public Transform RightHip;
-	public Transform RightKnee;
-	public Transform RightAnkle;
-	public Transform RightFoot;
+	public GameObject IniSphere; //prefabs
+	public GameObject EndSphere;
+	public GameObject ReferenceSphere;
+	public GameObject RestrictSpehere;
 
-	private int arti, arti1, refId, inicio, eje = 0;
+	//public GameObject DummyPrefab;
+
+
+	private int artIni, artEnd, refId, inicio, eje = 0;
 	private float minimo, maximo;
 	Vector plane = new Vector(); // plano de medicion->definido en el fichero de definiciones
 	Vector initBone = new Vector(); //posicion inicial del brazo, con respecto a esta posicion se medira
@@ -64,41 +43,49 @@ public class MoveDummy : MonoBehaviour {
 
 	public void LoadXml(){
 			
-			XmlDocument xDoc = new XmlDocument();
-			Debug.Log (Application.dataPath);
-			xDoc.Load("./Exercises/"+name);
+		deleteSphere(IniSphere);
+		deleteSphere (EndSphere);
+		XmlDocument xDoc = new XmlDocument();
+		Debug.Log (Application.dataPath);
+		xDoc.Load("./Exercises/p.xml");
 		Debug.Log(name);
 			
-			XmlNodeList exer = xDoc.GetElementsByTagName("EXERCISE");	  
-			arti = Convert.ToInt16(exer[0].Attributes["initialId"].InnerText);
-			arti1 = Convert.ToInt16(exer[0].Attributes["finalId"].InnerText);
+		XmlNodeList exer = xDoc.GetElementsByTagName("EXERCISE");	  
+		artIni = Convert.ToInt16(exer[0].Attributes["initialId"].InnerText);
+		artEnd = Convert.ToInt16(exer[0].Attributes["finalId"].InnerText);
 			
-			XmlNodeList angles = xDoc.GetElementsByTagName("ang");
-			XmlNodeList vector = xDoc.GetElementsByTagName("axis");
-			XmlNodeList pos0 = xDoc.GetElementsByTagName("ini");
-			XmlNodeList reference = xDoc.GetElementsByTagName ("reference");
-			XmlNodeList frames = ((XmlElement)exer[0]).GetElementsByTagName("Restrictions");
-			
-			//Angulos maximo y minimo de ejercicio
-			minimo = Convert.ToInt16(angles[0].Attributes["min"].InnerText);
-			maximo = Convert.ToInt16(angles[0].Attributes["max"].InnerText);
-			
-			//plano sobre el que se va a realizar la medicion
-			plane.SetX(Convert.ToInt16(vector[0].Attributes["x"].InnerText));
-			plane.SetY(Convert.ToInt16(vector[0].Attributes["y"].InnerText));
-			plane.SetZ(Convert.ToInt16(vector[0].Attributes["z"].InnerText));
-			
-			//posicion de inicio del ejercicio
-			initBone.SetX(Convert.ToInt16(pos0[0].Attributes["x"].InnerText));
-			initBone.SetY(Convert.ToInt16(pos0[0].Attributes["y"].InnerText));
-			initBone.SetZ(Convert.ToInt16(pos0[0].Attributes["z"].InnerText));
+		XmlNodeList angles = xDoc.GetElementsByTagName("ang");
+		XmlNodeList vector = xDoc.GetElementsByTagName("axis");
+		XmlNodeList pos0 = xDoc.GetElementsByTagName("ini");
+		XmlNodeList reference = xDoc.GetElementsByTagName ("reference");
+		XmlNodeList frames = ((XmlElement)exer[0]).GetElementsByTagName("Restrictions");
+		
+		//Angulos maximo y minimo de ejercicio
+		minimo = Convert.ToInt16(angles[0].Attributes["min"].InnerText);
+		maximo = Convert.ToInt16(angles[0].Attributes["max"].InnerText);
+		
+		//plano sobre el que se va a realizar la medicion
+		plane.SetX(Convert.ToInt16(vector[0].Attributes["x"].InnerText));
+		plane.SetY(Convert.ToInt16(vector[0].Attributes["y"].InnerText));
+		plane.SetZ(Convert.ToInt16(vector[0].Attributes["z"].InnerText));
+		
+		//posicion de inicio del ejercicio
+		initBone.SetX(Convert.ToInt16(pos0[0].Attributes["x"].InnerText));
+		initBone.SetY(Convert.ToInt16(pos0[0].Attributes["y"].InnerText));
+		initBone.SetZ(Convert.ToInt16(pos0[0].Attributes["z"].InnerText));
 
-			
-			refId = Convert.ToInt16(reference[0].Attributes["id"].InnerText);
-			referenceArt.SetX(Convert.ToInt16(reference[0].Attributes["x"].InnerText));
-			referenceArt.SetY(Convert.ToInt16(reference[0].Attributes["y"].InnerText));
-			referenceArt.SetZ(Convert.ToInt16(reference[0].Attributes["z"].InnerText));
-			
+	/*	
+		refId = Convert.ToInt16(reference[0].Attributes["id"].InnerText);
+		referenceArt.SetX(Convert.ToInt16(reference[0].Attributes["x"].InnerText));
+		referenceArt.SetY(Convert.ToInt16(reference[0].Attributes["y"].InnerText));
+		referenceArt.SetZ(Convert.ToInt16(reference[0].Attributes["z"].InnerText));
+	*/		
+		loadSphere(IniSphere, artIni,"IniSphere");
+		loadSphere (EndSphere, artEnd, "EndSphere");
+		int val;
+
+		//val= CalcAngle( , Ini);
+
 			/*XmlNodeList ID;
 			XmlNodeList ID1;		
 			XmlNodeList FX;
@@ -138,34 +125,58 @@ public class MoveDummy : MonoBehaviour {
 
 	}
 
+
+
+	public void loadSphere(GameObject prefabSphere, int art, string name){
+		prefabSphere = Instantiate(prefabSphere, translateArt(art).position, Quaternion.identity) as GameObject;
+		prefabSphere.name = name;
+
+		prefabSphere.transform.parent = translateArt(art);
+
+
+
+	}
+
+
+
+	public double CalcAngle (Vector bone, Vector initBone) {
+		double scalarProduct = bone.GetX() * initBone.GetX() + bone.GetY() * initBone.GetY() + bone.GetZ() * initBone.GetZ();
+		double ModuleBone = System.Math.Sqrt(bone.GetX() * bone.GetX() + bone.GetY() * bone.GetY() + bone.GetZ() * bone.GetZ());
+		double ModuleInitBone = System.Math.Sqrt(initBone.GetX() * initBone.GetX() + initBone.GetY() * initBone.GetY() + initBone.GetZ() * initBone.GetZ());
+		double cos = scalarProduct / (ModuleBone * ModuleInitBone);
+		double ang = System.Math.Acos(cos) * 180 / System.Math.PI; //se pasa de radianes a grados
+		
+		return ang;	
+	}
+
+
+
+	public void deleteSphere(GameObject sphere){
+
+		if (sphere != null)
+			Destroy(sphere);
+
+	}
+
 	//Traductor entre los joints del fichero de definicion y el skeleton de kinect
-	public Transform art(int op) {
+	public Transform translateArt(int op) {
 		switch (op) {
-			case 1:	return Head;
-			case 2: return Neck;
-			case 3: return Torso;
-			case 4: return Waist;
-			case 5: return LeftCollar;
-			case 6: return LeftShoulder;
-			case 7: return LeftElbow;
-			case 8: return LeftWrist;
-			case 9: return LeftHand;
-			case 10: return LeftFingertip;
-			case 11: return RightCollar;
-			case 12: return RightShoulder;
-			case 13: return RightElbow;
-			case 14: return RightWrist;
-			case 15: return RightHand;
-			case 16: return RightFingertip;
-			case 17: return LeftHip;
-			case 18: return LeftKnee;
-			case 19: return LeftAnkle;
-			case 20: return LeftFoot;
-			case 21: return RightHip;
-			case 22: return RightKnee;
-			case 23: return RightAnkle;
-			case 24: return RightFoot;
-			default: return RightKnee;
+			case 1:	return GameObject.Find ("Head").transform;
+			case 2: return GameObject.Find ("Neck").transform;
+			case 3: return GameObject.Find ("Spine1").transform;
+			case 6: return GameObject.Find ("LeftArm").transform;
+			case 7: return GameObject.Find ("LeftForeArm").transform;
+			case 8: return GameObject.Find ("LeftHand").transform;
+			case 12: return GameObject.Find ("RightArm").transform;
+			case 13: return GameObject.Find ("RightForeArm").transform;
+			case 14: return GameObject.Find ("RightHand").transform;
+			case 17: return GameObject.Find ("LeftUpLeg").transform;
+			case 18: return GameObject.Find ("LeftLeg").transform;
+			case 19: return GameObject.Find ("LeftFoot").transform;
+			case 21: return GameObject.Find ("RightUpLeg").transform;
+			case 22: return GameObject.Find ("RightLeg").transform;
+			case 23: return GameObject.Find ("RightFoot").transform;
+			default: return GameObject.Find ("Head").transform;
 		}
 	}
 
