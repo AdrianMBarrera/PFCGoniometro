@@ -163,10 +163,20 @@ public class UserTest : MonoBehaviour {
 	}
 
 	public double CalcAngle (Vector bone, Vector initBone) {
-		double scalarProduct = bone.GetX() * initBone.GetX() + bone.GetY() * initBone.GetY() + bone.GetZ() * initBone.GetZ();
-		double ModuleBone = System.Math.Sqrt(bone.GetX() * bone.GetX() + bone.GetY() * bone.GetY() + bone.GetZ() * bone.GetZ());
-		double ModuleInitBone = System.Math.Sqrt(initBone.GetX() * initBone.GetX() + initBone.GetY() * initBone.GetY() + initBone.GetZ() * initBone.GetZ());
+		double scalarProduct = bone.GetX() * initBone.GetX() + 
+			                   bone.GetY() * initBone.GetY() + 
+				               bone.GetZ() * initBone.GetZ();
+
+		double ModuleBone = System.Math.Sqrt(bone.GetX() * bone.GetX() + 
+		                                     bone.GetY() * bone.GetY() + 
+		                                     bone.GetZ() * bone.GetZ());
+
+		double ModuleInitBone = System.Math.Sqrt(initBone.GetX() * initBone.GetX() + 
+		                                         initBone.GetY() * initBone.GetY() + 
+		                                         initBone.GetZ() * initBone.GetZ());
+
 		double cos = scalarProduct / (ModuleBone * ModuleInitBone);
+
 		double ang = System.Math.Acos(cos) * 180 / System.Math.PI; //se pasa de radianes a grados
 		
 		return ang;	
@@ -198,17 +208,17 @@ public class UserTest : MonoBehaviour {
 		productVect = ProdVec(initBone, plane);
 		proyectBone1 = ProdVec(plane, productVect);// proyeccion sobre el plano del vector de inicio
 		
-		double scalarProduct = proyectBone.GetX() * proyectBone1.GetX()
-							 + proyectBone.GetY() * proyectBone1.GetY()
-							 + proyectBone.GetZ() * proyectBone1.GetZ();
+		double scalarProduct = proyectBone.GetX() * proyectBone1.GetX() +
+			                   proyectBone.GetY() * proyectBone1.GetY() +
+				               proyectBone.GetZ() * proyectBone1.GetZ();
 
-		double ModuleProyect = Math.Sqrt(proyectBone.GetX() * proyectBone.GetX()
-		                     + proyectBone.GetY() * proyectBone.GetY()
-		                     + proyectBone.GetZ() * proyectBone.GetZ());
+		double ModuleProyect = Math.Sqrt(proyectBone.GetX() * proyectBone.GetX() +
+		                                 proyectBone.GetY() * proyectBone.GetY() + 
+		                                 proyectBone.GetZ() * proyectBone.GetZ());
 
-		double ModuleProyect1 = Math.Sqrt(proyectBone1.GetX() * proyectBone1.GetX() 
-		                      + proyectBone1.GetY() * proyectBone1.GetY()
-		                      + proyectBone1.GetZ() * proyectBone1.GetZ());
+		double ModuleProyect1 = Math.Sqrt(proyectBone1.GetX() * proyectBone1.GetX() + 
+		                                  proyectBone1.GetY() * proyectBone1.GetY() + 
+		                                  proyectBone1.GetZ() * proyectBone1.GetZ());
 
 		double cos = scalarProduct / (ModuleProyect * ModuleProyect1);
 		
@@ -268,7 +278,7 @@ public class UserTest : MonoBehaviour {
 		
 		//dibuja el plano sobre el que se va a medir
 		if (plano) {
-			Plano.transform.position = new Vector3(joint.GetX(),joint.GetY(),joint.GetZ());
+			Plano.transform.position = new Vector3(joint.GetX(), joint.GetY(), joint.GetZ());
 			//Plano.transform.rotation = Quaternion.AngleAxis(90, new Vector3(plane.GetX(),plane.GetY(),plane.GetZ()));
 			if(plane.GetZ() != 0)
 				Plano.transform.eulerAngles = new Vector3(270,0,0);

@@ -19,7 +19,8 @@ public class CreateButtonScript : MonoBehaviour {
 	public void CreateButton(float y, string name){
 
 		prefabButton = Instantiate(prefabButton,prefabButton.transform.position, Quaternion.identity) as GameObject;
-		prefabButton.transform.parent = this.transform;
+//		prefabButton.transform.parent = this.transform;
+		prefabButton.transform.SetParent(this.transform, false);
 
 		rectTransform = prefabButton.GetComponent<RectTransform>();
 		rectTransform.anchoredPosition = new Vector2 (1f, y);

@@ -367,6 +367,15 @@ public class UserInterface : MonoBehaviour {
 			exercise.initialId = searchIdArt(exercise.initialArt);
 			exercise.finalId = searchIdArt(exercise.finalArt);
 
+			exercise.rotIni.x = Mathf.Round(rotIni.x).ToString();
+			exercise.rotIni.y = Mathf.Round(rotIni.y).ToString();
+			exercise.rotIni.z = Mathf.Round(rotIni.z).ToString();
+
+			exercise.rotEnd.x = Mathf.Round(rotFin.x).ToString();
+			exercise.rotEnd.y = Mathf.Round(rotFin.y).ToString();
+			exercise.rotEnd.z = Mathf.Round(rotFin.z).ToString();
+
+
 			for (var i = 0; i < exercise.Restrictions.Count; i++) {
 				exercise.Restrictions[i].initialId = searchIdArt(exercise.Restrictions[i].initialArt);
 				exercise.Restrictions[i].finalId = searchIdArt(exercise.Restrictions[i].finalArt);

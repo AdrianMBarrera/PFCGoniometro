@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EXERCISE initialId="6" finalId="8">
+  <ang min="333" max="65" />
+  <axis x="3" y="4" z="0" />
+  <ini x="1" y="-1" z="-2" />
+  <rotIni x="333" y="225" z="294" />
+  <rotEnd x="339" y="329" z="240" />
+  <reference id="0" x="" y="" z="" />
+  <Restrictions />
+</EXERCISE>

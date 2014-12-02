@@ -24,6 +24,10 @@ public class Exercise {
 	public Axis axis;
 		
 	public Ini ini;
+
+	public RotIni rotIni;
+
+	public RotEnd rotEnd;
 	
 	public Reference reference;
 
@@ -33,6 +37,8 @@ public class Exercise {
 		ang = new Angle();
 		axis = new Axis();
 		ini = new Ini();
+		rotIni = new RotIni();
+		rotEnd = new RotEnd();
 		reference = new Reference();
 		Restrictions = new List<Restriction>();
 	}
@@ -102,6 +108,32 @@ public class Ini {
 	public string z = "";
 
 	public Ini() {}
+}
+
+public class RotIni {
+	[XmlAttribute("x")]
+	public string x = "";
+	
+	[XmlAttribute("y")]
+	public string y = "";
+	
+	[XmlAttribute("z")]
+	public string z = "";
+	
+	public RotIni() {}
+}
+
+public class RotEnd {
+	[XmlAttribute("x")]
+	public string x = "";
+	
+	[XmlAttribute("y")]
+	public string y = "";
+	
+	[XmlAttribute("z")]
+	public string z = "";
+	
+	public RotEnd() {}
 }
 
 public class Restriction {

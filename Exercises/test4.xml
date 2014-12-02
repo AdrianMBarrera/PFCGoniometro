@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EXERCISE initialId="6" finalId="8">
+  <ang min="0" max="90" />
+  <axis x="3" y="5" z="0" />
+  <ini x="2" y="-1" z="0" />
+  <reference id="0" x="" y="" z="" />
+  <Restrictions />
+</EXERCISE>
