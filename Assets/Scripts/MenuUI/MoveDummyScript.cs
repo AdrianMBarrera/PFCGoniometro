@@ -6,7 +6,7 @@ using System.Xml;
 
 
 
-public class MoveDummy : MonoBehaviour {
+public class MoveDummyScript : MonoBehaviour {
 
 	public GameObject IniSphere; //prefabs
 	public GameObject EndSphere;
@@ -35,18 +35,12 @@ public class MoveDummy : MonoBehaviour {
 	
 	}
 
-
-	public void AddMoveToDummy(){
-
-
-	}
-
-
-
+	
 	public void LoadXml(){
 			
-		deleteSphere(IniSphere);
-		deleteSphere (EndSphere);
+		deleteSphere("IniSphere");
+		deleteSphere ("EndSphere");
+
 		XmlDocument xDoc = new XmlDocument();
 		Debug.Log (Application.dataPath);
 		xDoc.Load("./Exercises/" + name);
@@ -80,13 +74,13 @@ public class MoveDummy : MonoBehaviour {
 
 		//Rotacion inicial de la articulacion principal
 		rotIni.x = Convert.ToInt16(rotI[0].Attributes["x"].InnerText);
-		rotIni.y = Convert.ToInt16(rotI[0].Attributes["y"].InnerText) - 180;
-		rotIni.z = Convert.ToInt16(rotI[0].Attributes["z"].InnerText) + 90;
+		rotIni.y = Convert.ToInt16(rotI[0].Attributes["y"].InnerText);
+		rotIni.z = Convert.ToInt16(rotI[0].Attributes["z"].InnerText);
 
 		//Rotacion final de la articulacion principal
 		rotEnd.x = Convert.ToInt16(rotE[0].Attributes["x"].InnerText);
-		rotEnd.y = Convert.ToInt16(rotE[0].Attributes["y"].InnerText) - 180;
-		rotEnd.z = Convert.ToInt16(rotE[0].Attributes["z"].InnerText) + 90;
+		rotEnd.y = Convert.ToInt16(rotE[0].Attributes["y"].InnerText);
+		rotEnd.z = Convert.ToInt16(rotE[0].Attributes["z"].InnerText);
 
 	/*	
 		refId = Convert.ToInt16(reference[0].Attributes["id"].InnerText);
@@ -132,39 +126,14 @@ public class MoveDummy : MonoBehaviour {
 				i++; 
 			}*/
 
+		loadSphere(IniSphere, artIni,"IniSphere");
+		//		IniSphere.transform.localRotation = translateArt(artIni).rotation;
+		loadSphere (EndSphere, artEnd, "EndSphere");
+		//		EndSphere.transform.localRotation = translateArt(artEnd).rotation;
+
 		ShowMovement();
 
-		loadSphere(IniSphere, artIni,"IniSphere");
-//		IniSphere.transform.localRotation = translateArt(artIni).rotation;
-		loadSphere (EndSphere, artEnd, "EndSphere");
-//		EndSphere.transform.localRotation = translateArt(artEnd).rotation;
-
-//		int val;
-
-		/*Vector3 v = new Vector3(distance(translateArt(artEnd).position.x, translateArt(artIni).position.x),
-		                        distance(translateArt(artEnd).position.y, translateArt(artIni).position.y),
-		                        distance(translateArt(artEnd).position.z, translateArt(artIni).position.z));*/
-
-//		Vector3 v = new Vector3(distance(initBone.GetX(), translateArt(artIni).position.x),
-//		                        distance(initBone.GetY(), translateArt(artIni).position.y),
-//		                        distance(initBone.GetZ(), translateArt(artIni).position.z));
-
-//		Vector3 v = new Vector3(translateArt(artIni).position.x + initBone.GetX(),
-//		                        translateArt(artIni).position.y + initBone.GetY(),
-//		                        translateArt(artIni).position.z + initBone.GetZ());
-
-//		translateArt(artEnd).position = v;
-//		translateArt(artIni).LookAt(translateArt(artEnd));
-
-
-
-//		Vector3 relativePos = v - translateArt(artIni).position;
-//		Quaternion rotation = Quaternion.LookRotation(relativePos);
-//		translateArt(artIni).rotation = rotation;
-
-//		Vector3 r = new Vector3();
-
-		//val= CalcAngle( , Ini);
+	
 
 	}
 
@@ -178,32 +147,6 @@ public class MoveDummy : MonoBehaviour {
 	}
 
 
-//	public float distance(float right, float left) {
-//		if ((right < 0 && left < 0) || (right > 0 && left > 0)) return (right - left);
-//		else return (right + left);
-//	}
-//
-//
-//	public double CalcAngle (Vector bone, Vector initBone) {
-//		double scalarProduct = bone.GetX() * initBone.GetX() + 
-//							   bone.GetY() * initBone.GetY() + 
-//							   bone.GetZ() * initBone.GetZ();
-//		
-//		double ModuleBone = System.Math.Sqrt(bone.GetX() * bone.GetX() + 
-//		                                     bone.GetY() * bone.GetY() + 
-//		                                     bone.GetZ() * bone.GetZ());
-//		
-//		double ModuleInitBone = System.Math.Sqrt(initBone.GetX() * initBone.GetX() + 
-//		                                         initBone.GetY() * initBone.GetY() + 
-//		                                         initBone.GetZ() * initBone.GetZ());
-//		
-//		double cos = scalarProduct / (ModuleBone * ModuleInitBone);
-//		
-//		double ang = System.Math.Acos(cos) * 180 / System.Math.PI; //se pasa de radianes a grados
-//		
-//		return ang;	
-//	}
-
 
 
 	public void ShowMovement() {
@@ -215,7 +158,7 @@ public class MoveDummy : MonoBehaviour {
 		Vector3 actualRot = translateArt(artIni).transform.eulerAngles;
 		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotEnd.x)) ||
 		       (Mathf.Round(actualRot.z) != Mathf.Round(rotEnd.z))) {
-			translateArt(artIni).transform.Rotate(Vector3.up * 1f);
+			translateArt(artIni).transform.Rotate(Vector3.left * 1f);
 			actualRot = translateArt(artIni).transform.eulerAngles;
 			yield return null;
 		}
@@ -223,9 +166,13 @@ public class MoveDummy : MonoBehaviour {
 	}
 
 
-	public void deleteSphere(GameObject sphere){
-		if (sphere != null)
-			Destroy(sphere);
+	public void deleteSphere(string name)
+	{
+		GameObject go = GameObject.Find(name);
+		if (go != null){
+		
+			Destroy(go);
+		}
 	}
 
 	//Traductor entre los joints del fichero de definicion y el skeleton de kinect
@@ -234,7 +181,7 @@ public class MoveDummy : MonoBehaviour {
 			case 1:	return GameObject.Find ("Head").transform;
 			case 2: return GameObject.Find ("Neck").transform;
 			case 3: return GameObject.Find ("Spine1").transform;
-			case 6: return GameObject.Find ("LeftArm").transform;
+			case 6: return GameObject.Find ("JointLeftArm").transform;
 			case 7: return GameObject.Find ("LeftForeArm").transform;
 			case 8: return GameObject.Find ("LeftHand").transform;
 			case 12: return GameObject.Find ("RightArm").transform;

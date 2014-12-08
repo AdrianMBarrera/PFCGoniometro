@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,9 +50,15 @@
      <Compile Include="Assets\Scripts\Interface\Exercise.cs" />
      <Compile Include="Assets\Scripts\Interface\RotateSphere.cs" />
      <Compile Include="Assets\Scripts\Interface\UserInterface.cs" />
-     <Compile Include="Assets\Scripts\Menu\CreateButtonScript.cs" />
-     <Compile Include="Assets\Scripts\Menu\LoadingScript.cs" />
-     <Compile Include="Assets\Scripts\Menu\MoveDummy.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\AnyExerciseScript.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\CreateButtonScript.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\ExerciseValue.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\InfoPlayer.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\LoadingScript.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\MoveDummyScript.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\SaveExercisesScript.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\SelectLevelScript.cs" />
+     <Compile Include="Assets\Scripts\MenuUI\ShowValuesScript.cs" />
      <Compile Include="Assets\Scripts\Test\Pose.cs" />
      <Compile Include="Assets\Scripts\Test\Results.cs" />
      <Compile Include="Assets\Scripts\Test\UserTest.cs" />
@@ -103,13 +109,13 @@
      <None Include="Assets\Results\eadsadasd.xml" />
      <None Include="Assets\Results\pepe.xml" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="OpenNI.Net">
- <HintPath>C:/Users/Lur/Documents/PFCGoniometro/Assets/ZigFu/Scripts/_Internal/OpenNI.Net.dll</HintPath>
+ <HintPath>C:/Users/PALAZON-I/Documents/Repositories/PFCGoniometro/Assets/ZigFu/Scripts/_Internal/OpenNI.Net.dll</HintPath>
  </Reference>
  <Reference Include="ZDK">
- <HintPath>C:/Users/Lur/Documents/PFCGoniometro/Assets/ZigFu/Scripts/_Internal/ZDK.dll</HintPath>
+ <HintPath>C:/Users/PALAZON-I/Documents/Repositories/PFCGoniometro/Assets/ZigFu/Scripts/_Internal/ZDK.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
