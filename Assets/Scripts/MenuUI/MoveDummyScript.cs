@@ -150,11 +150,12 @@ public class MoveDummyScript : MonoBehaviour {
 
 
 	public void ShowMovement() {
+		Vector3 reposePos = translateArt(artIni).eulerAngles;
 		translateArt(artIni).eulerAngles = new Vector3(rotIni.x, rotIni.y, rotIni.z);
-		StartCoroutine (RotateArt());
+		StartCoroutine (RotateArt(reposePos));
 	}
 
-	IEnumerator RotateArt() {
+	IEnumerator RotateArt(Vector3 repPos) {
 		Vector3 actualRot = translateArt(artIni).transform.eulerAngles;
 		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotEnd.x)) ||
 		       (Mathf.Round(actualRot.z) != Mathf.Round(rotEnd.z))) {
@@ -163,6 +164,9 @@ public class MoveDummyScript : MonoBehaviour {
 			yield return null;
 		}
 		translateArt(artIni).transform.eulerAngles = rotEnd;
+
+		yield return new WaitForSeconds (3);
+		translateArt(artIni).eulerAngles = repPos;
 	}
 
 
@@ -184,7 +188,7 @@ public class MoveDummyScript : MonoBehaviour {
 			case 6: return GameObject.Find ("JointLeftArm").transform;
 			case 7: return GameObject.Find ("LeftForeArm").transform;
 			case 8: return GameObject.Find ("LeftHand").transform;
-			case 12: return GameObject.Find ("RightArm").transform;
+			case 12: return GameObject.Find ("JointRightArm").transform;
 			case 13: return GameObject.Find ("RightForeArm").transform;
 			case 14: return GameObject.Find ("RightHand").transform;
 			case 17: return GameObject.Find ("LeftUpLeg").transform;

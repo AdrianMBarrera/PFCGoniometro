@@ -1,14 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuUI\AnyExerciseScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuUI\MoveDummyScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\MenuUI\InfoPlayer.cs" Line="10" Column="1" />
-      <File FileName="Assets\Scripts\MenuUI\LoadingScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\InfoPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\LoadingScript.cs" Line="42" Column="46" />
       <File FileName="Assets\Scripts\MenuUI\ExerciseValue.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuUI\CreateButtonScript.cs" Line="3" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\CreateButtonScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MenuUI\SaveExercisesScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuUI\ShowValuesScript.cs" Line="8" Column="18" />
-      <File FileName="Assets\Scripts\MenuUI\AnyExerciseScript.cs" Line="29" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\ShowValuesScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\AnyExerciseScript.cs" Line="14" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\MoveDummyScript.cs" Line="169" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
