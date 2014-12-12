@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using UnityEngine.UI;
 
 
 
@@ -11,8 +12,8 @@ public class MoveDummyScript : MonoBehaviour {
 	public GameObject IniSphere; //prefabs
 	public GameObject EndSphere;
 	public GameObject ReferenceSphere;
-	public GameObject RestrictSpehere;
-
+	public GameObject RestrictSphere;
+	private GameObject ButtonPool;
 	//public GameObject DummyPrefab;
 
 
@@ -26,8 +27,16 @@ public class MoveDummyScript : MonoBehaviour {
 	// Use this for initialization
 	List<Pose> poseList = new List<Pose>();  //Lista de articulaciones a tener en cuenta durante el ejercicio 
 
+
+
+
+
 	void Start () {
 	
+		ButtonPool = GameObject.Find("buttonPool");
+
+
+
 	}
 	
 	// Update is called once per frame
@@ -89,7 +98,7 @@ public class MoveDummyScript : MonoBehaviour {
 		referenceArt.SetZ(Convert.ToInt16(reference[0].Attributes["z"].InnerText));
 	*/		
 
-		/*XmlNodeList ID;
+		XmlNodeList ID;
 			XmlNodeList ID1;		
 			XmlNodeList FX;
 			XmlNodeList FY;
@@ -124,7 +133,7 @@ public class MoveDummyScript : MonoBehaviour {
 				//Lista de restricciones del ejercicio
 				poseList.Add (pose);
 				i++; 
-			}*/
+			}
 
 		loadSphere(IniSphere, artIni, "IniSphere");
 		loadSphere(EndSphere, artEnd, "EndSphere");
@@ -146,9 +155,50 @@ public class MoveDummyScript : MonoBehaviour {
 		Vector3 reposePos = translateArt(artIni).eulerAngles;
 		translateArt(artIni).eulerAngles = new Vector3(rotIni.x, rotIni.y, rotIni.z);
 		StartCoroutine (RotateArt(reposePos));
+
+
+
 	}
 
+
+
+
+
+	// corutina que hace el movimiento de la articulacion 
+
 	IEnumerator RotateArt(Vector3 repPos) {
+		SetStateButtons(false);
+
+		//restriccion
+		if (poseList.Count > 0){
+			for(int i=0; i < poseList.Count; i++){
+				poseList[i].ReposePos = translateArt(poseList[i].Art).eulerAngles;
+				translateArt(poseList[i].Art1).position = new Vector3(translateArt(poseList[i].Art).localPosition.x + poseList[i].Bone.GetX(),
+				                                 					  translateArt(poseList[i].Art).localPosition.y + poseList[i].Bone.GetY(),
+				                                 					  translateArt(poseList[i].Art).localPosition.z + poseList[i].Bone.GetZ());
+				Debug.Log("nombre " +translateArt(poseList[i].Art).name);
+				Debug.Log ("valor x de art " + translateArt(poseList[i].Art).localPosition.x);
+				Debug.Log ("valor y de art " + translateArt(poseList[i].Art).localPosition.y);
+				Debug.Log ("valor z de art " + translateArt(poseList[i].Art).localPosition.z);
+				Debug.Log ("valor x de bone " + poseList[i].Bone.GetX());
+				Debug.Log ("valor y de bone " + poseList[i].Bone.GetY());
+				Debug.Log ("valor z de bone " + poseList[i].Bone.GetZ());
+
+
+				                              
+			}
+
+
+
+		}
+
+
+
+
+		yield return new WaitForSeconds (1f);
+
+
+		//movimiento
 		Vector3 actualRot = translateArt(artIni).transform.eulerAngles;
 		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotEnd.x)) ||
 		       (Mathf.Round(actualRot.z) != Mathf.Round(rotEnd.z))) {
@@ -165,12 +215,26 @@ public class MoveDummyScript : MonoBehaviour {
 			yield return null;
 		}
 		translateArt(artIni).transform.eulerAngles = rotIni;
-		
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(1.5f);
 		translateArt(artIni).eulerAngles = repPos;
+		SetStateButtons(true);
+
+
+
 	}
 
 
+	// poner los botones de los movimientos no interactuable o interactuables
+
+	void SetStateButtons(bool state){
+		foreach (Transform b  in ButtonPool.transform){
+			b.GetComponent<Button>().interactable = state;
+		}
+	}
+
+
+	
+	//borrar el objeto
 	public void deleteSphere(string name) {
 		GameObject go = GameObject.Find(name);
 

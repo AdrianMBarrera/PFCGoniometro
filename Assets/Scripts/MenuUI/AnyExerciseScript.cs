@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+//script que mira la lista de ejercicios del player para ver si a elegido alguno
+
 public class AnyExerciseScript : MonoBehaviour {
 
 	private Text helper; // texto de ayuda

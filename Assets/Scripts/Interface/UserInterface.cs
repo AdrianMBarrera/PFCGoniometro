@@ -226,7 +226,7 @@ public class UserInterface : MonoBehaviour {
 		if (!exercise.finalArt.Equals("")) {
 			
 			// Muestra el vector normal (fuera de la ejecucion)
-			ini = GameObject.Find(exercise.finalArt).transform.position
+			ini = GameObject.Find(exercise.finalArt).transform.position //IMPORTANTE
 				- GameObject.Find(exercise.initialArt).transform.position;
 			exercise.ini.x = Mathf.Round(ini[0]).ToString();
 			exercise.ini.y = Mathf.Round(ini[1]).ToString();

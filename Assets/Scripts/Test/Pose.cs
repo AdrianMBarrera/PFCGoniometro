@@ -1,10 +1,16 @@
-﻿public class Pose {
+﻿using UnityEngine;
+
+public class Pose {
 	
 	private int art; 
 	private int art1;
 	public Vector bone; // posicion correcta del hueso
 	public float grado; // restriccion en grados
-	
+	private Vector3 reposePos;
+
+
+
+
 	public Pose() {
 		art = 0; art1 = 0; grado = 0;
 		bone = new Vector();
@@ -19,4 +25,28 @@
 	public int GetArt1() {return art1;}
 	public Vector GetBone() {return bone;}
 	public float GetGrado() {return grado;}
+
+
+	public Vector3 ReposePos{
+		set{reposePos = value;}
+		get{return reposePos;}
+	}
+
+	public int Art{
+		set{art = value;}
+		get{return art;}
+	}
+
+	public int Art1{
+		set{art1 = value;}
+		get{return art1;}
+	}
+
+	public Vector Bone{
+		set{bone = value;}
+		get{return bone;}
+	}
+
+
+
 }
