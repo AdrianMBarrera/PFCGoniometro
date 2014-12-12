@@ -126,15 +126,10 @@ public class MoveDummyScript : MonoBehaviour {
 				i++; 
 			}*/
 
-		loadSphere(IniSphere, artIni,"IniSphere");
-		//		IniSphere.transform.localRotation = translateArt(artIni).rotation;
-		loadSphere (EndSphere, artEnd, "EndSphere");
-		//		EndSphere.transform.localRotation = translateArt(artEnd).rotation;
+		loadSphere(IniSphere, artIni, "IniSphere");
+		loadSphere(EndSphere, artEnd, "EndSphere");
 
 		ShowMovement();
-
-	
-
 	}
 
 
@@ -145,8 +140,6 @@ public class MoveDummyScript : MonoBehaviour {
 
 		prefabSphere.transform.parent = translateArt(art);
 	}
-
-
 
 
 	public void ShowMovement() {
@@ -165,18 +158,24 @@ public class MoveDummyScript : MonoBehaviour {
 		}
 		translateArt(artIni).transform.eulerAngles = rotEnd;
 
-		yield return new WaitForSeconds (3);
+		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotIni.x)) ||
+		       (Mathf.Round(actualRot.z) != Mathf.Round(rotIni.z))) {
+			translateArt(artIni).transform.Rotate(Vector3.left * -1f);
+			actualRot = translateArt(artIni).transform.eulerAngles;
+			yield return null;
+		}
+		translateArt(artIni).transform.eulerAngles = rotIni;
+		
+		yield return new WaitForSeconds(1);
 		translateArt(artIni).eulerAngles = repPos;
 	}
 
 
-	public void deleteSphere(string name)
-	{
+	public void deleteSphere(string name) {
 		GameObject go = GameObject.Find(name);
-		if (go != null){
-		
+
+		if (go != null)
 			Destroy(go);
-		}
 	}
 
 	//Traductor entre los joints del fichero de definicion y el skeleton de kinect
@@ -192,10 +191,10 @@ public class MoveDummyScript : MonoBehaviour {
 			case 13: return GameObject.Find ("RightForeArm").transform;
 			case 14: return GameObject.Find ("RightHand").transform;
 			case 17: return GameObject.Find ("LeftUpLeg").transform;
-			case 18: return GameObject.Find ("LeftLeg").transform;
+			case 18: return GameObject.Find ("JointLeftLeg").transform;
 			case 19: return GameObject.Find ("LeftFoot").transform;
 			case 21: return GameObject.Find ("RightUpLeg").transform;
-			case 22: return GameObject.Find ("RightLeg").transform;
+			case 22: return GameObject.Find ("JointRightLeg").transform;
 			case 23: return GameObject.Find ("RightFoot").transform;
 			default: return GameObject.Find ("Head").transform;
 		}
