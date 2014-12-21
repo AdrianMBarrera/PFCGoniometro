@@ -9,6 +9,7 @@ public class AnyExerciseScript : MonoBehaviour {
 
 	private Text helper; // texto de ayuda
 	private LoadingScript loading; // llamar a pasar de nivel
+
 	// Use this for initialization
 	void Start () {
 		helper = GameObject.Find("HelpText").GetComponent<Text>();
@@ -23,26 +24,19 @@ public class AnyExerciseScript : MonoBehaviour {
 	}
 
 
-	public void AnyExercise(string nameLevel){
-
-		if (InfoPlayer.alExercise.Count < 1){
+	public void AnyExercise(string nameLevel) {
+		if (InfoPlayer.alExercise.Count < 1)
 			StartCoroutine("HelpCoroutine");
-
-		}else{
-			loading.BeginLevel(nameLevel);
-
-		}
-
+		else
+			loading.BeginLevel(nameLevel); 
 	}
 
 
 
-	IEnumerator HelpCoroutine(){
+	IEnumerator HelpCoroutine() {
 		helper.enabled = true;
-		yield return new  WaitForSeconds (3f);
+		yield return new WaitForSeconds(3f);
 		helper.enabled = false;
-
-
 	}
 
 }
