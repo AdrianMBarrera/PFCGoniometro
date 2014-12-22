@@ -9,42 +9,34 @@ using UnityEngine.UI;
 
 public class MoveDummyScript : MonoBehaviour {
 
-	public GameObject IniSphere; //prefabs
+	//Prefabs
+	public GameObject IniSphere;
 	public GameObject EndSphere;
 	public GameObject ReferenceSphere;
 	public GameObject RestrictSphere;
 	private GameObject ButtonPool;
-	//public GameObject DummyPrefab;
-
 
 	private int artIni, artEnd, refId, inicio, eje = 0;
 	private float minimo, maximo;
-	private Vector3 rotIni;
-	private Vector3 rotEnd;
 	Vector plane = new Vector(); // plano de medicion->definido en el fichero de definiciones
 	Vector initBone = new Vector(); //posicion inicial del brazo, con respecto a esta posicion se medira
-	Vector referenceArt = new Vector();
-	// Use this for initialization
-	List<Pose> poseList = new List<Pose>();  //Lista de articulaciones a tener en cuenta durante el ejercicio 
-
-
-
+	Vector referenceArt = new Vector(); //articulacion de referencia
+	List<Pose> poseList = new List<Pose>();  //Lista de articulaciones a tener en cuenta durante el ejercicio
+	private Vector3 rotIni; //Rotacion ArtIni
+	private Vector3 rotEnd; //Rotacion ArtFin
 
 
 	void Start () {
-	
 		ButtonPool = GameObject.Find("buttonPool");
-
-
-
 	}
-	
-	// Update is called once per frame
+
+
 	void Update () {
 	
 	}
 
-	
+
+	/* Cargar fichero XML del ejercicio y mostrar el movimiento a realizar */
 	public void LoadXml(){
 			
 		deleteSphere("IniSphere");
@@ -65,7 +57,7 @@ public class MoveDummyScript : MonoBehaviour {
 		XmlNodeList rotI = xDoc.GetElementsByTagName("rotIni");
 		XmlNodeList rotE = xDoc.GetElementsByTagName("rotEnd");
 		XmlNodeList reference = xDoc.GetElementsByTagName ("reference");
-		XmlNodeList frames = ((XmlElement)exer[0]).GetElementsByTagName("Restrictions");
+		XmlNodeList restrictions = ((XmlElement)exer[0]).GetElementsByTagName("Restrictions");
 		
 		//Angulos maximo y minimo de ejercicio
 		minimo = Convert.ToInt16(angles[0].Attributes["min"].InnerText);
@@ -99,22 +91,24 @@ public class MoveDummyScript : MonoBehaviour {
 	*/		
 
 		XmlNodeList ID;
-			XmlNodeList ID1;		
-			XmlNodeList FX;
-			XmlNodeList FY;
-			XmlNodeList FZ;
-			XmlNodeList G;
-			
-			foreach (XmlElement frame in frames) {
-				
+		XmlNodeList ID1;		
+		XmlNodeList FX;
+		XmlNodeList FY;
+		XmlNodeList FZ;
+		XmlNodeList G;
+
+		//Si hay alguna restriccion en el ejercicio...
+		if (restrictions.Item(0).HasChildNodes) {
+
+			foreach (XmlElement restriction in restrictions) {
 				int i = 0;
 				Pose pose = new Pose();	
-				ID = frame.GetElementsByTagName("initialId");
-				ID1 = frame.GetElementsByTagName("finalId");
-				FX = frame.GetElementsByTagName("x");
-				FY = frame.GetElementsByTagName("y");
-				FZ = frame.GetElementsByTagName("z");
-				G = frame.GetElementsByTagName("grade");
+				ID = restriction.GetElementsByTagName("initialId");
+				ID1 = restriction.GetElementsByTagName("finalId");
+				FX = restriction.GetElementsByTagName("x");
+				FY = restriction.GetElementsByTagName("y");
+				FZ = restriction.GetElementsByTagName("z");
+				G = restriction.GetElementsByTagName("grade");
 				
 				//define el hueso que vamos a tener en cuenta
 				pose.SetArt(Convert.ToInt16(ID[i].InnerText));
@@ -134,71 +128,66 @@ public class MoveDummyScript : MonoBehaviour {
 				poseList.Add (pose);
 				i++; 
 			}
+		}
 
+		//Cargamos las esferas en las articulaciones principales
 		loadSphere(IniSphere, artIni, "IniSphere");
 		loadSphere(EndSphere, artEnd, "EndSphere");
 
+		//Se ejecuta el movimiento
 		ShowMovement();
 	}
 
 
-
+	/* Cargar esfera */
 	public void loadSphere(GameObject prefabSphere, int art, string name){
+		//Se instancia el prefab en la posicion de la articulacion
 		prefabSphere = Instantiate(prefabSphere, translateArt(art).position, Quaternion.identity) as GameObject;
 		prefabSphere.name = name;
-
+		//Se le asigna el padre, que sera la articulacion que representa, de forma que se mueva y rote con ella
 		prefabSphere.transform.parent = translateArt(art);
 	}
 
 
+	/* Mostrar el movimiento del ejercicio */
 	public void ShowMovement() {
 		Vector3 reposePos = translateArt(artIni).eulerAngles;
 		translateArt(artIni).eulerAngles = new Vector3(rotIni.x, rotIni.y, rotIni.z);
 		StartCoroutine (RotateArt(reposePos));
-
-
-
 	}
 
-
-
-
-
-	// corutina que hace el movimiento de la articulacion 
-
+	
+	/* Corutina que hace el movimiento de la articulacion */
 	IEnumerator RotateArt(Vector3 repPos) {
 		SetStateButtons(false);
 
-		//restriccion
+		// Restricciones
 		if (poseList.Count > 0){
-			for(int i=0; i < poseList.Count; i++){
+			for(int i = 0; i < poseList.Count; i++){
 				poseList[i].ReposePos = translateArt(poseList[i].Art).eulerAngles;
-				translateArt(poseList[i].Art1).position = new Vector3(translateArt(poseList[i].Art).localPosition.x + poseList[i].Bone.GetX(),
-				                                 					  translateArt(poseList[i].Art).localPosition.y + poseList[i].Bone.GetY(),
-				                                 					  translateArt(poseList[i].Art).localPosition.z + poseList[i].Bone.GetZ());
-				Debug.Log("nombre " +translateArt(poseList[i].Art).name);
-				Debug.Log ("valor x de art " + translateArt(poseList[i].Art).localPosition.x);
-				Debug.Log ("valor y de art " + translateArt(poseList[i].Art).localPosition.y);
-				Debug.Log ("valor z de art " + translateArt(poseList[i].Art).localPosition.z);
-				Debug.Log ("valor x de bone " + poseList[i].Bone.GetX());
-				Debug.Log ("valor y de bone " + poseList[i].Bone.GetY());
-				Debug.Log ("valor z de bone " + poseList[i].Bone.GetZ());
+//				translateArt(poseList[i].Art1).position = new Vector3(translateArt(poseList[i].Art).localPosition.x + poseList[i].Bone.GetX(),
+//				                                 					  translateArt(poseList[i].Art).localPosition.y + poseList[i].Bone.GetY(),
+//				                                 					  translateArt(poseList[i].Art).localPosition.z + poseList[i].Bone.GetZ());
+				Vector3 aux = new Vector3(translateArt(poseList[i].Art).localPosition.x - poseList[i].Bone.GetX(),
+				                          translateArt(poseList[i].Art).localPosition.y - poseList[i].Bone.GetY(),
+				                          translateArt(poseList[i].Art).localPosition.z - poseList[i].Bone.GetZ());
+//				aux = transform.InverseTransformPoint(aux);
+//				translateArt(poseList[i].Art1).rotation.eulerAngles = transform.TransformDirection(aux);
+				translateArt(poseList[i].Art).LookAt(aux, Vector3.up);
 
-
-				                              
+//				Debug.Log("nombre " +translateArt(poseList[i].Art).name);
+//				Debug.Log ("valor x de art " + translateArt(poseList[i].Art).localPosition.x);
+//				Debug.Log ("valor y de art " + translateArt(poseList[i].Art).localPosition.y);
+//				Debug.Log ("valor z de art " + translateArt(poseList[i].Art).localPosition.z);
+//				Debug.Log ("valor x de bone " + poseList[i].Bone.GetX());
+//				Debug.Log ("valor y de bone " + poseList[i].Bone.GetY());
+//				Debug.Log ("valor z de bone " + poseList[i].Bone.GetZ());			                              
 			}
-
-
-
 		}
-
-
-
-
+		
 		yield return new WaitForSeconds (1f);
 
-
-		//movimiento
+		/** Inicio de movimiento **/
 		Vector3 actualRot = translateArt(artIni).transform.eulerAngles;
 		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotEnd.x)) ||
 		       (Mathf.Round(actualRot.z) != Mathf.Round(rotEnd.z))) {
@@ -215,34 +204,37 @@ public class MoveDummyScript : MonoBehaviour {
 			yield return null;
 		}
 		translateArt(artIni).transform.eulerAngles = rotIni;
+		/** Fin de movimiento **/
+
 		yield return new WaitForSeconds(1.5f);
+
+		// Trasladamos las articulaciones de las restricciones a su posicion de reposo
+		if (poseList.Count > 0){
+			for(int i = 0; i < poseList.Count; i++)
+				translateArt(poseList[i].Art).eulerAngles = poseList[i].ReposePos;		                              
+		}
 		translateArt(artIni).eulerAngles = repPos;
+
 		SetStateButtons(true);
-
-
-
 	}
 
 
-	// poner los botones de los movimientos no interactuable o interactuables
-
+	/* Poner los botones de los movimientos interactuables o no interactuables */
 	void SetStateButtons(bool state){
-		foreach (Transform b  in ButtonPool.transform){
+		foreach (Transform b  in ButtonPool.transform)
 			b.GetComponent<Button>().interactable = state;
-		}
 	}
 
 
 	
-	//borrar el objeto
+	/* Borrar la esfera */
 	public void deleteSphere(string name) {
 		GameObject go = GameObject.Find(name);
-
 		if (go != null)
 			Destroy(go);
 	}
 
-	//Traductor entre los joints del fichero de definicion y el skeleton de kinect
+	/* Traductor entre los joints del fichero de definicion y Carl */
 	public Transform translateArt(int op) {
 		switch (op) {
 			case 1:	return GameObject.Find ("Head").transform;

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<EXERCISE initialId="6" finalId="8">
-  <ang min="0" max="94" />
-  <axis x="6" y="0" z="0" />
+<EXERCISE initialId="12" finalId="14">
+  <ang min="0" max="180" />
+  <axis x="0" y="0" z="0" />
   <ini x="0" y="-2" z="0" />
+  <rotIni x="0" y="270" z="0" />
+  <rotEnd x="0" y="90" z="180" />
   <reference id="0" x="" y="" z="" />
-  <Restrictions />
+  <Restrictions>
+    <Restriction>
+      <initialId>6</initialId>
+      <finalId>8</finalId>
+      <x>2</x>
+      <y>2</y>
+      <z>0</z>
+      <grade>0</grade>
+    </Restriction>
+  </Restrictions>
 </EXERCISE>
