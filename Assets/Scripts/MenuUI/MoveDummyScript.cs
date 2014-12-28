@@ -165,23 +165,24 @@ public class MoveDummyScript : MonoBehaviour {
 		if (poseList.Count > 0){
 			for(int i = 0; i < poseList.Count; i++){
 				poseList[i].ReposePos = translateArt(poseList[i].Art).eulerAngles;
-//				translateArt(poseList[i].Art1).position = new Vector3(translateArt(poseList[i].Art).localPosition.x + poseList[i].Bone.GetX(),
-//				                                 					  translateArt(poseList[i].Art).localPosition.y + poseList[i].Bone.GetY(),
-//				                                 					  translateArt(poseList[i].Art).localPosition.z + poseList[i].Bone.GetZ());
-				Vector3 aux = new Vector3(translateArt(poseList[i].Art).localPosition.x - poseList[i].Bone.GetX(),
-				                          translateArt(poseList[i].Art).localPosition.y - poseList[i].Bone.GetY(),
-				                          translateArt(poseList[i].Art).localPosition.z - poseList[i].Bone.GetZ());
-//				aux = transform.InverseTransformPoint(aux);
-//				translateArt(poseList[i].Art1).rotation.eulerAngles = transform.TransformDirection(aux);
-				translateArt(poseList[i].Art).LookAt(aux, Vector3.up);
+				//translateArt(poseList[i].Art1).position
+				Vector3 aux = new Vector3(translateArt(poseList[i].Art).position.x + poseList[i].Bone.GetX(),
+				                                 					  translateArt(poseList[i].Art).position.y + poseList[i].Bone.GetY(),
+				                                 					  translateArt(poseList[i].Art).position.z + poseList[i].Bone.GetZ());
 
-//				Debug.Log("nombre " +translateArt(poseList[i].Art).name);
-//				Debug.Log ("valor x de art " + translateArt(poseList[i].Art).localPosition.x);
-//				Debug.Log ("valor y de art " + translateArt(poseList[i].Art).localPosition.y);
-//				Debug.Log ("valor z de art " + translateArt(poseList[i].Art).localPosition.z);
-//				Debug.Log ("valor x de bone " + poseList[i].Bone.GetX());
-//				Debug.Log ("valor y de bone " + poseList[i].Bone.GetY());
-//				Debug.Log ("valor z de bone " + poseList[i].Bone.GetZ());			                              
+
+//				translateArt(poseList[i].Art1).transform.position = aux;
+				//aux = transform.InverseTransformPoint(aux);
+//				translateArt(poseList[i].Art1).rotation.eulerAngles = transform.TransformDirection(aux);
+				translateArt(poseList[i].Art).LookAt(aux, Vector3.left);
+
+				Debug.Log("nombre " +translateArt(poseList[i].Art).name);
+				Debug.Log ("valor x de art " + translateArt(poseList[i].Art1).localPosition.x);
+				Debug.Log ("valor y de art " + translateArt(poseList[i].Art1).localPosition.y);
+				Debug.Log ("valor z de art " + translateArt(poseList[i].Art1).localPosition.z);
+				Debug.Log ("valor x de bone " + poseList[i].Bone.GetX());
+				Debug.Log ("valor y de bone " + poseList[i].Bone.GetY());
+				Debug.Log ("valor z de bone " + poseList[i].Bone.GetZ());			                              
 			}
 		}
 		
@@ -241,11 +242,11 @@ public class MoveDummyScript : MonoBehaviour {
 			case 2: return GameObject.Find ("Neck").transform;
 			case 3: return GameObject.Find ("Spine1").transform;
 			case 6: return GameObject.Find ("JointLeftArm").transform;
-			case 7: return GameObject.Find ("LeftForeArm").transform;
-			case 8: return GameObject.Find ("LeftHand").transform;
+			case 7: return GameObject.Find ("JointLeftForeArm").transform;
+			case 8: return GameObject.Find ("JointLeftHand").transform;
 			case 12: return GameObject.Find ("JointRightArm").transform;
-			case 13: return GameObject.Find ("RightForeArm").transform;
-			case 14: return GameObject.Find ("RightHand").transform;
+			case 13: return GameObject.Find ("JointRightForeArm").transform;
+			case 14: return GameObject.Find ("JointRightHand").transform;
 			case 17: return GameObject.Find ("LeftUpLeg").transform;
 			case 18: return GameObject.Find ("JointLeftLeg").transform;
 			case 19: return GameObject.Find ("LeftFoot").transform;

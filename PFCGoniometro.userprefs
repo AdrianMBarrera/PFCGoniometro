@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\Dropbox\MakeAGame - Brackeys\Assets\Scripts\BallControlScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuUI\MoveDummyScript.cs">
     <Files>
-      <File FileName="..\..\Dropbox\MakeAGame - Brackeys\Assets\Scripts\BallControlScript.cs" Line="23" Column="20" />
+      <File FileName="Assets\Scripts\MenuUI\MoveDummyScript.cs" Line="177" Column="59" />
+      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="180" Column="97" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
