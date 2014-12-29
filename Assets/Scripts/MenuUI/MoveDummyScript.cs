@@ -95,6 +95,9 @@ public class MoveDummyScript : MonoBehaviour {
 		XmlNodeList FX;
 		XmlNodeList FY;
 		XmlNodeList FZ;
+		XmlNodeList RX;
+		XmlNodeList RY;
+		XmlNodeList RZ;
 		XmlNodeList G;
 
 		//Si hay alguna restriccion en el ejercicio...
@@ -108,6 +111,9 @@ public class MoveDummyScript : MonoBehaviour {
 				FX = restriction.GetElementsByTagName("x");
 				FY = restriction.GetElementsByTagName("y");
 				FZ = restriction.GetElementsByTagName("z");
+				RX = restriction.GetElementsByTagName("rotX");
+				RY = restriction.GetElementsByTagName("rotY");
+				RZ = restriction.GetElementsByTagName("rotZ");
 				G = restriction.GetElementsByTagName("grade");
 				
 				//define el hueso que vamos a tener en cuenta
@@ -120,6 +126,10 @@ public class MoveDummyScript : MonoBehaviour {
 				aux.SetY(Convert.ToInt16(FY[i].InnerText));
 				aux.SetZ(Convert.ToInt16(FZ[i].InnerText));
 				pose.SetBone(aux);
+
+				pose.RotIni = new Vector3(Convert.ToInt16(RX[i].InnerText),
+				                              Convert.ToInt16(RY[i].InnerText),
+				                              Convert.ToInt16(RZ[i].InnerText));
 				
 				//define las restricciones en angulos con respecto a la posicion correcta
 				pose.SetGrado(Convert.ToInt16(G[i].InnerText));
@@ -165,24 +175,7 @@ public class MoveDummyScript : MonoBehaviour {
 		if (poseList.Count > 0){
 			for(int i = 0; i < poseList.Count; i++){
 				poseList[i].ReposePos = translateArt(poseList[i].Art).eulerAngles;
-				//translateArt(poseList[i].Art1).position
-				Vector3 aux = new Vector3(translateArt(poseList[i].Art).position.x + poseList[i].Bone.GetX(),
-				                                 					  translateArt(poseList[i].Art).position.y + poseList[i].Bone.GetY(),
-				                                 					  translateArt(poseList[i].Art).position.z + poseList[i].Bone.GetZ());
-
-
-//				translateArt(poseList[i].Art1).transform.position = aux;
-				//aux = transform.InverseTransformPoint(aux);
-//				translateArt(poseList[i].Art1).rotation.eulerAngles = transform.TransformDirection(aux);
-				translateArt(poseList[i].Art).LookAt(aux, Vector3.left);
-
-				Debug.Log("nombre " +translateArt(poseList[i].Art).name);
-				Debug.Log ("valor x de art " + translateArt(poseList[i].Art1).localPosition.x);
-				Debug.Log ("valor y de art " + translateArt(poseList[i].Art1).localPosition.y);
-				Debug.Log ("valor z de art " + translateArt(poseList[i].Art1).localPosition.z);
-				Debug.Log ("valor x de bone " + poseList[i].Bone.GetX());
-				Debug.Log ("valor y de bone " + poseList[i].Bone.GetY());
-				Debug.Log ("valor z de bone " + poseList[i].Bone.GetZ());			                              
+				translateArt(poseList[i].Art).transform.eulerAngles = new Vector3(poseList[i].RotIni.x, poseList[i].RotIni.y, poseList[i].RotIni.z);		                              
 			}
 		}
 		

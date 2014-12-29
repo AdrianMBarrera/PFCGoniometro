@@ -150,6 +150,8 @@ public class Restriction {
 	public string finalArt = "";
 
 	public int x, y, z;
+
+	public int rotX, rotY, rotZ;
 	
 	public int grade = 0;
 

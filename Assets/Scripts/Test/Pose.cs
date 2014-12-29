@@ -7,6 +7,7 @@ public class Pose {
 	public Vector bone; // posicion correcta del hueso
 	public float grado; // restriccion en grados
 	private Vector3 reposePos;
+	private Vector3 rotIni;
 
 
 
@@ -30,6 +31,11 @@ public class Pose {
 	public Vector3 ReposePos{
 		set{reposePos = value;}
 		get{return reposePos;}
+	}
+
+	public Vector3 RotIni{
+		set{rotIni = value;}
+		get{return rotIni;}
 	}
 
 	public int Art{

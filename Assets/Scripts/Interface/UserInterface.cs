@@ -166,9 +166,6 @@ public class UserInterface : MonoBehaviour {
 		artSelection();
 		
 		if (!restriction.finalArt.Equals("")) {
-			/*restriction.x = (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.x);
-			restriction.y = (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.y);
-			restriction.z = (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.z);*/
 
 			restriction.x = (int) Mathf.Round(GameObject.Find(restriction.finalArt).transform.position.x)
 				          - (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.x);
@@ -178,6 +175,10 @@ public class UserInterface : MonoBehaviour {
 
 			restriction.z = (int) Mathf.Round(GameObject.Find(restriction.finalArt).transform.position.z)
 				          - (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.position.z);
+
+			restriction.rotX = (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.eulerAngles.x);
+			restriction.rotY = (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.eulerAngles.y);
+			restriction.rotZ = (int) Mathf.Round(GameObject.Find(restriction.initialArt).transform.eulerAngles.z);
 			
 			GUI.Label(new Rect(Screen.width-Screen.width/4+150, 200, 200, 30),
 			          Mathf.Round(GameObject.Find(restriction.initialArt).transform.rotation.eulerAngles.x).ToString());

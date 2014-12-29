@@ -10,9 +10,12 @@
     <Restriction>
       <initialId>12</initialId>
       <finalId>14</finalId>
-      <x>1</x>
-      <y>2</y>
-      <z>0</z>
+      <x>0</x>
+      <y>-1</y>
+      <z>-2</z>
+      <rotX>295</rotX>
+      <rotY>180</rotY>
+      <rotZ>0</rotZ>
       <grade>0</grade>
     </Restriction>
   </Restrictions>
