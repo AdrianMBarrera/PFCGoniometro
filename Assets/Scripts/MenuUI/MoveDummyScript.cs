@@ -15,12 +15,13 @@ public class MoveDummyScript : MonoBehaviour {
 	public GameObject ReferenceSphere;
 	public GameObject RestrictSphere;
 	private GameObject ButtonPool;
+	private int artIni, artEnd;
 
-	private int artIni, artEnd, refId, inicio, eje = 0;
-	private float minimo, maximo;
+//	private int artIni, artEnd, refId, inicio, eje = 0;
+//	private float minimo, maximo;
 	Vector plane = new Vector(); // plano de medicion->definido en el fichero de definiciones
 	Vector initBone = new Vector(); //posicion inicial del brazo, con respecto a esta posicion se medira
-	Vector referenceArt = new Vector(); //articulacion de referencia
+//	Vector referenceArt = new Vector(); //articulacion de referencia
 	List<Pose> poseList = new List<Pose>();  //Lista de articulaciones a tener en cuenta durante el ejercicio
 	private Vector3 rotIni; //Rotacion ArtIni
 	private Vector3 rotEnd; //Rotacion ArtFin
@@ -60,8 +61,8 @@ public class MoveDummyScript : MonoBehaviour {
 		XmlNodeList restrictions = ((XmlElement)exer[0]).GetElementsByTagName("Restrictions");
 		
 		//Angulos maximo y minimo de ejercicio
-		minimo = Convert.ToInt16(angles[0].Attributes["min"].InnerText);
-		maximo = Convert.ToInt16(angles[0].Attributes["max"].InnerText);
+//		minimo = Convert.ToInt16(angles[0].Attributes["min"].InnerText);
+//		maximo = Convert.ToInt16(angles[0].Attributes["max"].InnerText);
 		
 		//plano sobre el que se va a realizar la medicion
 		plane.SetX(Convert.ToInt16(vector[0].Attributes["x"].InnerText));

@@ -4,12 +4,12 @@ using System.Collections;
 public class RotateSphere : MonoBehaviour {
 
 	public float Speed = 5f;
-	public string Art = "";
+	public string Art = "RightShoulder";
 	public int Step = 0;
 
-	bool selectBlue	 = true;
-	bool selectGreen = true;
-	bool selectRed	 = true;
+	bool selectBlue	 = false;
+	bool selectGreen = false;
+	bool selectRed	 = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,34 +22,82 @@ public class RotateSphere : MonoBehaviour {
 			transform.position = GameObject.Find(Art).transform.position;
 			transform.rotation = GameObject.Find(Art).transform.rotation;
 
-			if (Input.GetMouseButtonUp(0)) {
-				selectBlue 	= true;
-				selectGreen = true;
-				selectRed 	= true;
-			}
+//			if (Input.GetMouseButtonUp(0)) {
+//				selectBlue 	= true;
+//				selectGreen = true;
+//				selectRed 	= true;
+//
+//			}
 
+			if (Input.GetMouseButtonUp(0)){
+				selectBlue = false;
+				selectRed = false;
+				selectGreen = false;
+			}
 			if (Input.GetMouseButton(0)) {
+
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				Debug.Log("nombre Camara " + Camera.main.name);
 				RaycastHit hit;
 
-				if ((selectBlue) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("blueCircle"))) {
-					selectGreen = false;
-					selectRed = false;
+//				if ((selectBlue) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("BlueCircle")))
+//				{
+//
+//						Debug.Log("Azull");
+//					selectGreen = false;
+//					selectRed = false;
+//					Debug.Log ("dentro fsgfdgsfdg");
+//					transform.Rotate(Vector3.right * Input.GetAxis("Mouse Y") * Speed);
+//					GameObject.Find(Art).transform.rotation = transform.rotation;
+//
+//				}
+
+//				else if ((selectGreen) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("GreenCircle"))) {
+//					selectBlue = false;
+//					selectRed = false;
+//					transform.Rotate(Vector3.back * Input.GetAxis("Mouse Y") * Speed);
+//					GameObject.Find(Art).transform.rotation = transform.rotation;
+//				}
+//				else if ((selectRed) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("RedCircle"))) {
+//					selectBlue = false;
+//					selectGreen	= false;
+//					transform.Rotate(Vector3.down * Input.GetAxis("Mouse X") * Speed);
+//					GameObject.Find(Art).transform.rotation = transform.rotation;
+//				}
+
+				if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("BlueCircle")) &&
+					(!selectGreen) && (!selectRed))
+				{
+					selectBlue = true;
+
+				}
+				if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("RedCircle")) &&
+				    (!selectBlue) && (!selectGreen))
+				{
+					selectRed = true;
+					
+				}
+				if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("GreenCircle")) &&
+				    (!selectBlue) && (!selectRed))
+				{
+					selectGreen = true;
+					
+				}
+
+				if ((selectBlue) && Input.GetMouseButton(0)){
 					transform.Rotate(Vector3.right * Input.GetAxis("Mouse Y") * Speed);
 					GameObject.Find(Art).transform.rotation = transform.rotation;
 				}
-				else if ((selectGreen) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("greenCircle"))) {
-					selectBlue = false;
-					selectRed = false;
-					transform.Rotate(Vector3.back * Input.GetAxis("Mouse Y") * Speed);
-					GameObject.Find(Art).transform.rotation = transform.rotation;
-				}
-				else if ((selectRed) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("redCircle"))) {
-					selectBlue = false;
-					selectGreen	= false;
+				if ((selectRed) && Input.GetMouseButton(0)){
 					transform.Rotate(Vector3.down * Input.GetAxis("Mouse X") * Speed);
 					GameObject.Find(Art).transform.rotation = transform.rotation;
 				}
+				if ((selectGreen) && Input.GetMouseButton(0)){
+					transform.Rotate(Vector3.back * Input.GetAxis("Mouse Y") * Speed);
+					GameObject.Find(Art).transform.rotation = transform.rotation;
+				}
+
+
 			}
 		}
 	}

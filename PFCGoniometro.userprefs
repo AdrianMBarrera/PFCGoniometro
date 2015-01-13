@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Interface\UserInterface.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\RestrictionStep.cs">
     <Files>
-      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="178" Column="4" />
-      <File FileName="Assets\Scripts\Interface\Exercise.cs" Line="154" Column="30" />
-      <File FileName="Assets\Scripts\MenuUI\MoveDummyScript.cs" Line="132" Column="69" />
-      <File FileName="Assets\Scripts\Test\Pose.cs" Line="38" Column="22" />
-      <File FileName="Exercises\test15.xml" Line="1" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" Line="41" Column="87" />
+      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="9" Column="2" />
+      <File FileName="Assets\NewEditor\Scripts\RestrictionStep.cs" Line="84" Column="61" />
+      <File FileName="Assets\Scripts\Interface\RotateSphere.cs" Line="69" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
