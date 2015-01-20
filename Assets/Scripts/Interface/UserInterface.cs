@@ -480,6 +480,7 @@ public class UserInterface : MonoBehaviour {
      * Mediante esta funcion seleccionaremos las articulaciones
      * que intervendran en el movimiento
      ****************************************************************/
+
 	public void artSelection() {
 		if (Input.GetMouseButtonUp(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

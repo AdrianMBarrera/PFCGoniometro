@@ -76,10 +76,10 @@ public class Reference {
 
 public class Angle {
 	[XmlAttribute("min")]
-	public string Min = "";
+	public string Min = "0";
 	
 	[XmlAttribute("max")]
-	public string Max = "";
+	public string Max = "0";
 
 	public Angle() {}
 }

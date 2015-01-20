@@ -46,8 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\NewEditor\Scripts\FinalPositionScript.cs" />
      <Compile Include="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" />
-     <Compile Include="Assets\NewEditor\Scripts\RestrictionStep.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\RestrictionScript.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\SaveScript.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\StartPositionScript.cs" />
      <Compile Include="Assets\Scripts\Interface\CameraSelection.cs" />
      <Compile Include="Assets\Scripts\Interface\Exercise.cs" />
      <Compile Include="Assets\Scripts\Interface\RotateSphere.cs" />

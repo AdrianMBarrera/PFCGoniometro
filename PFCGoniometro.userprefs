@@ -1,11 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\RestrictionStep.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\SaveScript.cs">
     <Files>
-      <File FileName="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" Line="41" Column="87" />
-      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="9" Column="2" />
-      <File FileName="Assets\NewEditor\Scripts\RestrictionStep.cs" Line="84" Column="61" />
-      <File FileName="Assets\Scripts\Interface\RotateSphere.cs" Line="69" Column="19" />
+      <File FileName="Assets\NewEditor\Scripts\StartPositionScript.cs" Line="33" Column="89" />
+      <File FileName="Assets\Scripts\Interface\RotateSphere.cs" Line="33" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" Line="22" Column="23" />
+      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="429" Column="14" />
+      <File FileName="Assets\NewEditor\Scripts\RestrictionScript.cs" Line="26" Column="89" />
+      <File FileName="Assets\NewEditor\Scripts\FinalPositionScript.cs" Line="41" Column="1" />
+      <File FileName="Assets\Scripts\Interface\Exercise.cs" Line="160" Column="1" />
+      <File FileName="Assets\Scripts\Interface\CameraSelection.cs" Line="1" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\SaveScript.cs" Line="14" Column="89" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

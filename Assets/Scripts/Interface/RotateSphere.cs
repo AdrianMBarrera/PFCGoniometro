@@ -4,7 +4,7 @@ using System.Collections;
 public class RotateSphere : MonoBehaviour {
 
 	public float Speed = 5f;
-	public string Art = "RightShoulder";
+	public string Art = "";
 	public int Step = 0;
 
 	bool selectBlue	 = false;
@@ -22,13 +22,6 @@ public class RotateSphere : MonoBehaviour {
 			transform.position = GameObject.Find(Art).transform.position;
 			transform.rotation = GameObject.Find(Art).transform.rotation;
 
-//			if (Input.GetMouseButtonUp(0)) {
-//				selectBlue 	= true;
-//				selectGreen = true;
-//				selectRed 	= true;
-//
-//			}
-
 			if (Input.GetMouseButtonUp(0)){
 				selectBlue = false;
 				selectRed = false;
@@ -37,13 +30,12 @@ public class RotateSphere : MonoBehaviour {
 			if (Input.GetMouseButton(0)) {
 
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				Debug.Log("nombre Camara " + Camera.main.name);
 				RaycastHit hit;
 
 //				if ((selectBlue) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("BlueCircle")))
 //				{
 //
-//						Debug.Log("Azull");
+//					Debug.Log("Azull");
 //					selectGreen = false;
 //					selectRed = false;
 //					Debug.Log ("dentro fsgfdgsfdg");

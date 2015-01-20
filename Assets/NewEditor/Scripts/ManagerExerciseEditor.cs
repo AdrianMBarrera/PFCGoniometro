@@ -8,18 +8,18 @@ using System.Text;
 
 public class ManagerExerciseEditor : MonoBehaviour {
 	
-	public LineRenderer line;
+	//public LineRenderer line;
 	public Exercise exercise = new Exercise();
-	public GameObject plano;
+	private GameObject plano;
 
-	private RestrictionStep firstStep;
+	private RestrictionScript firstStep;
 
 	private GameObject restrictionI;
 	private GameObject startPositionI;
 	private GameObject finalPositionI;
 	private GameObject saveI;
 
-
+	public Material wood;
 
 
 	
@@ -32,11 +32,11 @@ public class ManagerExerciseEditor : MonoBehaviour {
 		saveI = GameObject.Find("SaveInterface");
 
 		plano = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		plano.name = "Plano";
+		plano.name = "Plane";
 		plano.transform.localScale = new Vector3(0.05f, 7f, 7f);
 		plano.collider.enabled = false;
 		plano.renderer.enabled = false;
-		firstStep = GameObject.Find("RestrictionsInterface").GetComponent<RestrictionStep>();
+
 		
 	//	sphereScript = GameObject.Find ("Esfera_Movimiento").GetComponent<RotateSphere>();
 		
@@ -52,22 +52,30 @@ public class ManagerExerciseEditor : MonoBehaviour {
 	void Update () {
 	
 		if (restrictionI.GetComponent<Canvas>().enabled){
-			restrictionI.GetComponent<RestrictionStep>().enabled = true;
-
+			restrictionI.GetComponent<RestrictionScript>().enabled = true;
+			startPositionI.GetComponent<StartPositionScript>().enabled = false;
+			finalPositionI.GetComponent<FinalPositionScript>().enabled = false;
+			saveI.GetComponent<SaveScript>().enabled = false;
 		}
+
 		if (startPositionI.GetComponent<Canvas>().enabled){
-			restrictionI.GetComponent<RestrictionStep>().enabled = false;
-			
+			restrictionI.GetComponent<RestrictionScript>().enabled = false;
+			startPositionI.GetComponent<StartPositionScript>().enabled = true;
+			finalPositionI.GetComponent<FinalPositionScript>().enabled = false;
+			saveI.GetComponent<SaveScript>().enabled = false;
 		}
 
 		if (finalPositionI.GetComponent<Canvas>().enabled){
-			restrictionI.GetComponent<RestrictionStep>().enabled = false;
-			
+			restrictionI.GetComponent<RestrictionScript>().enabled = false;
+			startPositionI.GetComponent<StartPositionScript>().enabled = false;
+			finalPositionI.GetComponent<FinalPositionScript>().enabled = true;
+			saveI.GetComponent<SaveScript>().enabled = true;
 		}
 
 		if (saveI.GetComponent<Canvas>().enabled){
-			restrictionI.GetComponent<RestrictionStep>().enabled = false;
-			
+			restrictionI.GetComponent<RestrictionScript>().enabled = false;
+			startPositionI.GetComponent<StartPositionScript>().enabled = false;
+			finalPositionI.GetComponent<FinalPositionScript>().enabled = false;
 		}
 	}
 
