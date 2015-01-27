@@ -12,7 +12,7 @@ public class ManagerExerciseEditor : MonoBehaviour {
 	public Exercise exercise = new Exercise();
 	private GameObject plano;
 
-	private RestrictionScript firstStep;
+
 
 	private GameObject restrictionI;
 	private GameObject startPositionI;
@@ -55,27 +55,28 @@ public class ManagerExerciseEditor : MonoBehaviour {
 			restrictionI.GetComponent<RestrictionScript>().enabled = true;
 			startPositionI.GetComponent<StartPositionScript>().enabled = false;
 			finalPositionI.GetComponent<FinalPositionScript>().enabled = false;
-			saveI.GetComponent<SaveScript>().enabled = false;
+//			saveI.GetComponent<SaveScript>().enabled = false;
 		}
 
 		if (startPositionI.GetComponent<Canvas>().enabled){
 			restrictionI.GetComponent<RestrictionScript>().enabled = false;
 			startPositionI.GetComponent<StartPositionScript>().enabled = true;
 			finalPositionI.GetComponent<FinalPositionScript>().enabled = false;
-			saveI.GetComponent<SaveScript>().enabled = false;
+//			saveI.GetComponent<SaveScript>().enabled = false;
 		}
 
 		if (finalPositionI.GetComponent<Canvas>().enabled){
 			restrictionI.GetComponent<RestrictionScript>().enabled = false;
 			startPositionI.GetComponent<StartPositionScript>().enabled = false;
 			finalPositionI.GetComponent<FinalPositionScript>().enabled = true;
-			saveI.GetComponent<SaveScript>().enabled = true;
+//			saveI.GetComponent<SaveScript>().enabled = false;
 		}
 
 		if (saveI.GetComponent<Canvas>().enabled){
 			restrictionI.GetComponent<RestrictionScript>().enabled = false;
 			startPositionI.GetComponent<StartPositionScript>().enabled = false;
 			finalPositionI.GetComponent<FinalPositionScript>().enabled = false;
+//			saveI.GetComponent<SaveScript>().enabled = true;
 		}
 	}
 

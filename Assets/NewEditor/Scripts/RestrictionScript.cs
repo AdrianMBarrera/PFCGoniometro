@@ -11,7 +11,7 @@ public class RestrictionScript : MonoBehaviour {
 	private Text restY;
 	private Text restZ;
 	private Text grades;
-	private Restriction restriction = new Restriction();
+	private Restriction restriction;
 
 	private bool selectInitial = false; // variable para controlar la seleccion de la articulacion inicial de restriccion
 	private bool selectFinal = false; // variable para controlar la seleccion de la articulacion final de restriccion
@@ -19,13 +19,15 @@ public class RestrictionScript : MonoBehaviour {
 	private float catchTime = 1.0f;
 	private RotateSphere sphereScript; //Script de la esfera
 	private Material wood;
-	private int cont = 0;
+//	private int cont = 0;
 	
 	// Use this for initialization
 	void Start () {
+		Debug.Log("dfjlasjdfñlasdjflñasdjfñla");
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
 		sphereScript = GameObject.Find ("Esfera_Movimiento").GetComponent<RotateSphere>();
 		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
+		restriction = new Restriction();
 		initArt = GameObject.Find("RestInitialArticulation").GetComponent<Text>();
 		finalArt = GameObject.Find("RestFinalArticulation").GetComponent<Text>();
 		restX = GameObject.Find("RestX").GetComponent<Text>();
@@ -34,24 +36,20 @@ public class RestrictionScript : MonoBehaviour {
 		grades = GameObject.Find("GradesInputField").GetComponentInChildren<Text>();
 	}
 
-
 	// Update is called once per frame
 	void Update () {
 		sphereScript.Step = 0;
 		if (Input.GetMouseButtonUp(0)){
 			artSelection();
-
-			cont += 1;
-			Debug.Log("Contador " + cont);
-
 		}
 		ShowInterface();
-
 	}
 
 
 	void ShowInterface(){
 
+		initArt.text = "Initial articulation: " + restriction.initialArt;
+		finalArt.text = "Final articulation: " + restriction.finalArt;
 		if (!restriction.finalArt.Equals("")) {
 			
 			restriction.x = (int) Mathf.Round(GameObject.Find(restriction.finalArt).transform.position.x)
@@ -84,18 +82,23 @@ public class RestrictionScript : MonoBehaviour {
 	public void AddRestriction(){
 
 		if ((grades.text != null) && (grades.text.CompareTo("")!= 0))
-		restriction.grade =  int.Parse(grades.text);
+			restriction.grade =  int.Parse(grades.text);
+		Debug.Log ("Restriction " + restriction.initialArt);
 		exercise.Restrictions.Add(restriction);
 		restriction = new Restriction();
 		selectInitial = false;
 		selectFinal = false;
 
+
 	}
 
 
 	public void PassToManager(){
-		GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise = exercise;
+		foreach (Restriction r in exercise.Restrictions) {
+			Debug.Log ("Restriction: " + r.initialArt);
+		}
 
+		GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise = exercise;
 	}
 
 
@@ -105,8 +108,6 @@ public class RestrictionScript : MonoBehaviour {
 		 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			string nameInitialArt = restriction.initialArt;
-			string nameFinalArt = restriction.finalArt;
 
 			Color iniColor = Color.black;
 			Color finalColor = Color.black;
@@ -114,38 +115,57 @@ public class RestrictionScript : MonoBehaviour {
 			if ((Physics.Raycast(ray, out hit)) && ((Time.time-lastClick) > catchTime)) {
 				
 				if ((!selectInitial) && (!selectFinal)) {
-					nameInitialArt = hit.collider.gameObject.name;
+
+					restriction.initialArt = hit.collider.gameObject.name;
 					hit.collider.gameObject.renderer.material.color = iniColor;
 					selectInitial = true;
-					initArt.text += nameInitialArt; // poner en la gui art inicial
+
 				}
-				else if ((selectInitial) && (!selectFinal) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
-					nameInitialArt = "";
+				else if ((selectInitial) && (!selectFinal) &&
+			         (hit.collider.gameObject.name.Equals(restriction.initialArt))) {
+
+					restriction.initialArt ="";
 					hit.collider.gameObject.renderer.material = wood;
+					sphereScript.Art = "";
 					selectInitial = false;
-					initArt.text = "Initial articulation: ";
+
 				}
-				else if ((selectInitial) && (!selectFinal) && (!hit.collider.gameObject.name.Equals(nameInitialArt))) {
-					nameFinalArt = hit.collider.gameObject.name;
+				else if ((selectInitial) && (!selectFinal) &&
+			         (!hit.collider.gameObject.name.Equals(restriction.initialArt))) {
+
 					hit.collider.gameObject.renderer.material.color = finalColor;
 					selectFinal = true;
-					finalArt.text += nameFinalArt; // poner en la gui art inicial
-					sphereScript.Art = nameInitialArt; // Articulacion que tiene que rotar la esfera 
+					restriction.finalArt = hit.collider.gameObject.name; // poner en la gui art inicial
+					sphereScript.Art = restriction.initialArt; // Articulacion que tiene que rotar la esfera 
 				}
-				else if ((selectInitial) && (selectFinal) && (hit.collider.gameObject.name.Equals(nameFinalArt))) {
-					nameFinalArt = "";
+				else if ((selectInitial) && (selectFinal) &&
+			         (hit.collider.gameObject.name.Equals(restriction.finalArt))) {
+
+					restriction.finalArt = "";
 					hit.collider.gameObject.renderer.material = wood;
 					selectFinal = false;
-					finalArt.text = "Final articulation: ";
 				}
 			}
 
-			restriction.initialArt = nameInitialArt;
-			restriction.finalArt = nameFinalArt;
+
 
 			lastClick = Time.time;
 
 	}
+
+//	public void ResetRestrictions() {
+////		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
+////		restriction = new Restriction();
+//
+//		initArt.text  = "Initial articulation: ";
+//		finalArt.text = "Final articulation: ";
+//
+//		restX.text = "X: ";
+//		restY.text = "Y: ";
+//		restZ.text = "Z: ";
+//	}
+
+
 
 
 

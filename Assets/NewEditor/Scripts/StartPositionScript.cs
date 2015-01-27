@@ -23,13 +23,14 @@ public class StartPositionScript : MonoBehaviour {
 	private float catchTime = 1.0f;
 	private Material wood;
 	private GameObject plane;
+	private Vector3 ini, rotIni;
 
 //	private float varMax = 0.0f;
 
 
 	// Use this for initialization
 	void Start () {
-
+		Debug.Log ("StartPos Start");
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
 		sphereScript = GameObject.Find ("Esfera_Movimiento").GetComponent<RotateSphere>();
 		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
@@ -99,16 +100,22 @@ public class StartPositionScript : MonoBehaviour {
 	
 		exercise.initialArt = nameInitialArt;
 		exercise.finalArt = nameFinalArt;
-
 		
 		lastClick = Time.time;
 	}
 
 
 	void ShowInterface(){
-
-
 		if (exercise.finalArt.CompareTo("") != 0) {
+
+			ini = GameObject.Find(exercise.finalArt).transform.position 
+				- GameObject.Find(exercise.initialArt).transform.position;
+
+			rotIni = GameObject.Find(exercise.initialArt).transform.eulerAngles;
+
+			exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
+			exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
+
 			initArt.text = "Initial articulation: "+exercise.initialArt;
 			finalArt.text = "Final articulation: "+exercise.finalArt;
 			// Muestra el vector normal (fuera de la ejecucion)
@@ -120,7 +127,6 @@ public class StartPositionScript : MonoBehaviour {
 			plane.renderer.material.shader = Shader.Find("Transparent/VertexLit");
 			plane.renderer.material.color = new Color(1, 1, 1, 0.7f);
 			plane.renderer.enabled = true;
-
 
 			x.text = "X: " +  Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
 			y.text = "Y: " +  Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.y).ToString();
@@ -147,7 +153,7 @@ public class StartPositionScript : MonoBehaviour {
 					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 					RaycastHit hit;
 					if (Physics.Raycast(ray, out hit)) {
-						referenceArt.text = "Reference articulation: "+hit.collider.gameObject.name;
+						referenceArt.text = "Reference articulation: " + hit.collider.gameObject.name;
 						exercise.reference.nameId = hit.collider.gameObject.name;
 						hit.collider.gameObject.renderer.material.color = Color.yellow;
 					}
@@ -198,20 +204,16 @@ public class StartPositionScript : MonoBehaviour {
 
 
 	public void PassToManager(){
-		Vector3 ini = GameObject.Find(exercise.finalArt).transform.position 
-			- GameObject.Find(exercise.initialArt).transform.position;
+
 		exercise.ini.x = Mathf.Round(ini[0]).ToString();
 		exercise.ini.y = Mathf.Round(ini[1]).ToString();
 		exercise.ini.z = Mathf.Round(ini[2]).ToString();
-		
-		Vector3 rotIni = GameObject.Find(exercise.initialArt).transform.eulerAngles; 
 		
 		exercise.rotIni.x = Mathf.Round(rotIni.x).ToString();
 		exercise.rotIni.y = Mathf.Round(rotIni.y).ToString();
 		exercise.rotIni.z = Mathf.Round(rotIni.z).ToString();
 
-		exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
-		exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
+
 
 
 		//reference
@@ -231,7 +233,24 @@ public class StartPositionScript : MonoBehaviour {
 
 
 		GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise = exercise;
+	}
+
+
+	public void ResetStart() {
+
+		initArt.text  = "Initial articulation: ";
+		finalArt.text = "Final articulation: ";
 		
+		x.text = "X: ";
+		y.text = "Y: ";
+		z.text = "Z: ";
+
+		referenceArt.text = "Reference articulation: ";
+		xRef.text = "X: ";
+		yRef.text = "Y: ";
+		zRef.text = "Z: ";
+
+		GameObject.Find ("Plane").renderer.enabled = false;
 	}
 }
 

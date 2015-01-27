@@ -1,16 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\SaveScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\RestrictionScript.cs">
     <Files>
-      <File FileName="Assets\NewEditor\Scripts\StartPositionScript.cs" Line="33" Column="89" />
-      <File FileName="Assets\Scripts\Interface\RotateSphere.cs" Line="33" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" Line="22" Column="23" />
-      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="429" Column="14" />
-      <File FileName="Assets\NewEditor\Scripts\RestrictionScript.cs" Line="26" Column="89" />
-      <File FileName="Assets\NewEditor\Scripts\FinalPositionScript.cs" Line="41" Column="1" />
-      <File FileName="Assets\Scripts\Interface\Exercise.cs" Line="160" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\StartPositionScript.cs" Line="241" Column="1" />
+      <File FileName="Assets\Scripts\Interface\RotateSphere.cs" Line="23" Column="41" />
+      <File FileName="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" Line="15" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\RestrictionScript.cs" Line="91" Column="3" />
+      <File FileName="Assets\NewEditor\Scripts\FinalPositionScript.cs" Line="53" Column="37" />
+      <File FileName="Assets\Scripts\Interface\Exercise.cs" Line="3" Column="34" />
       <File FileName="Assets\Scripts\Interface\CameraSelection.cs" Line="1" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\SaveScript.cs" Line="14" Column="89" />
+      <File FileName="Assets\NewEditor\Scripts\SaveScript.cs" Line="187" Column="1" />
+      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="382" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -18,6 +18,13 @@ public class RotateSphere : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
+		if (Art.Equals("")){
+
+			transform.position = new Vector3 (-7f,2.5f,0);
+
+		}
+
+
 		if ((!Art.Equals("")) && (Step < 2)) {
 			transform.position = GameObject.Find(Art).transform.position;
 			transform.rotation = GameObject.Find(Art).transform.rotation;
@@ -31,31 +38,6 @@ public class RotateSphere : MonoBehaviour {
 
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				RaycastHit hit;
-
-//				if ((selectBlue) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("BlueCircle")))
-//				{
-//
-//					Debug.Log("Azull");
-//					selectGreen = false;
-//					selectRed = false;
-//					Debug.Log ("dentro fsgfdgsfdg");
-//					transform.Rotate(Vector3.right * Input.GetAxis("Mouse Y") * Speed);
-//					GameObject.Find(Art).transform.rotation = transform.rotation;
-//
-//				}
-
-//				else if ((selectGreen) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("GreenCircle"))) {
-//					selectBlue = false;
-//					selectRed = false;
-//					transform.Rotate(Vector3.back * Input.GetAxis("Mouse Y") * Speed);
-//					GameObject.Find(Art).transform.rotation = transform.rotation;
-//				}
-//				else if ((selectRed) && (Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("RedCircle"))) {
-//					selectBlue = false;
-//					selectGreen	= false;
-//					transform.Rotate(Vector3.down * Input.GetAxis("Mouse X") * Speed);
-//					GameObject.Find(Art).transform.rotation = transform.rotation;
-//				}
 
 				if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals("BlueCircle")) &&
 					(!selectGreen) && (!selectRed))
