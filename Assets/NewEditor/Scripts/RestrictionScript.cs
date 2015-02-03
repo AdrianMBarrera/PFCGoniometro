@@ -19,11 +19,13 @@ public class RestrictionScript : MonoBehaviour {
 	private float catchTime = 1.0f;
 	private RotateSphere sphereScript; //Script de la esfera
 	private Material wood;
+	private Button addRestricctionButton;
 //	private int cont = 0;
 	
 	// Use this for initialization
 	void Start () {
-		Debug.Log("dfjlasjdfñlasdjflñasdjfñla");
+		addRestricctionButton = GameObject.Find("AddRestriction").GetComponent<Button>();
+		addRestricctionButton.onClick.AddListener(() => {AddRestriction();});
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
 		sphereScript = GameObject.Find ("Esfera_Movimiento").GetComponent<RotateSphere>();
 		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;

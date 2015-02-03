@@ -43,9 +43,12 @@ public class StartPositionScript : MonoBehaviour {
 		xRef = GameObject.Find("XRef").GetComponent<Text>();
 		yRef = GameObject.Find("YRef").GetComponent<Text>();
 		zRef = GameObject.Find("ZRef").GetComponent<Text>();
-
-
 		referenceToggle = GameObject.Find("ReferenceToggle").GetComponent<Toggle>();
+		ResetStart();
+
+
+
+
 	}
 	
 	// Update is called once per frame
@@ -236,7 +239,7 @@ public class StartPositionScript : MonoBehaviour {
 	}
 
 
-	public void ResetStart() {
+	private void ResetStart() {
 
 		initArt.text  = "Initial articulation: ";
 		finalArt.text = "Final articulation: ";
