@@ -5,9 +5,11 @@ using System.IO;
 
 public class CreateButtonScript : MonoBehaviour {
 	public GameObject prefabButton;
-	private RectTransform rectTransform;
+
+	private RectTransform poolTransform; // rectTRansform del pool de los botones
 	// Use this for initialization
 	void Start () {
+		poolTransform = GameObject.Find("buttonPool").GetComponent<RectTransform>();
 		ReadXml();
 	}
 	
@@ -22,7 +24,7 @@ public class CreateButtonScript : MonoBehaviour {
 //		prefabButton.transform.parent = this.transform;
 		prefabButton.transform.SetParent(this.transform, false);
 
-		rectTransform = prefabButton.GetComponent<RectTransform>();
+		RectTransform rectTransform = prefabButton.GetComponent<RectTransform>();
 		rectTransform.anchoredPosition = new Vector2 (1f, y);
 		rectTransform.sizeDelta = new Vector2 (-45,40);
 		prefabButton.name = name;
@@ -30,6 +32,14 @@ public class CreateButtonScript : MonoBehaviour {
 
 
 		t.text = name.Substring(0,name.Length-4);
+		Debug.Log("Tamaño pool " + poolTransform.sizeDelta.y);
+		Debug.Log("Tamaño pool height " + poolTransform.rect.height);
+		Debug.Log ("Tamaño height " + rectTransform.rect.height);
+
+		poolTransform.sizeDelta = new Vector2(poolTransform.sizeDelta.x, poolTransform.sizeDelta.y+rectTransform.rect.height);
+		poolTransform.anchoredPosition = new Vector2 (0, -(poolTransform.rect.height+rectTransform.rect.height));
+
+
 
 	}
 

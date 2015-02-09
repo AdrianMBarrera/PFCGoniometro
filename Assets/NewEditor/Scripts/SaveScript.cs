@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Xml;
 using System.IO;
@@ -9,13 +10,27 @@ public class SaveScript : MonoBehaviour {
 	private Text nameFile;
 	private Exercise exercise; //Ejercicio que estamos editando sacado del manager exercise
 	private Material wood;
+	private Button saveButton;
+	private Button showButton;
 
 	void Start(){
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
 		nameFile = GameObject.Find("FileInputField").GetComponentInChildren<Text>();
 		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
+		showButton = GameObject.Find("ShowButton").GetComponent<Button>();
+		saveButton = GameObject.Find("SaveExerciseButton").GetComponent<Button>();
 	}
 
+	void Update() {
+		if (exercise.finalArt.Equals ("")) {
+			saveButton.interactable = false;
+			showButton.interactable = false;
+		}
+		else {
+			saveButton.interactable = true;
+			showButton.interactable = true;
+		}
+	}
 
 	public void SaveExercise(){
 		if ((nameFile.text != null) && (nameFile.text.CompareTo("")!= 0)){
@@ -39,10 +54,11 @@ public class SaveScript : MonoBehaviour {
 	}
 
 	public void ShowMovement() {
-		if (GameObject.Find(exercise.finalArt).GetComponent<TrailRenderer>() == null) {
-			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(float.Parse (exercise.rotIni.x),
-			                                                                         float.Parse (exercise.rotIni.y),
-			                                                                         float.Parse (exercise.rotIni.z));
+//		if (GameObject.Find(exercise.finalArt).GetComponent<TrailRenderer>() == null) {
+		Debug.Log("exercise: " + exercise.rotIni.x);
+			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(int.Parse (exercise.rotIni.x),
+			                                                                         int.Parse (exercise.rotIni.y),
+			                                                                         int.Parse (exercise.rotIni.z));
 			
 			TrailRenderer trail = GameObject.Find(exercise.finalArt).AddComponent<TrailRenderer>();
 			
@@ -53,9 +69,10 @@ public class SaveScript : MonoBehaviour {
 //			trail.time = Mathf.Infinity;
 			
 			StartCoroutine (RotateMe(trail));
-		}
+//		}
 		
 	}
+
 	IEnumerator RotateMe(TrailRenderer t) {
 		Vector3 actualRot = GameObject.Find(exercise.initialArt).transform.eulerAngles;
 		while ((Mathf.Round(actualRot.x) != Mathf.Round(float.Parse (exercise.rotEnd.x))) ||
@@ -75,7 +92,7 @@ public class SaveScript : MonoBehaviour {
 
 		yield return new WaitForSeconds(delay);
 		GUI.Label(new Rect(10, 10, 200, 30), "File saved!");
-		ResetExercise();
+//		ResetExercise();
 	}
 
 	int searchIdArt (string name) {
@@ -111,15 +128,15 @@ public class SaveScript : MonoBehaviour {
 
 
 	public void ResetExercise() {
-//		
-//		if (!exercise.finalArt.Equals(""))
-//			GameObject.Find(exercise.finalArt).renderer.material = wood;
-//		
-//		if (!exercise.initialArt.Equals("")) {
-//			GameObject.Find(exercise.initialArt).renderer.material = wood;
-//			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(0,180,0);
-//		}
-//		
+
+		if (!exercise.finalArt.Equals(""))
+			GameObject.Find(exercise.finalArt).renderer.material = wood;
+		
+		if (!exercise.initialArt.Equals("")) {
+			GameObject.Find(exercise.initialArt).renderer.material = wood;
+			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(0,180,0);
+		}
+		
 //		if (!restriction.finalArt.Equals(""))
 //			GameObject.Find(restriction.finalArt).renderer.material = wood;
 //		
@@ -127,18 +144,29 @@ public class SaveScript : MonoBehaviour {
 //			GameObject.Find(restriction.initialArt).renderer.material = wood;
 //			GameObject.Find(restriction.initialArt).transform.eulerAngles = new Vector3(0,180,0);
 //		}
-//		
-//		foreach (Restriction r in exercise.Restrictions) {
-//			GameObject.Find(r.initialArt).renderer.material = wood;
-//			GameObject.Find(r.finalArt).renderer.material = wood;
-//			GameObject.Find(r.initialArt).transform.eulerAngles = new Vector3(0,180,0);
-//		}
+		
+		foreach (Restriction r in exercise.Restrictions) {
+			GameObject.Find(r.initialArt).renderer.material = wood;
+			GameObject.Find(r.finalArt).renderer.material = wood;
+			GameObject.Find(r.initialArt).transform.eulerAngles = new Vector3(0,180,0);
+		}
+
+		GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise = new Exercise();
+//		GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise.Restrictions = new List<Restriction>();
 //
 //		exercise = new Exercise();
 ////		restriction = new Restriction();
 //
 		Destroy(GameObject.Find("RestrictionsInterface").GetComponent<RestrictionScript>());
 		GameObject.Find("RestrictionsInterface").AddComponent<RestrictionScript>();
+
+		Destroy(GameObject.Find("StartPositionInterface").GetComponent<StartPositionScript>());
+		GameObject.Find("StartPositionInterface").AddComponent<StartPositionScript>();
+
+		Destroy(GameObject.Find("FinalPositionInterface").GetComponent<FinalPositionScript>());
+		GameObject.Find("FinalPositionInterface").AddComponent<FinalPositionScript>();
+
+		nameFile.text = "";
 //		
 //		selectInitial = false;
 //		selectFinal = false;
@@ -155,13 +183,15 @@ public class SaveScript : MonoBehaviour {
 	}
 
 
+	public void StoreExerciseData() {
+		if (!exercise.finalArt.Equals("")) {
+			GameObject.Find ("RestrictionsInterface").SendMessage("PassToManager", SendMessageOptions.DontRequireReceiver);
+			GameObject.Find ("StartPositionInterface").SendMessage("PassToManager", SendMessageOptions.DontRequireReceiver);
+			GameObject.Find ("FinalPositionInterface").SendMessage("PassToManager", SendMessageOptions.DontRequireReceiver);
 
-
-
-
-
+			exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
+		}
+	} 
 
 
 }
-
-
