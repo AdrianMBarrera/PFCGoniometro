@@ -1,13 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Interface\CameraSelection.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuUI\AnyExerciseScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Interface\RotateSphere.cs" Line="35" Column="4" />
-      <File FileName="Assets\NewEditor\Scripts\RestrictionScript.cs" Line="93" Column="3" />
-      <File FileName="Assets\NewEditor\Scripts\FinalPositionScript.cs" Line="33" Column="18" />
-      <File FileName="Assets\NewEditor\Scripts\StartPositionScript.cs" Line="34" Column="89" />
-      <File FileName="Assets\Scripts\Interface\CameraSelection.cs" Line="11" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\ManagerExerciseEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\EditorInstances\FillInstance.cs" Line="25" Column="20" />
+      <File FileName="Assets\NewEditor\Scripts\EditorInstances\Instance.cs" Line="30" Column="63" />
+      <File FileName="Assets\NewEditor\Scripts\EditorInstances\SaveInstance.cs" Line="46" Column="32" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\SaveScript.cs" Line="2" Column="1" />
+      <File FileName="Instances\test.xml" Line="1" Column="1" />
+      <File FileName="Exercises\666.xml" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\AnyExerciseScript.cs" Line="18" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
