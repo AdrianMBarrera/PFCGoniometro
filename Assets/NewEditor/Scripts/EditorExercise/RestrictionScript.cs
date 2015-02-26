@@ -21,11 +21,14 @@ public class RestrictionScript : MonoBehaviour {
 	private Material wood;
 	private Button addRestricctionButton;
 //	private int cont = 0;
-	
+
+	public Transform labelRestriction;
+
 	// Use this for initialization
 	void Start () {
 		addRestricctionButton = GameObject.Find("AddRestriction").GetComponent<Button>();
 		addRestricctionButton.onClick.AddListener(() => {AddRestriction();});
+		//addRestricctionButton.onClick.AddListener(() => {AddRestrictionLabel();});
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
 		sphereScript = GameObject.Find ("Esfera_Movimiento").GetComponent<RotateSphere>();
 		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
@@ -87,12 +90,28 @@ public class RestrictionScript : MonoBehaviour {
 			restriction.grade =  int.Parse(grades.text);
 		Debug.Log ("Restriction " + restriction.initialArt);
 		exercise.Restrictions.Add(restriction);
+		AddRestrictionLabel();
 		restriction = new Restriction();
 		selectInitial = false;
 		selectFinal = false;
 		sphereScript.Art = "";
 
+
 	}
+
+
+	public void AddRestrictionLabel(){
+
+		Transform label = (Instantiate(labelRestriction, labelRestriction.transform.position, labelRestriction.transform.rotation) as Transform);
+		label.parent = GameObject.Find("ButtonPool").transform;
+		label.transform.localScale = new Vector3 (1,1,1);
+		label.name = restriction.initialArt + "," + restriction.finalArt;
+
+		label.GetComponentInChildren<Text>().text = label.name;
+	}
+
+
+
 
 
 	public void PassToManager(){

@@ -6,7 +6,6 @@ public class FillInstance : MonoBehaviour {
 
 	private Text nameExercise;
 
-
 	// Use this for initialization
 	void Start () {
 		nameExercise = GameObject.Find("ExerciseText").GetComponent<Text>();
@@ -18,8 +17,7 @@ public class FillInstance : MonoBehaviour {
 	
 
 	}
-
-
+	
 	public void FillFields(){
 
 		nameExercise.text = "Exercise: " + transform.name;

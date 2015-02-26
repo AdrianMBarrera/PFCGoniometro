@@ -21,15 +21,13 @@ public class MoveDummyScript : MonoBehaviour {
 	Vector plane = new Vector(); // plano de medicion->definido en el fichero de definiciones
 	Vector initBone = new Vector(); //posicion inicial del brazo, con respecto a esta posicion se medira
 	Vector referenceArt = new Vector(); //articulacion de referencia
-	List<Pose> poseList = new List<Pose>();  //Lista de articulaciones a tener en cuenta durante el ejercicio
+	List<Pose> poseList = new List<Pose>();  //Lista de restricciones a tener en cuenta durante el ejercicio
 	private Vector3 rotIni; //Rotacion ArtIni
 	private Vector3 rotEnd; //Rotacion ArtFin
-
 
 	void Start () {
 		ButtonPool = GameObject.Find("buttonPool");
 	}
-
 
 	void Update () {
 	
@@ -205,12 +203,16 @@ public class MoveDummyScript : MonoBehaviour {
 		// Trasladamos las articulaciones de las restricciones a su posicion de reposo
 		if (poseList.Count > 0){
 			for(int i = 0; i < poseList.Count; i++)
-				translateArt(poseList[i].Art).eulerAngles = poseList[i].ReposePos;		                              
+				translateArt(poseList[i].Art).eulerAngles = poseList[i].ReposePos;
+			poseList.Clear();
 		}
 		translateArt(artIni).eulerAngles = repPos;
 
 		SetStateButtons(true);
 	}
+
+
+
 
 
 	/* Poner los botones de los movimientos interactuables o no interactuables */
@@ -227,6 +229,8 @@ public class MoveDummyScript : MonoBehaviour {
 		if (go != null)
 			Destroy(go);
 	}
+
+
 
 	/* Traductor entre los joints del fichero de definicion y Carl */
 	public Transform translateArt(int op) {
@@ -249,5 +253,133 @@ public class MoveDummyScript : MonoBehaviour {
 			default: return GameObject.Find ("Head").transform;
 		}
 	}
+
+
+	// sobrecarga del metodo 
+
+
+	public void LoadXml(string name){
+		
+		deleteSphere("IniSphere");
+		deleteSphere ("EndSphere");
+		
+		XmlDocument xDoc = new XmlDocument();
+		Debug.Log (Application.dataPath);
+		xDoc.Load("./Exercises/" + name);
+		Debug.Log(name);
+		
+		XmlNodeList exer = xDoc.GetElementsByTagName("EXERCISE");	  
+		artIni = Convert.ToInt16(exer[0].Attributes["initialId"].InnerText);
+		artEnd = Convert.ToInt16(exer[0].Attributes["finalId"].InnerText);
+		
+		XmlNodeList angles = xDoc.GetElementsByTagName("ang");
+		XmlNodeList vector = xDoc.GetElementsByTagName("axis");
+		XmlNodeList pos0 = xDoc.GetElementsByTagName("ini");
+		XmlNodeList rotI = xDoc.GetElementsByTagName("rotIni");
+		XmlNodeList rotE = xDoc.GetElementsByTagName("rotEnd");
+		XmlNodeList reference = xDoc.GetElementsByTagName ("reference");
+		XmlNodeList restrictions = ((XmlElement)exer[0]).GetElementsByTagName("Restrictions");
+		
+		//Angulos maximo y minimo de ejercicio
+		minimo = Convert.ToInt16(angles[0].Attributes["min"].InnerText);
+		maximo = Convert.ToInt16(angles[0].Attributes["max"].InnerText);
+		
+		//plano sobre el que se va a realizar la medicion
+		plane.SetX(Convert.ToInt16(vector[0].Attributes["x"].InnerText));
+		plane.SetY(Convert.ToInt16(vector[0].Attributes["y"].InnerText));
+		plane.SetZ(Convert.ToInt16(vector[0].Attributes["z"].InnerText));
+		
+		//posicion de inicio del ejercicio
+		initBone.SetX(Convert.ToInt16(pos0[0].Attributes["x"].InnerText));
+		initBone.SetY(Convert.ToInt16(pos0[0].Attributes["y"].InnerText));
+		initBone.SetZ(Convert.ToInt16(pos0[0].Attributes["z"].InnerText));
+		
+		//Rotacion inicial de la articulacion principal
+		rotIni.x = Convert.ToInt16(rotI[0].Attributes["x"].InnerText);
+		rotIni.y = Convert.ToInt16(rotI[0].Attributes["y"].InnerText);
+		rotIni.z = Convert.ToInt16(rotI[0].Attributes["z"].InnerText);
+		
+		//Rotacion final de la articulacion principal
+		rotEnd.x = Convert.ToInt16(rotE[0].Attributes["x"].InnerText);
+		rotEnd.y = Convert.ToInt16(rotE[0].Attributes["y"].InnerText);
+		rotEnd.z = Convert.ToInt16(rotE[0].Attributes["z"].InnerText);
+		
+		/*	
+		refId = Convert.ToInt16(reference[0].Attributes["id"].InnerText);
+		referenceArt.SetX(Convert.ToInt16(reference[0].Attributes["x"].InnerText));
+		referenceArt.SetY(Convert.ToInt16(reference[0].Attributes["y"].InnerText));
+		referenceArt.SetZ(Convert.ToInt16(reference[0].Attributes["z"].InnerText));
+	*/		
+		
+		XmlNodeList ID;
+		XmlNodeList ID1;		
+		XmlNodeList FX;
+		XmlNodeList FY;
+		XmlNodeList FZ;
+		XmlNodeList RX;
+		XmlNodeList RY;
+		XmlNodeList RZ;
+		XmlNodeList G;
+		
+		//Si hay alguna restriccion en el ejercicio...
+		if (restrictions.Item(0).HasChildNodes) {
+			
+			foreach (XmlElement restriction in restrictions) {
+				int i = 0;
+				Pose pose = new Pose();	
+				ID = restriction.GetElementsByTagName("initialId");
+				ID1 = restriction.GetElementsByTagName("finalId");
+				FX = restriction.GetElementsByTagName("x");
+				FY = restriction.GetElementsByTagName("y");
+				FZ = restriction.GetElementsByTagName("z");
+				RX = restriction.GetElementsByTagName("rotX");
+				RY = restriction.GetElementsByTagName("rotY");
+				RZ = restriction.GetElementsByTagName("rotZ");
+				G = restriction.GetElementsByTagName("grade");
+				
+				//define el hueso que vamos a tener en cuenta
+				pose.SetArt(Convert.ToInt16(ID[i].InnerText));
+				pose.SetArt1(Convert.ToInt16(ID1[i].InnerText));
+				
+				//define la posicion correcta para el ejercicio
+				Vector aux = new Vector();
+				aux.SetX(Convert.ToInt16(FX[i].InnerText));
+				aux.SetY(Convert.ToInt16(FY[i].InnerText));
+				aux.SetZ(Convert.ToInt16(FZ[i].InnerText));
+				pose.SetBone(aux);
+				
+				pose.RotIni = new Vector3(Convert.ToInt16(RX[i].InnerText),
+				                          Convert.ToInt16(RY[i].InnerText),
+				                          Convert.ToInt16(RZ[i].InnerText));
+				
+				//define las restricciones en angulos con respecto a la posicion correcta
+				pose.SetGrado(Convert.ToInt16(G[i].InnerText));
+				
+				//Lista de restricciones del ejercicio
+				poseList.Add (pose);
+				i++; 
+			}
+		}
+		
+		//Cargamos las esferas en las articulaciones principales
+		loadSphere(IniSphere, artIni, "IniSphere");
+		loadSphere(EndSphere, artEnd, "EndSphere");
+		
+		//Se ejecuta el movimiento
+		ShowMovement();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -40,7 +40,7 @@ public class SaveScript : MonoBehaviour {
 
 			exercise.initialId = searchIdArt(exercise.initialArt);
 			exercise.finalId = searchIdArt(exercise.finalArt);
-			for (var i = 0; i < exercise.Restrictions.Count; i++) {
+			for (int i = 0; i < exercise.Restrictions.Count; i++) {
 				exercise.Restrictions[i].initialId = searchIdArt(exercise.Restrictions[i].initialArt);
 				exercise.Restrictions[i].finalId = searchIdArt(exercise.Restrictions[i].finalArt);
 			}

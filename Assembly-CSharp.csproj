@@ -54,6 +54,11 @@
      <Compile Include="Assets\NewEditor\Scripts\EditorInstances\FillInstance.cs" />
      <Compile Include="Assets\NewEditor\Scripts\EditorInstances\Instance.cs" />
      <Compile Include="Assets\NewEditor\Scripts\EditorInstances\SaveInstance.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\EditorPlans\CreateInstancesButton.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\EditorPlans\LoadInstanceScript.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\EditorPlans\Plan.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\EditorPlans\SavePlanScript.cs" />
+     <Compile Include="Assets\NewEditor\Scripts\EditorPlans\ShowInfoScript.cs" />
      <Compile Include="Assets\Scripts\Interface\CameraSelection.cs" />
      <Compile Include="Assets\Scripts\Interface\Exercise.cs" />
      <Compile Include="Assets\Scripts\Interface\RotateSphere.cs" />

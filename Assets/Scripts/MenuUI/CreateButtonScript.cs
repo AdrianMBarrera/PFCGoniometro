@@ -5,12 +5,13 @@ using System.IO;
 
 public class CreateButtonScript : MonoBehaviour {
 	public GameObject prefabButton;
+	public string path;
 
 	private RectTransform poolTransform; // rectTRansform del pool de los botones
 	// Use this for initialization
 	void Start () {
 		poolTransform = GameObject.Find("buttonPool").GetComponent<RectTransform>();
-		ReadXml();
+		ReadXml(path);
 	}
 	
 	// Update is called once per frame
@@ -43,9 +44,9 @@ public class CreateButtonScript : MonoBehaviour {
 
 	}
 
-	public void ReadXml(){
+	public void ReadXml(string path){
 		float y = -20f;
-		DirectoryInfo di = new DirectoryInfo("./Exercises");
+		DirectoryInfo di = new DirectoryInfo(path);
 		FileInfo[] files = di.GetFiles();
 
 		foreach (FileInfo fi in files)

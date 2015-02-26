@@ -22,7 +22,7 @@ public class SaveInstance : MonoBehaviour {
 		nameFile = GameObject.Find("InstanceInputField").GetComponent<InputField>();
 		repExercise = GameObject.Find("RepeatInputField").GetComponent<InputField>();
 		timeExercise = GameObject.Find("TimeInputField").GetComponent<InputField>();
-		instance = new Instance();
+
 	}
 	
 	// Update is called once per frame
@@ -36,21 +36,27 @@ public class SaveInstance : MonoBehaviour {
 		    (repExercise.text != null) && (repExercise.text.CompareTo("")!= 0) &&
 		    (timeExercise.text != null) && (timeExercise.text.CompareTo("")!= 0)
 		    ){
+			instance = new Instance();
 			string xmlPath =  "./Instances";
 			if (!Directory.Exists(xmlPath))
 				Directory.CreateDirectory(xmlPath);
-			instance.name = nameExercise.text;
+			instance.name = nameExercise.text.Replace("Exercise: ","");
 			instance.time = int.Parse(timeExercise.text);
 			instance.repetitions = int.Parse(repExercise.text);
 			instance.Save(Path.Combine(xmlPath, nameFile.text + ".xml"));
-			StartCoroutine(ShowMessage(4));
+			StartCoroutine(ShowMessage(4, helpText, "File Saved!"));
+		}
+		else{
+			StartCoroutine(ShowMessage(4, helpText, "miss a field!"));
+
 		}
 	}
 
-	IEnumerator ShowMessage(float delay) {
-		helpText.enabled = true;
+	IEnumerator ShowMessage(float delay, Text t, string help) {
+		t.text = help;
+		t.enabled = true;
 		yield return new WaitForSeconds(delay);
-		helpText.enabled = false;
+		t.enabled = false;
 	}
 
 

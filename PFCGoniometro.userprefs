@@ -1,14 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuUI\AnyExerciseScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\EditorExercise\RestrictionScript.cs">
     <Files>
-      <File FileName="Assets\NewEditor\Scripts\EditorInstances\FillInstance.cs" Line="25" Column="20" />
-      <File FileName="Assets\NewEditor\Scripts\EditorInstances\Instance.cs" Line="30" Column="63" />
-      <File FileName="Assets\NewEditor\Scripts\EditorInstances\SaveInstance.cs" Line="46" Column="32" />
-      <File FileName="Assets\NewEditor\Scripts\EditorExercise\SaveScript.cs" Line="2" Column="1" />
-      <File FileName="Instances\test.xml" Line="1" Column="1" />
-      <File FileName="Exercises\666.xml" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuUI\AnyExerciseScript.cs" Line="18" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\MoveDummyScript.cs" Line="268" Column="1" />
+      <File FileName="Assets\Scripts\MenuUI\SaveExercisesScript.cs" Line="1" Column="1" />
+      <File FileName="Exercises\test1.xml" Line="1" Column="1" />
+      <File FileName="Instances\test.xml" Line="2" Column="22" />
+      <File FileName="Assets\NewEditor\Scripts\EditorInstances\FillInstance.cs" Line="1" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\EditorInstances\SaveInstance.cs" Line="1" Column="1" />
+      <File FileName="Plans\Test.xml" Line="5" Column="27" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\RestrictionScript.cs" Line="103" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
