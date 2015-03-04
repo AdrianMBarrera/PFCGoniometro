@@ -1,0 +1,144 @@
+Initialize engine version: 4.6.0f3 (30840d631a27)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvumdshim.dll 9.18.13.4052]
+    Renderer: NVIDIA GeForce 610M      
+    Vendor:   NVIDIA
+    VRAM:     1998 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\OpenNI.Net.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\OpenNI.Net.dll into Unity Child Domain
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\ZDK.dll (this message is harmless)
+Loading C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\ZDK.dll into Unity Child Domain
+- Completed reload, in  0.055 seconds
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 9.356114 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 587.
+Total: 0.808309 ms (FindLiveObjects: 0.025862 ms CreateObjectMapping: 0.011494 ms MarkObjects: 0.228247 ms  DeleteObjects: 0.005336 ms)
+
+DirectoryNotFoundException: Directory 'C:\Users\Jose\Documents\PFCGoniometro\build\Exercises' not found.
+  at System.IO.Directory.GetFileSystemEntries (System.String path, System.String searchPattern, FileAttributes mask, FileAttributes attrs) [0x00000] in <filename unknown>:0 
+  at System.IO.Directory.GetFiles (System.String path, System.String searchPattern) [0x00000] in <filename unknown>:0 
+  at System.IO.DirectoryInfo.GetFiles (System.String searchPattern) [0x00000] in <filename unknown>:0 
+  at System.IO.DirectoryInfo.GetFiles () [0x00000] in <filename unknown>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.DirectoryInfo:GetFiles ()
+  at CreateButtonScript.ReadXml (System.String path) [0x00000] in <filename unknown>:0 
+  at CreateButtonScript.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnloadTime: 8.372103 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 573.
+Total: 0.759047 ms (FindLiveObjects: 0.022989 ms CreateObjectMapping: 0.011083 ms MarkObjects: 0.224963 ms  DeleteObjects: 0.023810 ms)
+
+DirectoryNotFoundException: Directory 'C:\Users\Jose\Documents\PFCGoniometro\build\Instances' not found.
+  at System.IO.Directory.GetFileSystemEntries (System.String path, System.String searchPattern, FileAttributes mask, FileAttributes attrs) [0x00000] in <filename unknown>:0 
+  at System.IO.Directory.GetFiles (System.String path, System.String searchPattern) [0x00000] in <filename unknown>:0 
+  at System.IO.DirectoryInfo.GetFiles (System.String searchPattern) [0x00000] in <filename unknown>:0 
+  at System.IO.DirectoryInfo.GetFiles () [0x00000] in <filename unknown>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.DirectoryInfo:GetFiles ()
+  at CreateButtonScript.ReadXml (System.String path) [0x00000] in <filename unknown>:0 
+  at CreateButtonScript.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnloadTime: 3.089147 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 115 unused Assets to reduce memory usage. Loaded Objects now: 259.
+Total: 2.477886 ms (FindLiveObjects: 0.015189 ms CreateObjectMapping: 0.011905 ms MarkObjects: 0.198280 ms  DeleteObjects: 1.495106 ms)
+
+UnloadTime: 1.829678 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 743.
+Total: 0.863729 ms (FindLiveObjects: 0.028736 ms CreateObjectMapping: 0.012726 ms MarkObjects: 0.313225 ms  DeleteObjects: 0.005747 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+StartPos Start
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+FinalPos Start
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Restriction: RightShoulder
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+exercise: 285
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Platform assembly: C:\Users\Jose\Documents\PFCGoniometro\build\MovementsEditor_Data\Managed\System.Xml.dll (this message is harmless)
+NullReferenceException: Object reference not set to an instance of an object
+  at UnityEngine.GUI.Label (Rect position, System.String text) [0x00000] in <filename unknown>:0 
+  at SaveScript+<ShowMessage>c__Iterator1.MoveNext () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at UnityEngine.GUI.Label (Rect position, System.String text) [0x00000] in <filename unknown>:0 
+  at SaveScript+<ShowMessage>c__Iterator1.MoveNext () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+StartPos Start
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+FinalPos Start
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 7.649591 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 31 unused Assets to reduce memory usage. Loaded Objects now: 594.
+Total: 1.189681 ms (FindLiveObjects: 0.026273 ms CreateObjectMapping: 0.015189 ms MarkObjects: 0.376855 ms  DeleteObjects: 0.233174 ms)
+
+Tamaño pool -325
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Tamaño pool height 0.4891052
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Tamaño height 40
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+C:/Users/Jose/Documents/PFCGoniometro/build/MovementsEditor_Data
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Test.xml
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+

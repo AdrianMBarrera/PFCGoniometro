@@ -88,7 +88,7 @@ public class RestrictionScript : MonoBehaviour {
 
 		if ((grades.text != null) && (grades.text.CompareTo("")!= 0))
 			restriction.grade =  int.Parse(grades.text);
-		Debug.Log ("Restriction " + restriction.initialArt);
+		//Debug.Log ("Restriction " + restriction.initialArt);
 		exercise.Restrictions.Add(restriction);
 		AddRestrictionLabel();
 		restriction = new Restriction();
@@ -111,6 +111,20 @@ public class RestrictionScript : MonoBehaviour {
 	}
 
 
+	public void DeleteRestriction (string name) {
+		string[] nameR = name.Split(',');
+		//Debug.Log (nameR.Length);
+		//Debug.Log (nameR[0] + "," + nameR[1]);
+		//foreach (Restriction r in exercise.Restrictions) {
+		for (int i = 0; i < exercise.Restrictions.Count; i++) {
+			if (exercise.Restrictions[i].initialArt.Equals(nameR[0]) && exercise.Restrictions[i].finalArt.Equals(nameR[1])) {
+				//Debug.Log ("Ini:" + r.initialArt + " Fin:" + r.finalArt);
+				GameObject.Find(exercise.Restrictions[i].initialArt).renderer.material = wood;
+				GameObject.Find(exercise.Restrictions[i].finalArt).renderer.material = wood;
+				exercise.Restrictions.RemoveAt(i);
+			}
+		}
+	}
 
 
 

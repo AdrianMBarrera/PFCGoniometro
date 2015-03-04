@@ -12,6 +12,8 @@ public class SaveScript : MonoBehaviour {
 	private Material wood;
 	private Button saveButton;
 	private Button showButton;
+	private Text helpText;
+	public Material trailMaterial;
 
 	void Start(){
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
@@ -19,6 +21,7 @@ public class SaveScript : MonoBehaviour {
 		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
 		showButton = GameObject.Find("ShowButton").GetComponent<Button>();
 		saveButton = GameObject.Find("SaveExerciseButton").GetComponent<Button>();
+		helpText = GameObject.Find("HelpText").GetComponent<Text>();
 	}
 
 	void Update() {
@@ -47,14 +50,14 @@ public class SaveScript : MonoBehaviour {
 			
 			exercise.Save(Path.Combine(xmlPath, nameFile.text + ".xml"));
 			
-			StartCoroutine(ShowMessage(5));
+			StartCoroutine(ShowMessage(1, helpText, "File Saved!"));
 	
 		}
 
 	}
 
 	public void ShowMovement() {
-//		if (GameObject.Find(exercise.finalArt).GetComponent<TrailRenderer>() == null) {
+		if (GameObject.Find(exercise.finalArt).GetComponent<TrailRenderer>() == null) {
 		Debug.Log("exercise: " + exercise.rotIni.x);
 			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(int.Parse (exercise.rotIni.x),
 			                                                                         int.Parse (exercise.rotIni.y),
@@ -62,14 +65,14 @@ public class SaveScript : MonoBehaviour {
 			
 			TrailRenderer trail = GameObject.Find(exercise.finalArt).AddComponent<TrailRenderer>();
 			
-			//			trail.material = new Material (Shader.Find("Particles/Additive"));
+			trail.material = trailMaterial;
 			
-//			trail.startWidth = 0.1f;
-//			trail.endWidth = 0.01f;
-//			trail.time = Mathf.Infinity;
+			trail.startWidth = 0.1f;
+			trail.endWidth = 0.01f;
+			trail.time = Mathf.Infinity;
 			
 			StartCoroutine (RotateMe(trail));
-//		}
+		}
 		
 	}
 
@@ -88,11 +91,20 @@ public class SaveScript : MonoBehaviour {
 	}
 
 
-	IEnumerator ShowMessage(float delay) {
+//	IEnumerator ShowMessage(float delay) {
+//
+//		yield return new WaitForSeconds(delay);
+//		GUI.Label(new Rect(10, 10, 200, 30), "File saved!");
+////		ResetExercise();
+//	}
 
+
+
+	IEnumerator ShowMessage(float delay, Text t, string help) {
+		t.text = help;
+		t.enabled = true;
 		yield return new WaitForSeconds(delay);
-		GUI.Label(new Rect(10, 10, 200, 30), "File saved!");
-//		ResetExercise();
+		t.enabled = false;
 	}
 
 	int searchIdArt (string name) {
@@ -180,6 +192,22 @@ public class SaveScript : MonoBehaviour {
 ////		condRef = false;
 ////		condRest = false;
 //		//		condMessage = false;
+
+		CleanRestrictionList();
+
+	}
+
+
+	//Limpia las etiquetas que estan en la lista de restricciones 
+
+	void CleanRestrictionList(){
+		GameObject bp = GameObject.Find("ButtonPool");
+		int children = bp.transform.childCount;
+		for (int i = 0; i < children; ++i){
+			Destroy (bp.transform.GetChild(i).gameObject);
+			print("For loop: " + transform.GetChild(i).gameObject);
+		}
+
 	}
 
 

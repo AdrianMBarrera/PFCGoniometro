@@ -37,6 +37,8 @@ public class FinalPositionScript : MonoBehaviour {
 			if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Equals(nameInitialArt))) {
 				hit.collider.gameObject.transform.Rotate(Vector3.left * 0.5f);
 				exercise.ang.Max = (float.Parse(exercise.ang.Max) + 0.5f).ToString();
+
+
 			}
 		}
 
