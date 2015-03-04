@@ -46,9 +46,6 @@ public class StartPositionScript : MonoBehaviour {
 		referenceToggle = GameObject.Find("ReferenceToggle").GetComponent<Toggle>();
 		ResetStart();
 
-
-
-
 	}
 	
 	// Update is called once per frame
@@ -116,8 +113,10 @@ public class StartPositionScript : MonoBehaviour {
 
 			rotIni = GameObject.Find(exercise.initialArt).transform.eulerAngles;
 
-			exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
-			exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
+			//exercise.ang.Min = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
+			//exercise.ang.Max = Mathf.Round(GameObject.Find(exercise.initialArt).transform.rotation.eulerAngles.x).ToString();
+			exercise.ang.Min = "0";
+			exercise.ang.Max = "0";
 
 			initArt.text = "Initial articulation: "+exercise.initialArt;
 			finalArt.text = "Final articulation: "+exercise.finalArt;
@@ -241,7 +240,7 @@ public class StartPositionScript : MonoBehaviour {
 
 	private void ResetStart() {
 
-		initArt.text  = "Initial articulation: ";
+		initArt.text = "Initial articulation: ";
 		finalArt.text = "Final articulation: ";
 		
 		x.text = "X: ";

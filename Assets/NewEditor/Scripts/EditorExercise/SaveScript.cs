@@ -14,6 +14,7 @@ public class SaveScript : MonoBehaviour {
 	private Button showButton;
 	private Text helpText;
 	public Material trailMaterial;
+	public Transform label;
 
 	void Start(){
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
@@ -109,31 +110,31 @@ public class SaveScript : MonoBehaviour {
 
 	int searchIdArt (string name) {
 		switch (name) {
-		case "Head":			return 1;
-		case "Neck":			return 2;
-		case "Chest":			return 3;
-		case "Spine": 			return 4;
-		case "LeftCollar": 		return 5;
-		case "LeftShoulder":	return 6;
-		case "LeftElbow":		return 7;
-		case "LeftWrist":		return 8;
-		case "LeftHand":		return 9;
-		case "LeftFingertip": 	return 10;
-		case "RightCollar": 	return 11;
-		case "RightShoulder": 	return 12;
-		case "RightElbow": 		return 13;
-		case "RightWrist": 		return 14;
-		case "RightHand": 		return 15;
-		case "RightFingertip": 	return 16;
-		case "LeftHip": 		return 17;
-		case "LeftKnee": 		return 18;
-		case "LeftAnkle": 		return 19;
-		case "LeftFoot": 		return 20;
-		case "RightHip": 		return 21;
-		case "RightKnee": 		return 22;
-		case "RightAnkle": 		return 23;
-		case "RightFoot": 		return 24;
-		default: return 0;
+			case "Head":			return 1;
+			case "Neck":			return 2;
+			case "Chest":			return 3;
+			case "Spine": 			return 4;
+			case "LeftCollar": 		return 5;
+			case "LeftShoulder":	return 6;
+			case "LeftElbow":		return 7;
+			case "LeftWrist":		return 8;
+			case "LeftHand":		return 9;
+			case "LeftFingertip": 	return 10;
+			case "RightCollar": 	return 11;
+			case "RightShoulder": 	return 12;
+			case "RightElbow": 		return 13;
+			case "RightWrist": 		return 14;
+			case "RightHand": 		return 15;
+			case "RightFingertip": 	return 16;
+			case "LeftHip": 		return 17;
+			case "LeftKnee": 		return 18;
+			case "LeftAnkle": 		return 19;
+			case "LeftFoot": 		return 20;
+			case "RightHip": 		return 21;
+			case "RightKnee": 		return 22;
+			case "RightAnkle": 		return 23;
+			case "RightFoot": 		return 24;
+			default: return 0;
 		}
 	}
 
@@ -168,9 +169,11 @@ public class SaveScript : MonoBehaviour {
 //
 //		exercise = new Exercise();
 ////		restriction = new Restriction();
-//
+
+		//RestrictionScript rs = GameObject.Find("RestrictionsInterface").GetComponent<RestrictionScript>();
 		Destroy(GameObject.Find("RestrictionsInterface").GetComponent<RestrictionScript>());
-		GameObject.Find("RestrictionsInterface").AddComponent<RestrictionScript>();
+		//GameObject.Find("RestrictionsInterface").AddComponent<RestrictionScript>();
+		GameObject.Find("RestrictionsInterface").AddComponent<RestrictionScript>().labelRestriction = label;
 
 		Destroy(GameObject.Find("StartPositionInterface").GetComponent<StartPositionScript>());
 		GameObject.Find("StartPositionInterface").AddComponent<StartPositionScript>();

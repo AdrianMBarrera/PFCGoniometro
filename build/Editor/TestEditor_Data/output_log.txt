@@ -1,0 +1,124 @@
+Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [igdumdx32.dll 8.15.10.2202]
+    Renderer: Intel(R) HD Graphics
+    Vendor:   Intel
+    VRAM:     410 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 RAWZ=0 NULL=0 RESZ=1 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\OpenNI.Net.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\OpenNI.Net.dll into Unity Child Domain
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\ZDK.dll (this message is harmless)
+Loading C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\ZDK.dll into Unity Child Domain
+- Completed reload, in  0.095 seconds
+desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 5.302818 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 745.
+Total: 1.552557 ms (FindLiveObjects: 0.054916 ms CreateObjectMapping: 0.024122 ms MarkObjects: 0.608191 ms  DeleteObjects: 0.010264 ms)
+
+StartPos Start
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+FinalPos Start
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+exercise: 0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Platform assembly: C:\Users\Lur\Documents\PFCGoniometro\build\TestEditor_Data\Managed\System.Xml.dll (this message is harmless)
+UnloadTime: 10.459361 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 590.
+Total: 2.488197 ms (FindLiveObjects: 0.045165 ms CreateObjectMapping: 0.025148 ms MarkObjects: 0.598440 ms  DeleteObjects: 0.471156 ms)
+
+Tamaño pool -325
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Tamaño pool height 0.4891052
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Tamaño height 40
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+C:/Users/Lur/Documents/PFCGoniometro/build/TestEditor_Data
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+ejer1.xml
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 5.249440 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 577.
+Total: 1.474031 ms (FindLiveObjects: 0.046705 ms CreateObjectMapping: 0.027201 ms MarkObjects: 0.588688 ms  DeleteObjects: 0.026688 ms)
+
+Tamaño pool -321
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Tamaño pool height 0.1040955
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Tamaño height 40
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+C:/Users/Lur/Documents/PFCGoniometro/build/TestEditor_Data
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+instance1.xml
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+C:/Users/Lur/Documents/PFCGoniometro/build/TestEditor_Data
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+ejer1.xml
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+contador 0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+dentro de add
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+UnloadTime: 5.110865 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 115 unused Assets to reduce memory usage. Loaded Objects now: 262.
+Total: 6.620310 ms (FindLiveObjects: 0.035926 ms CreateObjectMapping: 0.041572 ms MarkObjects: 0.849929 ms  DeleteObjects: 4.116715 ms)
+

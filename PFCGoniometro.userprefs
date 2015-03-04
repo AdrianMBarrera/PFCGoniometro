@@ -1,18 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\EditorExercise\RestrictionScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NewEditor\Scripts\ExitScript.cs">
     <Files>
-      <File FileName="Assets\NewEditor\Scripts\EditorExercise\RestrictionScript.cs" Line="105" Column="1" />
-      <File FileName="Assets\Scripts\MenuUI\MoveDummyScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuUI\SaveExercisesScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\EditorInstances\SaveInstance.cs" Line="55" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\EditorExercise\SaveScript.cs" Line="207" Column="48" />
-      <File FileName="Assets\Scripts\Interface\UserInterface.cs" Line="1" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\EditorExercise\ManagerExerciseEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\EditorExercise\FinalPositionScript.cs" Line="46" Column="27" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\RestrictionScript.cs" Line="31" Column="54" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\SaveScript.cs" Line="166" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\FinalPositionScript.cs" Line="58" Column="6" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\StartPositionScript.cs" Line="47" Column="3" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\ManagerExerciseEditor.cs" Line="55" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\EditorExercise\DeleteRestrictionScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Interface\Exercise.cs" Line="160" Column="1" />
-      <File FileName="Assets\NewEditor\Scripts\ExitScript.cs" Line="18" Column="22" />
-      <File FileName="Assets\NewEditor\Scripts\EditorExercise\StartPositionScript.cs" Line="244" Column="1" />
+      <File FileName="Assets\NewEditor\Scripts\ExitScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

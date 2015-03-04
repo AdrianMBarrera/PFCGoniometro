@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class RestrictionScript : MonoBehaviour {
@@ -27,6 +28,7 @@ public class RestrictionScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		addRestricctionButton = GameObject.Find("AddRestriction").GetComponent<Button>();
+		addRestricctionButton.onClick.RemoveAllListeners();
 		addRestricctionButton.onClick.AddListener(() => {AddRestriction();});
 		//addRestricctionButton.onClick.AddListener(() => {AddRestrictionLabel();});
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
@@ -101,9 +103,10 @@ public class RestrictionScript : MonoBehaviour {
 
 
 	public void AddRestrictionLabel(){
-
-		Transform label = (Instantiate(labelRestriction, labelRestriction.transform.position, labelRestriction.transform.rotation) as Transform);
-		label.parent = GameObject.Find("ButtonPool").transform;
+		Debug.Log ("Añadir restsssssss");
+		//Transform label = (Instantiate(labelRestriction, labelRestriction.transform.position, labelRestriction.transform.rotation) as Transform);
+		Transform label = (Instantiate(labelRestriction) as Transform);
+		label.SetParent(GameObject.Find("ButtonPool").transform);
 		label.transform.localScale = new Vector3 (1,1,1);
 		label.name = restriction.initialArt + "," + restriction.finalArt;
 
@@ -121,6 +124,7 @@ public class RestrictionScript : MonoBehaviour {
 				//Debug.Log ("Ini:" + r.initialArt + " Fin:" + r.finalArt);
 				GameObject.Find(exercise.Restrictions[i].initialArt).renderer.material = wood;
 				GameObject.Find(exercise.Restrictions[i].finalArt).renderer.material = wood;
+				GameObject.Find(exercise.Restrictions[i].initialArt).transform.eulerAngles = new Vector3(0,180,0);
 				exercise.Restrictions.RemoveAt(i);
 			}
 		}
@@ -182,26 +186,8 @@ public class RestrictionScript : MonoBehaviour {
 				}
 			}
 
-
-
 			lastClick = Time.time;
 
 	}
-
-//	public void ResetRestrictions() {
-////		exercise = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().exercise;
-////		restriction = new Restriction();
-//
-//		initArt.text  = "Initial articulation: ";
-//		finalArt.text = "Final articulation: ";
-//
-//		restX.text = "X: ";
-//		restY.text = "Y: ";
-//		restZ.text = "Z: ";
-//	}
-
-
-
-
 
 }
