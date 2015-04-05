@@ -150,7 +150,9 @@ public class StartPositionScript : MonoBehaviour {
 				zRef.text  = "Z: "+Mathf.Round(GameObject.Find(exercise.reference.nameId).transform.rotation.eulerAngles.z).ToString();
 			}
 			
-			if ((!exercise.initialArt.Equals("")) && (!exercise.finalArt.Equals("")))
+			if ((!exercise.initialArt.Equals("")) && (!exercise.finalArt.Equals("")) 
+			    && (exercise.reference.nameId.Equals("")))
+
 				if (Input.GetMouseButtonUp(0)) {
 					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 					RaycastHit hit;

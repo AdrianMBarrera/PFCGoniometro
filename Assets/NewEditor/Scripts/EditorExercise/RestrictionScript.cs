@@ -103,7 +103,6 @@ public class RestrictionScript : MonoBehaviour {
 
 
 	public void AddRestrictionLabel(){
-		Debug.Log ("Añadir restsssssss");
 		//Transform label = (Instantiate(labelRestriction, labelRestriction.transform.position, labelRestriction.transform.rotation) as Transform);
 		Transform label = (Instantiate(labelRestriction) as Transform);
 		label.SetParent(GameObject.Find("ButtonPool").transform);

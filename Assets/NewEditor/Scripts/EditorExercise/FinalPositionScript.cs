@@ -8,7 +8,8 @@ public class FinalPositionScript : MonoBehaviour {
 	private Text max;
 	private Exercise exercise;
 	private RotateSphere sphereScript; //Script de la esfera
-	private Vector3 fin, rotFin;
+	private Vector3 fin = new Vector3(0,0,0);
+	private Vector3 rotFin = new Vector3(0,0,0);
 
 	// Use this for initialization
 	void Start () {

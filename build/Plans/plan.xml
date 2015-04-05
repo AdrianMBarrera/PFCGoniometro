@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PLAN>
+  <scheduleList>
+    <Schedule>
+      <nameInstance>instance1.xml</nameInstance>
+    </Schedule>
+    <Schedule>
+      <nameInstance>instance2.xml</nameInstance>
+    </Schedule>
+  </scheduleList>
+</PLAN>

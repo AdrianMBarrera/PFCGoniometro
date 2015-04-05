@@ -37,8 +37,7 @@ public class MoveDummyScript : MonoBehaviour {
 	/* Cargar fichero XML del ejercicio y mostrar el movimiento a realizar */
 	public void LoadXml(){
 			
-		deleteSphere("IniSphere");
-		deleteSphere ("EndSphere");
+
 
 		XmlDocument xDoc = new XmlDocument();
 		Debug.Log (Application.dataPath);
@@ -187,7 +186,8 @@ public class MoveDummyScript : MonoBehaviour {
 			actualRot = translateArt(artIni).transform.eulerAngles;
 			yield return null;
 		}
-		translateArt(artIni).transform.eulerAngles = rotEnd;
+
+//		translateArt(artIni).transform.eulerAngles = rotEnd; lineal que hace que giren infinito
 
 		while ((Mathf.Round(actualRot.x) != Mathf.Round(rotIni.x)) ||
 		       (Mathf.Round(actualRot.z) != Mathf.Round(rotIni.z))) {
@@ -208,7 +208,13 @@ public class MoveDummyScript : MonoBehaviour {
 		}
 		translateArt(artIni).eulerAngles = repPos;
 
+
+		deleteSphere("IniSphere");
+		deleteSphere ("EndSphere");
 		SetStateButtons(true);
+
+
+
 	}
 
 

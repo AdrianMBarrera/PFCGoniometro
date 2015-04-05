@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EXERCISE initialId="6" finalId="8">
+  <ang min="0" max="77" />
+  <axis x="5" y="1" z="2" />
+  <ini x="1" y="-2" z="-1" />
+  <rotIni x="338" y="166" z="343" />
+  <rotEnd x="289" y="282" z="239" />
+  <reference id="0" x="" y="" z="" />
+  <Restrictions>
+    <Restriction>
+      <initialId>12</initialId>
+      <finalId>14</finalId>
+      <x>-3</x>
+      <y>0</y>
+      <z>0</z>
+      <rotX>0</rotX>
+      <rotY>180</rotY>
+      <rotZ>90</rotZ>
+      <grade>30</grade>
+    </Restriction>
+  </Restrictions>
+</EXERCISE>

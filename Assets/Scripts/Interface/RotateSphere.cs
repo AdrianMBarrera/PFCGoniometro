@@ -10,7 +10,9 @@ public class RotateSphere : MonoBehaviour {
 	bool selectBlue	 = false;
 	bool selectGreen = false;
 	bool selectRed	 = false;
-	
+
+
+
 	// Use this for initialization
 	void Start () {
 		

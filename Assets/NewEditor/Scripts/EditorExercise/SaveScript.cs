@@ -15,6 +15,7 @@ public class SaveScript : MonoBehaviour {
 	private Text helpText;
 	public Material trailMaterial;
 	public Transform label;
+	private RotateSphere sphereScript; //Script de la esfera
 
 	void Start(){
 		wood = GameObject.Find("ManagerInterface").GetComponent<ManagerExerciseEditor>().wood;
@@ -23,6 +24,7 @@ public class SaveScript : MonoBehaviour {
 		showButton = GameObject.Find("ShowButton").GetComponent<Button>();
 		saveButton = GameObject.Find("SaveExerciseButton").GetComponent<Button>();
 		helpText = GameObject.Find("HelpText").GetComponent<Text>();
+		sphereScript = GameObject.Find ("Esfera_Movimiento").GetComponent<RotateSphere>();
 	}
 
 	void Update() {
@@ -149,6 +151,8 @@ public class SaveScript : MonoBehaviour {
 			GameObject.Find(exercise.initialArt).renderer.material = wood;
 			GameObject.Find(exercise.initialArt).transform.eulerAngles = new Vector3(0,180,0);
 		}
+
+		sphereScript.Art = ""; // para poner la esfera fuera de la articulacion
 		
 //		if (!restriction.finalArt.Equals(""))
 //			GameObject.Find(restriction.finalArt).renderer.material = wood;

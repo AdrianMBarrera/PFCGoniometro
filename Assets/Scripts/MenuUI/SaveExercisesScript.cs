@@ -22,19 +22,19 @@ public class SaveExercisesScript : MonoBehaviour {
 		e.FileName = nameParent;
 		bool found = false;
 		int i = 0;
-		Debug.Log("contador " + InfoPlayer.alExercise.Count);
+
 		while ((i < InfoPlayer.alExercise.Count) && (!found)){
-			Debug.Log("fisdlfasdlfjas" + InfoPlayer.alExercise[i].FileName);
+
 			if (InfoPlayer.alExercise[i].FileName == e.FileName){
 				found = true;
-				Debug.Log("dentro de borrar");
+
 				InfoPlayer.alExercise.RemoveAt(i);
 			}
 			i++;
 		}
 
 		if (!found){
-			Debug.Log("dentro de add");
+
 			InfoPlayer.alExercise.Add(e);
 		}
 

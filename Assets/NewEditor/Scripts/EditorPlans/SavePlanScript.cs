@@ -9,12 +9,12 @@ public class SavePlanScript : MonoBehaviour {
 	private Plan plan;
 	private InputField nameFile;
 	private Text helpText;
-
-
+	ManagerOrderScript mo;
 	// Use this for initialization
 	void Start () {
 		helpText = GameObject.Find("HelpText").GetComponent<Text>();
 		nameFile = GameObject.Find("PlanInputField").GetComponent<InputField>();
+		mo = GameObject.Find("ManagerOrder").GetComponent<ManagerOrderScript>();
 	}
 	
 	// Update is called once per frame
@@ -30,14 +30,20 @@ public class SavePlanScript : MonoBehaviour {
 			if (!Directory.Exists(xmlPath)){
 				Directory.CreateDirectory(xmlPath);
 			}
-			foreach(GameObject toggle in GameObject.FindGameObjectsWithTag("Toggle"))
-			{
-				if (toggle.GetComponent<Toggle>().isOn){
-					Schedule s = new Schedule();
 
-					s.nameInstance = toggle.transform.parent.name;
-					plan.scheduleList.Add(s);
+
+			for (int i = 1; i <= mo.maxExercises; i++){
+				foreach(GameObject toggle in GameObject.FindGameObjectsWithTag("Toggle"))
+				{
+					if (toggle.GetComponent<Toggle>().isOn){
+						if (toggle.GetComponentInChildren<Text>().text == i.ToString()){
+							Schedule s = new Schedule();
+							s.nameInstance = toggle.transform.parent.name;
+							plan.scheduleList.Add(s);
+						}
+					}
 				}
+
 			}
 
 			plan.Save(Path.Combine(xmlPath, nameFile.text + ".xml"));
